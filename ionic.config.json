@@ -1,0 +1,7 @@
+{
+  "name": "vida-plena-app",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
