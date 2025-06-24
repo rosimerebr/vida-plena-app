@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IonButton, IonIcon } from '@ionic/angular/standalone';
 
 import { addIcons } from 'ionicons';
-import { heart } from 'ionicons/icons';
+import { sunny, water, leaf, restaurant, walk, scale, moon, heartCircleOutline} from 'ionicons/icons';
 
 @Component({
   selector: 'app-main-menu',
@@ -13,7 +13,16 @@ import { heart } from 'ionicons/icons';
 export class MainMenuComponent  implements OnInit {
 
   constructor() { 
-    addIcons({ heart });
+    addIcons({
+      sunny,
+      water,
+      leaf,
+      restaurant,
+      walk,
+      scale,
+      moon,
+      heartCircleOutline,
+    });
   }
 
   ngOnInit() {}

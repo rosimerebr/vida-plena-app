@@ -1,0 +1,70 @@
+.logo-img {
+  max-width: 160px;
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 100%;
+  background:#D7F1C3;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  padding: 0;
+}
+
+.logo-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+  margin-bottom: 32px;
+}
+
+.menu-container {
+  background: #D7F1C3;
+  min-height: 100vh;
+  padding: 16px;
+}
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .menu-item {
+    height: auto;
+    --padding-start: 8px;
+    --padding-end: 8px;
+    
+    .icon-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 100%;
+      
+      ion-icon {
+        font-size: 32px;
+        margin-bottom: 8px;
+        color: #096546;
+      }
+
+      .sunny-icon {
+        color: #FFD600;
+      }
+
+      .water-icon {
+        color: #0088FF;
+      }
+      
+      .moon-icon {
+        color: #FFD600;
+      }
+      span {
+        font-size: 12px;
+        text-align: center;
+        color: var(--ion-color-dark);
+        white-space: normal;
+        line-height: 1.2;
+      }
+    }
+  }
+
