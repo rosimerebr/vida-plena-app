@@ -1,0 +1,86 @@
+// : host
+:host {
+    --welcome-bg-color: #f0f8f0;
+    --text-dark-color: #2e473b;
+    --button-color: #2e473b;
+    --button-text-color: #ffffff;
+}
+// background color
+ion-content {
+    --background: var(--welcome-bg-color);
+
+}
+
+// The main container
+.welcome-container {
+    height: 100%;
+    display: flex;
+    flex-direction: column; 
+    justify-content: space-around;
+    align-items: center;
+    text-align: center;
+    padding: 24px;
+    color: var(--text-dark-color);
+}
+
+.logo {
+    max-width: 120px;
+    margin-top: 10px;
+}
+
+.title {
+    font-size: 1.8rem;
+    font-weight: bold;  
+    margin-top: 10px;
+}
+
+// Style for each item in the medicine grid
+.remedy {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    ion-icon {
+        font-size: 2.5rem;
+        color: var(--button-color);
+        margin-bottom: 6px;
+    }
+
+    div {
+        font-size: 0.85rem;
+    }
+}
+// Container for buttons
+.button-group {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+}
+
+ion-button {
+    flex: 1;
+    --banckground: var(--button-color);
+    --background-activated: #1a2920;
+    --border-color: var(--button-color);
+    --color: var(--button-text-color);
+    --border-radius: 10px;
+    height: 48px;
+    font-weight: 600;
+    text-transform: none;
+}
+
+// Style for the "outline" button
+ion-button[fill="outline"] {
+    --background: transparent;
+    --color: var(--button-text-color);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    font-weight: bold;
+    line-height: 1.5;
+    margin-bottom: 10px;
+}
+

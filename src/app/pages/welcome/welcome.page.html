@@ -1,0 +1,68 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>welcome</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="welcome-container">
+    <!-- 1. Logo  -->
+<img src="assets/images/logo.png" alt="Vida Plena Logo" class="logo" />
+
+    <!-- 2. Welcome Title -->
+<h1 class="title">Welcome to Vida Plena!</h1>
+    <!-- 3. Grid with the 8 Natural Remedies -->
+<ion-grid>
+  <ion-row>
+    <!-- Line 1-->
+  <ion-col size="3" class="remedy">
+    <ion-icon name="sunny"></ion-icon>
+    <div>Sunlight</div>
+  </ion-col>
+  <ion-col size="3" class="remedy">
+    <ion-icon name="water"></ion-icon>
+    <div>Water</div>
+  </ion-col>
+  <ion-col size="3" class="remedy">
+    <ion-icon name="leaf"></ion-icon>
+    <div>Air</div>
+  </ion-col>
+  <ion-col size="3" class="remedy">
+    <ion-icon name="restaurant"></ion-icon>
+    <div>Healthy Food</div>
+  </ion-col>
+  </ion-row>
+  <ion-row>
+    <!--Line 2-->
+    <ion-col size="3" class="remedy">
+      <ion-icon name="walk"></ion-icon>
+      <div>Exercise</div>
+    </ion-col>
+    <ion-col size="3" class="remedy">
+      <ion-icon name="scale"></ion-icon>
+      <div>Temperance</div>
+    </ion-col>
+    <ion-col size="3" class="remedy">
+      <ion-icon name="moon"></ion-icon>
+      <div>Rest</div>
+    </ion-col>
+    <ion-col size="3" class="remedy">
+      <ion-icon name="heart-circle-outline"></ion-icon>
+      <div>Trust in God</div>
+    </ion-col>
+  </ion-row>
+</ion-grid>
+
+    <!-- 4. Login and Sign up Buttons -->
+  <div class="button-group">
+    <ion-button color="success">Log in</ion-button>
+    <ion-button color="success" fill="outline">Sign up</ion-button>
+  </div>
+
+    <!-- 5. Final Subtitle -->
+     <h2 class="subtitle">
+      Wellness web app based on the<br>
+      8 Natural Remedies. 
+     </h2>
+  </div>
+</ion-content>
