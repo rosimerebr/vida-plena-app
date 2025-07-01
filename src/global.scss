@@ -37,6 +37,58 @@
 @import '@ionic/angular/css/palettes/dark.system.css';
 
 body {
-  background: #D7F1C3 !important;
+  background: var(--app-bg-color) !important;
   min-height: 100vh;
+  color: var(--app-font-color);
+  font-family: var(--app-font-family);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--app-title-color);
+  font-family: var(--app-font-family);
+}
+
+ion-icon {
+  color: #096546; 
+  background: none !important;
+  font-size: 32px;
+  margin-bottom: 8px;
+}
+
+/* Cores específicas para ícones de remédios naturais */
+ion-icon[name="sunny"],
+ion-icon.sunny-icon {
+  color: #FFD600;
+}
+
+ion-icon[name="water"],
+ion-icon.water-icon {
+  color: #0088FF;
+}
+
+ion-icon[name="moon"],
+ion-icon.moon-icon {
+  color: #FFD600;
+}
+
+/* Container padrão para ícones com texto */
+.icon-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: transparent;
+  width: 100%;
+  
+  ion-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+  }
+  
+  span {
+    font-size: 12px;
+    text-align: center;
+    color: var(--ion-color-dark);
+    white-space: normal;
+    line-height: 1.2;
+  }
 }
