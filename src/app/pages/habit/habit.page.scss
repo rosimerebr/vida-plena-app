@@ -1,0 +1,74 @@
+.habit-title {
+  text-align: center;
+  font-size: 2.2rem;
+  font-weight: bold;
+  margin: 32px 0 28px 0;
+  color: #333;
+  font-family: inherit;
+}
+
+.habit-list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 700px;
+  margin: 0 auto 40px auto;
+}
+
+.habit-card {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  padding: 24px 28px;
+  gap: 24px;
+  min-height: 90px;
+}
+
+.habit-card ion-icon {
+  font-size: 48px;
+  flex-shrink: 0;
+  margin-right: 8px;
+}
+
+.habit-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.habit-name {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 4px;
+}
+
+.habit-desc {
+  font-size: 1.05rem;
+  color: #444;
+  line-height: 1.4;
+}
+
+// Cores específicas para ícones (usa as globais se existirem)
+.habit-card ion-icon[name="sunny"] { color: #FFD600; }
+.habit-card ion-icon[name="water"] { color: #0088FF; }
+.habit-card ion-icon[name="leaf"] { color: #7AC142; }
+.habit-card ion-icon[name="restaurant"] { color: #FF6F61; }
+.habit-card ion-icon[name="walk"] { color: #7AC142; }
+.habit-card ion-icon[name="scale"] { color: #096546; }
+.habit-card ion-icon[name="moon"] { color: #FFD600; }
+
+.habit-back-btn {
+  position: absolute;
+  top: 18px;
+  left: 12px;
+  z-index: 10;
+}
+
+.habit-back-btn ion-button {
+  --background: transparent;
+  --box-shadow: none;
+  font-size: 2rem;
+  padding: 0;
+}

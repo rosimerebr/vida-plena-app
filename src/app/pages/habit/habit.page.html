@@ -1,13 +1,59 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>habit</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">habit</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="habit-back-btn">
+    <ion-button fill="clear" (click)="goBack()">
+      <ion-icon name="arrow-back-circle"></ion-icon>
+    </ion-button>
+  </div>
+  <div class="habit-title">Daily Challenge</div>
+  <div class="habit-list">
+    <div class="habit-card">
+      <ion-icon name="sunny"></ion-icon>
+      <div class="habit-info">
+        <div class="habit-name">Sunlight</div>
+        <div class="habit-desc">Spend some time outdoors to soak in the natural sunlight and boost your mood.</div>
+      </div>
+    </div>
+    <div class="habit-card">
+      <ion-icon name="water"></ion-icon>
+      <div class="habit-info">
+        <div class="habit-name">Water</div>
+        <div class="habit-desc">Keep yourself hydrated throughout the day by drinking plenty of water.</div>
+      </div>
+    </div>
+    <div class="habit-card">
+      <ion-icon name="leaf"></ion-icon>
+      <div class="habit-info">
+        <div class="habit-name">Air</div>
+        <div class="habit-desc">Get fresh air by spending time outside or by ventilating your living spaces.</div>
+      </div>
+    </div>
+    <div class="habit-card">
+      <ion-icon name="restaurant"></ion-icon>
+      <div class="habit-info">
+        <div class="habit-name">Healthy Food</div>
+        <div class="habit-desc">Eat a balanced diet rich in fruits, vegetables, whole grains, and legumes.</div>
+      </div>
+    </div>
+    <div class="habit-card">
+      <ion-icon name="walk"></ion-icon>
+      <div class="habit-info">
+        <div class="habit-name">Physical Exercise</div>
+        <div class="habit-desc">Engage in regular physical activity that suits your abilities and preferences.</div>
+      </div>
+    </div>
+    <div class="habit-card">
+      <ion-icon name="scale"></ion-icon>
+      <div class="habit-info">
+        <div class="habit-name">Temperance</div>
+        <div class="habit-desc">Practice moderation in all aspects of life, avoiding harmful substances and behaviors.</div>
+      </div>
+    </div>
+    <div class="habit-card">
+      <ion-icon name="moon"></ion-icon>
+      <div class="habit-info">
+        <div class="habit-name">Rest</div>
+        <div class="habit-desc">Ensure you get adequate sleep each night and take time to relax and unwind during the day.</div>
+      </div>
+    </div>
+  </div>
 </ion-content>
