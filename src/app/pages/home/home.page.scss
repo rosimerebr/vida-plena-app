@@ -1,0 +1,139 @@
+.logo-img {
+    max-width: 160px;
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 100%;
+    background:#D7F1C3;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+    padding: 0;
+  }
+  
+  .logo-container {
+    width: 100%;
+    display: flex;
+    background: #D7F1C3;
+    justify-content: center;
+    margin-top: 40px;
+    margin-bottom: 32px;
+  }
+  
+  .menu-container {
+    background: #D7F1C3;
+    min-height: 100vh;
+    padding: 16px;
+  }
+  
+  .menu-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+  
+  .menu-item {
+    height: auto;
+    --padding-start: 8px;
+    --padding-end: 8px;
+  }
+  
+  .home-icons-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    background: #e6f9d5;
+    padding: 24px 8px 16px 8px;
+    border-radius: 12px;
+    margin: 0 auto 32px auto;
+    max-width: 900px;
+    flex-wrap: wrap;
+  }
+  
+  .icon-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+    min-width: 80px;
+  }
+  
+  .icon-block ion-icon {
+    font-size: 40px;
+    margin-bottom: 4px;
+  }
+  
+  .icon-block span {
+    font-size: 1rem;
+    color: #2e473b;
+    margin-top: 2px;
+  }
+  
+  .challenge-btn-container {
+    display: flex;
+    justify-content: center;
+    margin: 32px 0 24px 0;
+  }
+  
+  .challenge-btn {
+    background: #176b3a;
+    color: #fff;
+    font-size: 1.5rem;
+    font-weight: bold;
+    border-radius: 12px;
+    width: 100%;
+    max-width: 600px;
+    height: 64px;
+    --background: #176b3a;
+    --color: #fff;
+  }
+  
+  .spiritual-message-container {
+    background: #d8f9be;
+    border-radius: 12px;
+    max-width: 600px;
+    margin: 0 auto 32px auto;
+    padding: 20px 24px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  
+  .spiritual-message-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+    color: #2e473b;
+  }
+  
+  .spiritual-message-content {
+    font-size: 1rem;
+    color: #2e473b;
+  }
+  
+  .spiritual-message-ref {
+    font-size: 0.95rem;
+    color: #176b3a;
+  }
+  
+  .reports-container {
+    max-width: 600px;
+    margin: 0 auto 32px auto;
+    background: #f0f8f0;
+    border-radius: 12px;
+    padding: 24px 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  }
+  
+  .reports-title {
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 12px;
+    color: #2e473b;
+  }
+  
+  .reports-placeholder {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  

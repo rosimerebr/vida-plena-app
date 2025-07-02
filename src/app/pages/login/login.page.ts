@@ -23,11 +23,6 @@ export class LoginPage implements OnInit {
   }
 
   onLogin() {
-    const email = this.email;
-    const password = this.password;
-    const isLoggedIn = this.authService.auth(email, password);
-    if (isLoggedIn) {
-      this.router.navigate(['/tabs/tab1']);
-    }
+    this.router.navigate(['/home']);
   }
 }

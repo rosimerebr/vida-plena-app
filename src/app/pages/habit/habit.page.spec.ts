@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { LoginPage } from './login.page';
+import { HabitPage } from './habit.page';
 
-describe('LoginPage', () => {
-  let component: LoginPage;
-  let fixture: ComponentFixture<LoginPage>;
+describe('HabitPage', () => {
+  let component: HabitPage;
+  let fixture: ComponentFixture<HabitPage>;
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LoginPage);
+    fixture = TestBed.createComponent(HabitPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -15,5 +15,3 @@ describe('LoginPage', () => {
     expect(component).toBeTruthy();
   });
 });
-
-
