@@ -1,13 +1,50 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>report</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">report</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="report-container">
+    <div class="report-date">{{ today }}</div>
+    <div class="report-list">
+      <div class="report-item">
+        <ion-icon name="sunny-outline"></ion-icon>
+        <span class="report-label">Sunlight</span>
+        <ion-toggle></ion-toggle>
+      </div>
+      <div class="report-item">
+        <ion-icon name="water-outline"></ion-icon>
+        <span class="report-label">Water</span>
+        <ion-toggle></ion-toggle>
+      </div>
+      <div class="report-item">
+        <ion-icon name="wave-outline"></ion-icon>
+        <span class="report-label">Air</span>
+        <ion-toggle></ion-toggle>
+      </div>
+      <div class="report-item">
+        <ion-icon name="nutrition-outline"></ion-icon>
+        <span class="report-label">Healthy Food</span>
+        <ion-toggle></ion-toggle>
+      </div>
+      <div class="report-item">
+        <ion-icon name="walk-outline"></ion-icon>
+        <span class="report-label">Physical Exercise</span>
+        <ion-toggle></ion-toggle>
+      </div>
+      <div class="report-item">
+        <ion-icon name="scale-outline"></ion-icon>
+        <span class="report-label">Temperance</span>
+        <ion-toggle></ion-toggle>
+      </div>
+      <div class="report-item">
+        <ion-icon name="moon-outline"></ion-icon>
+        <span class="report-label">Rest</span>
+        <ion-toggle></ion-toggle>
+      </div>
+      <div class="report-item">
+        <ion-icon name="hand-left-outline"></ion-icon>
+        <span class="report-label">Trust in God</span>
+        <ion-toggle></ion-toggle>
+      </div>
+    </div>
+    <div class="report-notes-label">Notes</div>
+    <ion-textarea class="report-notes" placeholder="Add any notes..."></ion-textarea>
+    <ion-button expand="block" class="report-save-btn">Save</ion-button>
+  </div>
 </ion-content>
