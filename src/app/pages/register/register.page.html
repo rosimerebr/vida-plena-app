@@ -1,16 +1,9 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
   <div id="container">
     <ion-img
       src="assets/images/logo.png"
       alt="Vida Plena Logo"
     ></ion-img>
-    <h1>Vida Plena</h1>
     <h2>Welcome!</h2>
     <p>Take the first step toward a healthier, purposeful life.</p>
     <!-- Full Name -->
@@ -37,16 +30,16 @@
     </ion-item>
     <!-- Sign up Button -->
     <div class="wrapper">
-      <ion-button expand="block" (click)="onRegister()">Sign up</ion-button>
+      <ion-button (click)="onRegister()">Sign up</ion-button>
     </div>
     <!-- Google Sign up Button -->
-    <ion-button expand="block" fill="outline" color="light" (click)="onGoogleRegister()">
+    <ion-button color="light" (click)="onGoogleRegister()">
       <ion-icon name="logo-google" slot="start"></ion-icon>
       Sign up with Google
     </ion-button>
     <!-- Login Link -->
     <div style="text-align:center; margin-top: 16px;">
-      Already have an account? <a routerLink="/login"><b>Log in</b></a>
+      Already have an account? <a class="login-link" (click)="goToLogin()"><b>Log in</b></a>
     </div>
   </div>
 </ion-content>

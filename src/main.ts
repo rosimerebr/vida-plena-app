@@ -3,7 +3,7 @@ import { RouteReuseStrategy, provideRouter, withPreloading, PreloadAllModules } 
 import { IonicRouteStrategy, provideIonicAngular } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { sunny, water, leaf, restaurant, walk, scale, moon, heartCircleOutline } from 'ionicons/icons';
-
+import{logoGoogle} from 'ionicons/icons';
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
 
@@ -15,7 +15,8 @@ addIcons({
   walk,
   scale,
   moon,
-  heartCircleOutline
+  heartCircleOutline,
+  logoGoogle,
 });
 
 bootstrapApplication(AppComponent, {

@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonInput, IonInputPasswordToggle, IonButton, IonIcon, IonImg } from '@ionic/angular/standalone';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
   standalone: true,
-  imports: [IonImg, IonItem, IonContent, IonHeader, IonTitle, IonToolbar, CommonModule, FormsModule, IonInput, IonInputPasswordToggle, IonButton, IonIcon]
+  imports: [IonImg, IonItem, IonContent, CommonModule, FormsModule, IonInput, IonInputPasswordToggle, IonButton, IonIcon]
 })
 export class RegisterPage implements OnInit {
   fullName: string = '';
@@ -17,18 +18,22 @@ export class RegisterPage implements OnInit {
   dob: string = '';
   weight: string = '';
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
   onRegister() {
-    // Lógica de registro aqui
+    // Logging logic here
     console.log('Register:', this.fullName, this.email, this.password, this.dob, this.weight);
   }
 
   onGoogleRegister() {
-    // Lógica de registro com Google aqui
+    // Registration logic with Google here
     console.log('Register with Google');
+  }
+
+  goToLogin() {
+    this.router.navigate(['/login']);
   }
 }

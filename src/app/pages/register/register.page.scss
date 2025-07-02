@@ -14,7 +14,10 @@ ion-item {
 
 ion-img {
   width: 300px;
-  margin: 0 auto;
+  max-width: 80vw;
+  height: auto;
+  margin: 70px auto 0 auto;
+  display: block;
 }
 
 ion-content {
@@ -27,4 +30,10 @@ ion-input.custom {
 
 .wrapper {
   margin-top: 16px;
+}
+
+.login-link {
+  cursor: pointer;
+  color: #007bff;
+  text-decoration: underline;
 }
