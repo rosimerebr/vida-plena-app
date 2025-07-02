@@ -5,9 +5,48 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">register</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div id="container">
+    <ion-img
+      src="assets/images/logo.png"
+      alt="Vida Plena Logo"
+    ></ion-img>
+    <h1>Vida Plena</h1>
+    <h2>Welcome!</h2>
+    <p>Take the first step toward a healthier, purposeful life.</p>
+    <!-- Full Name -->
+    <ion-item>
+      <ion-input label="Full name:" [(ngModel)]="fullName" class="custom"></ion-input>
+    </ion-item>
+    <!-- Email -->
+    <ion-item>
+      <ion-input label="Email:" [(ngModel)]="email" class="custom"></ion-input>
+    </ion-item>
+    <!-- Password -->
+    <ion-item>
+      <ion-input type="password:" label="Password:" [(ngModel)]="password">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
+    </ion-item>
+    <!-- Date of Birth -->
+    <ion-item>
+      <ion-input label="Date of birth:" placeholder="MM/DD/YY" [(ngModel)]="dob" class="custom"></ion-input>
+    </ion-item>
+    <!-- Weight -->
+    <ion-item>
+      <ion-input label="Weight:" [(ngModel)]="weight" class="custom"></ion-input>
+    </ion-item>
+    <!-- Sign up Button -->
+    <div class="wrapper">
+      <ion-button expand="block" (click)="onRegister()">Sign up</ion-button>
+    </div>
+    <!-- Google Sign up Button -->
+    <ion-button expand="block" fill="outline" color="light" (click)="onGoogleRegister()">
+      <ion-icon name="logo-google" slot="start"></ion-icon>
+      Sign up with Google
+    </ion-button>
+    <!-- Login Link -->
+    <div style="text-align:center; margin-top: 16px;">
+      Already have an account? <a routerLink="/login"><b>Log in</b></a>
+    </div>
+  </div>
 </ion-content>
