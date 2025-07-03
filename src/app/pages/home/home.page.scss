@@ -56,6 +56,16 @@
     align-items: center;
     margin: 0 10px;
     min-width: 80px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+  }
+  
+  .icon-block:hover {
+    transform: scale(1.05);
+  }
+  
+  .icon-block:active {
+    transform: scale(0.95);
   }
   
   .icon-block ion-icon {

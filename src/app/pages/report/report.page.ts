@@ -8,10 +8,21 @@ import { IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, IonToggle, IonTex
   templateUrl: './report.page.html',
   styleUrls: ['./report.page.scss'],
   standalone: true,
-  imports: [IonContent, CommonModule, FormsModule, IonIcon, IonToggle, IonTextarea, IonButton]
+  imports: [IonContent, CommonModule, FormsModule, IonIcon]
 })
 export class ReportPage implements OnInit {
   today: string = '';
+  weekData = [
+    { label: 'S', value: 6 },
+    { label: 'M', value: 5 },
+    { label: 'T', value: 5 },
+    { label: 'W', value: 4 },
+    { label: 'T', value: 4 },
+    { label: 'F', value: 4 },
+    { label: 'S', value: 3 }
+  ];
+  streak = 5;
+  totalCompleted = 32;
 
   constructor() { }
 

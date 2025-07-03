@@ -1,0 +1,120 @@
+.habit-log-container {
+    background: #fff;
+    border-radius: 28px;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    max-width: 400px;
+    margin: 40px auto 0 auto;
+    padding: 32px 24px 28px 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .habit-log-date {
+    background: #f5ede3;
+    color: #2e473b;
+    font-size: 1.6rem;
+    font-weight: 600;
+    border-radius: 18px;
+    padding: 10px 0;
+    text-align: center;
+    margin-bottom: 28px;
+  }
+  
+  .habit-log-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 24px;
+  }
+  
+  .habit-log-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    border-bottom: 1px solid #e6e6e6;
+    padding: 8px 0 8px 0;
+  }
+  
+  .habit-log-item:last-child {
+    border-bottom: none;
+  }
+  
+  .habit-log-item ion-icon {
+    font-size: 28px;
+    color: #2e473b;
+    min-width: 32px;
+  }
+  
+  .habit-log-label {
+    flex: 1;
+    font-size: 1.18rem;
+    color: #2e473b;
+    font-weight: 500;
+  }
+  
+  ion-toggle {
+    --handle-background-checked: #4b6e5c;
+    --handle-background: #e6e6e6;
+    --background-checked: #dbe7df;
+    --background: #e6e6e6;
+    margin-right: 0;
+  }
+  
+  .habit-log-notes-label {
+    font-size: 1.1rem;
+    color: #2e473b;
+    font-weight: 500;
+    margin: 18px 0 6px 0;
+  }
+  
+  .habit-log-notes {
+    background: #fafafa;
+    border-radius: 12px;
+    border: 1px solid #e6e6e6;
+    font-size: 1rem;
+    padding: 10px 12px;
+    margin-bottom: 22px;
+    min-height: 48px;
+  }
+  
+  .habit-log-save-btn {
+    --background: #4b6e5c;
+    --border-radius: 16px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    height: 48px;
+  }
+  
+  .home-icons-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    background: #e6f9d5;
+    padding: 24px 8px 16px 8px;
+    border-radius: 12px;
+    margin: 0 auto 32px auto;
+    max-width: 900px;
+    flex-wrap: wrap;
+  }
+  
+  .icon-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 10px;
+    min-width: 80px;
+  }
+  
+  .icon-block ion-icon {
+    font-size: 40px;
+    margin-bottom: 4px;
+  }
+  
+  .icon-block span {
+    font-size: 1rem;
+    color: #2e473b;
+    margin-top: 2px;
+  }
+  

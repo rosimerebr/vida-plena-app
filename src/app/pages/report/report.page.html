@@ -1,50 +1,23 @@
 <ion-content [fullscreen]="true">
-  <div class="report-container">
-    <div class="report-date">{{ today }}</div>
-    <div class="report-list">
-      <div class="report-item">
-        <ion-icon name="sunny-outline"></ion-icon>
-        <span class="report-label">Sunlight</span>
-        <ion-toggle></ion-toggle>
+  <div class="report-main-container">
+    <div class="report-title">Report</div>
+    <div class="report-card">
+      <div class="report-bar-chart">
+        <div class="bar-group" *ngFor="let day of weekData">
+          <div class="bar" [style.height.%]="day.value * 12.5"></div>
+          <div class="bar-label">{{ day.label }}</div>
+        </div>
       </div>
-      <div class="report-item">
-        <ion-icon name="water-outline"></ion-icon>
-        <span class="report-label">Water</span>
-        <ion-toggle></ion-toggle>
-      </div>
-      <div class="report-item">
-        <ion-icon name="wave-outline"></ion-icon>
-        <span class="report-label">Air</span>
-        <ion-toggle></ion-toggle>
-      </div>
-      <div class="report-item">
-        <ion-icon name="nutrition-outline"></ion-icon>
-        <span class="report-label">Healthy Food</span>
-        <ion-toggle></ion-toggle>
-      </div>
-      <div class="report-item">
-        <ion-icon name="walk-outline"></ion-icon>
-        <span class="report-label">Physical Exercise</span>
-        <ion-toggle></ion-toggle>
-      </div>
-      <div class="report-item">
-        <ion-icon name="scale-outline"></ion-icon>
-        <span class="report-label">Temperance</span>
-        <ion-toggle></ion-toggle>
-      </div>
-      <div class="report-item">
-        <ion-icon name="moon-outline"></ion-icon>
-        <span class="report-label">Rest</span>
-        <ion-toggle></ion-toggle>
-      </div>
-      <div class="report-item">
-        <ion-icon name="hand-left-outline"></ion-icon>
-        <span class="report-label">Trust in God</span>
-        <ion-toggle></ion-toggle>
+      <div class="report-stats">
+        <div class="streak-row">
+          <ion-icon name="flame" class="streak-icon"></ion-icon>
+          <span class="streak-text">{{ streak }}-day streak</span>
+        </div>
+        <div class="total-remedies">Total Remedies Completed: {{ totalCompleted }}</div>
       </div>
     </div>
-    <div class="report-notes-label">Notes</div>
-    <ion-textarea class="report-notes" placeholder="Add any notes..."></ion-textarea>
-    <ion-button expand="block" class="report-save-btn">Save</ion-button>
+    <div class="report-message-card">
+      Great job! Keep your<br />healthy habits strong
+    </div>
   </div>
 </ion-content>

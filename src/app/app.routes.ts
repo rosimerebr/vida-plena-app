@@ -31,7 +31,7 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/report/report.page').then( m => m.ReportPage)
   },
   {
-    path: 'logchallenge',
-    loadComponent: () => import('./pages/logchallenge/logchallenge.page').then( m => m.LogchallengePage)
+    path: 'habit-log',
+    loadComponent: () => import('./pages/habit-log/habit-log.page').then( m => m.HabitLogPage)
   },
 ];
