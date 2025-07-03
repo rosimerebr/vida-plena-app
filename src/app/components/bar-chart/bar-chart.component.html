@@ -1,0 +1,6 @@
+<div class="bar-chart">
+  <div class="bar-group" *ngFor="let day of weekData">
+    <div class="bar" [style.height.%]="day.value * 12.5"></div>
+    <div class="bar-label">{{ day.label }}</div>
+  </div>
+</div> 

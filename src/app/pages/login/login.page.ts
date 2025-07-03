@@ -1,27 +1,44 @@
-import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { IonContent, IonItem, IonInput, IonInputPasswordToggle, IonButton, IonRippleEffect, IonImg } from '@ionic/angular/standalone';
-import { AuthService } from 'src/app/services/auth.service';
-import { Router } from '@angular/router';
+import { Component, OnInit } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule } from "@angular/forms";
+import {
+  IonContent,
+  IonItem,
+  IonInput,
+  IonInputPasswordToggle,
+  IonButton,
+  IonRippleEffect,
+  IonImg,
+} from "@ionic/angular/standalone";
+import { AuthService } from "src/app/services/auth.service";
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.page.html',
-  styleUrls: ['./login.page.scss'],
+  selector: "app-login",
+  templateUrl: "./login.page.html",
+  styleUrls: ["./login.page.scss"],
   standalone: true,
-  imports: [IonImg, IonItem, IonContent, CommonModule, FormsModule, IonInput, IonInputPasswordToggle, IonButton, IonRippleEffect]
+  imports: [
+    IonImg,
+    IonItem,
+    IonContent,
+    CommonModule,
+    FormsModule,
+    IonInput,
+    IonInputPasswordToggle,
+    IonButton,
+    IonRippleEffect,
+  ],
 })
 export class LoginPage implements OnInit {
-  email: string = '';
-  password: string = '';
+  email: string = "";
+  password: string = "";
   emailError: boolean = false;
   passwordError: boolean = false;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   onLogin() {
     this.emailError = !this.email;
@@ -29,6 +46,8 @@ export class LoginPage implements OnInit {
     if (this.emailError || this.passwordError) {
       return;
     }
-    this.router.navigate(['/home']);
+    if (this.authService.auth(this.email, this.password)) {
+      this.router.navigate(["/home"]);
+    }
   }
 }

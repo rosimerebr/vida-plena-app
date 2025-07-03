@@ -1,14 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, IonToggle, IonTextarea, IonButton } from '@ionic/angular/standalone';
+import { IonContent, IonIcon} from '@ionic/angular/standalone';
+import { BarChartComponent } from 'src/app/components/bar-chart2/bar-chart.component';
+
 
 @Component({
   selector: 'app-report',
   templateUrl: './report.page.html',
   styleUrls: ['./report.page.scss'],
   standalone: true,
-  imports: [IonContent, CommonModule, FormsModule, IonIcon]
+  imports: [IonContent, CommonModule, FormsModule, IonIcon, BarChartComponent]
 })
 export class ReportPage implements OnInit {
   today: string = '';
@@ -37,3 +39,4 @@ export class ReportPage implements OnInit {
   }
 
 }
+

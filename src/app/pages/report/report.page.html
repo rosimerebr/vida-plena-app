@@ -7,6 +7,8 @@
           <div class="bar" [style.height.%]="day.value * 12.5"></div>
           <div class="bar-label">{{ day.label }}</div>
         </div>
+
+        <app-bar-chart [weekData]="weekData"></app-bar-chart>
       </div>
       <div class="report-stats">
         <div class="streak-row">
