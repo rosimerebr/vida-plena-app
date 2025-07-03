@@ -15,7 +15,8 @@ import { Router } from '@angular/router';
 export class LoginPage implements OnInit {
   email: string = '';
   password: string = '';
-
+  emailError: boolean = false;
+  passwordError: boolean = false;
 
   constructor(private authService: AuthService, private router: Router) { }
 
@@ -23,6 +24,11 @@ export class LoginPage implements OnInit {
   }
 
   onLogin() {
+    this.emailError = !this.email;
+    this.passwordError = !this.password;
+    if (this.emailError || this.passwordError) {
+      return;
+    }
     this.router.navigate(['/home']);
   }
 }

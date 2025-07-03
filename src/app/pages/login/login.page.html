@@ -8,12 +8,14 @@
     <ion-item>
       <ion-input label="Email:" placeholder="Enter your email." [(ngModel)]="email" class="custom"></ion-input>
     </ion-item>
+    <div *ngIf="emailError" class="error-message">Enter an email.</div>
 
     <ion-item>
-    <ion-input type="password" label="Password" [(ngModel)]="password">
-      <ion-input-password-toggle slot="end"></ion-input-password-toggle>
-    </ion-input>
+      <ion-input type="password" label="Password" [(ngModel)]="password">
+        <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+      </ion-input>
     </ion-item>
+    <div *ngIf="passwordError" class="error-message">Enter a password.</div>
     <!--BUTTON-->
     <div class="wrapper">
       <ion-button (click)="onLogin()" >LOGIN</ion-button>
