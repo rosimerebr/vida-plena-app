@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonIcon} from '@ionic/angular/standalone';
-import { BarChartComponent } from 'src/app/components/bar-chart2/bar-chart.component';
+import { BarChartComponent } from 'src/app/components/bar-chart/bar-chart.component';
 
 
 @Component({
