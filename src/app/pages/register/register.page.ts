@@ -25,8 +25,8 @@ export class RegisterPage implements OnInit {
   }
 
   async onRegister() {
-    // Lógica de registro aqui
-    if (!this.fullName || !this.email || !this.password || !this.dob || !this.weight) {
+    // Registration logic here
+    if (!this.fullName || !this.email || !this.password || !this.dob ) {
       const errorToast = await this.toastController.create({
         message: 'Please fill in all fields.',
         duration: 2000,

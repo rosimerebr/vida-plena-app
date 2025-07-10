@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonButton, IonIcon } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { BarChartComponent } from 'src/app/components/bar-chart/bar-chart.component';
+import { BibleService, BibleVerse } from 'src/app/services/bible.service';
 
 @Component({
   selector: 'app-home',
@@ -21,7 +22,11 @@ export class HomePage {
     { label: 'S', value: 3 }
   ];
 
-  constructor(private router: Router) {}
+  spiritualVerse: BibleVerse | null = null;
+
+  constructor(private router: Router, private bibleService: BibleService) {
+    this.spiritualVerse = this.bibleService.getRandomVerse();
+  }
 
   startDailyChallenge() {
     this.router.navigate(['/habit-log']);

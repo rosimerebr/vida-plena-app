@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonHeader, IonTitle, IonToolbar, IonIcon, IonButton } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
+import { BibleService, BibleVerse } from 'src/app/services/bible.service';
 
 @Component({
   selector: 'app-habit',
@@ -12,10 +13,12 @@ import { Router } from '@angular/router';
   imports: [IonContent, CommonModule, FormsModule, IonIcon, IonButton]
 })
 export class HabitPage implements OnInit {
+  spiritualVerse: BibleVerse | null = null;
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private bibleService: BibleService) { }
 
   ngOnInit() {
+    this.spiritualVerse = this.bibleService.getRandomVerse();
   }
 
   goBack() {
