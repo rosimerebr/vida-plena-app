@@ -5,6 +5,8 @@ import { addIcons } from 'ionicons';
 import { sunny, water, leaf, restaurant, walk, scale, moon, heartCircleOutline, logoGoogle, arrowBack, arrowBackCircle } from 'ionicons/icons';
 import { routes } from './app/app.routes';
 import { AppComponent } from './app/app.component';
+import { importProvidersFrom } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 
 addIcons({
   sunny,
@@ -25,5 +27,6 @@ bootstrapApplication(AppComponent, {
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
     provideIonicAngular(),
     provideRouter(routes, withPreloading(PreloadAllModules)),
+    importProvidersFrom(HttpClientModule),
   ],
 });

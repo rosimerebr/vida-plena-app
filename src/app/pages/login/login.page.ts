@@ -35,6 +35,7 @@ export class LoginPage implements OnInit {
   password: string = "";
   emailError: boolean = false;
   passwordError: boolean = false;
+  loginError: string = '';
 
   constructor(private authService: AuthService, private router: Router) {}
 
@@ -43,11 +44,18 @@ export class LoginPage implements OnInit {
   onLogin() {
     this.emailError = !this.email;
     this.passwordError = !this.password;
+    this.loginError = '';
     if (this.emailError || this.passwordError) {
       return;
     }
-    if (this.authService.auth(this.email, this.password)) {
-      this.router.navigate(["/home"]);
-    }
+    this.authService.login(this.email, this.password).subscribe({
+      next: (res) => {
+        // Aqui você pode salvar token, usuário, etc.
+        this.router.navigate(["/home"]);
+      },
+      error: (err) => {
+        this.loginError = 'Invalid email or password.';
+      }
+    });
   }
 }
