@@ -505,7 +505,8 @@ import {
   ɵɵvalidateIframeAttribute,
   ɵɵviewQuery,
   ɵɵviewQuerySignal
-} from "./chunk-OQ6YXIXK.js";
+} from "./chunk-GBTNZGS5.js";
+import "./chunk-HKGWJUTY.js";
 import "./chunk-QHQP2P2Z.js";
 export {
   ANIMATION_MODULE_TYPE,

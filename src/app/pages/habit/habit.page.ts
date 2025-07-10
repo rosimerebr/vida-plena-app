@@ -18,7 +18,9 @@ export class HabitPage implements OnInit {
   constructor(private router: Router, private bibleService: BibleService) { }
 
   ngOnInit() {
-    this.spiritualVerse = this.bibleService.getRandomVerse();
+    this.bibleService.getRandomVerse().subscribe(verse => {
+      this.spiritualVerse = verse;
+    });
   }
 
   goBack() {
