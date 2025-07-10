@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonIcon, IonToggle, IonButton } from '@ionic/angular/standalone';
 import { HabitService, HabitLog } from 'src/app/services/habit.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-habit-log',
@@ -26,7 +27,7 @@ export class HabitLogPage implements OnInit {
   ];
   habitStatus: { [habit: string]: boolean } = {};
 
-  constructor(private habitService: HabitService) { }
+  constructor(private habitService: HabitService, private router: Router) { }
 
   ngOnInit() {
     const now = new Date();
@@ -51,6 +52,7 @@ export class HabitLogPage implements OnInit {
       habits: { ...this.habitStatus }
     };
     this.habitService.saveHabitLog(log);
-    // You can show a toast/success message here if you want
+    // Navigate to home after saving
+    this.router.navigate(['/home']);
   }
 }
