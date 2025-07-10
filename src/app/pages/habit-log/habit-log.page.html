@@ -1,48 +1,13 @@
 <ion-content [fullscreen]="true">
   <div class="habit-log-container">
-    <div class="habit-log-date">{{ today }}</div>
+    <div class="habit-log-date">{{ displayDate }}</div>
     <div class="habit-log-list">
-      <div class="habit-log-item">
-        <ion-icon name="sunny"></ion-icon>
-        <span class="habit-log-label">Sunlight</span>
-        <ion-toggle></ion-toggle>
-      </div>
-      <div class="habit-log-item">
-        <ion-icon name="water"></ion-icon>
-        <span class="habit-log-label">Water</span>
-        <ion-toggle></ion-toggle>
-      </div>
-      <div class="habit-log-item">
-        <ion-icon name="leaf"></ion-icon>
-        <span class="habit-log-label">Air</span>
-        <ion-toggle></ion-toggle>
-      </div>
-      <div class="habit-log-item">
-        <ion-icon name="restaurant"></ion-icon>
-        <span class="habit-log-label">Healthy Food</span>
-        <ion-toggle></ion-toggle>
-      </div>
-      <div class="habit-log-item">
-        <ion-icon name="walk"></ion-icon>
-        <span class="habit-log-label">Physical Exercise</span>
-        <ion-toggle></ion-toggle>
-      </div>
-      <div class="habit-log-item">
-        <ion-icon name="scale"></ion-icon>
-        <span class="habit-log-label">Temperance</span>
-        <ion-toggle></ion-toggle>
-      </div>
-      <div class="habit-log-item">
-        <ion-icon name="moon"></ion-icon>
-        <span class="habit-log-label">Rest</span>
-        <ion-toggle></ion-toggle>
-      </div>
-      <div class="habit-log-item">
-        <ion-icon name="heart-circle-outline"></ion-icon>
-        <span class="habit-log-label">Trust in God</span>
-        <ion-toggle></ion-toggle>
+      <div class="habit-log-item" *ngFor="let habit of habits">
+        <ion-icon [name]="habit.icon"></ion-icon>
+        <span class="habit-log-label">{{ habit.name }}</span>
+        <ion-toggle [checked]="habitStatus[habit.name]" (ionChange)="onToggle(habit.name, $event.detail.checked)"></ion-toggle>
       </div>
     </div>
-    <ion-button expand="block" class="habit-log-save-btn">Save</ion-button>
+    <ion-button expand="block" class="habit-log-save-btn" (click)="save()">Save</ion-button>
   </div>
 </ion-content>
