@@ -5,10 +5,10 @@
     --button-color: #2e473b;
     --button-text-color: #ffffff;
 }
+
 // background color
 ion-content {
     --background: var(--welcome-bg-color);
-
 }
 
 // The main container
@@ -50,6 +50,7 @@ ion-content {
         font-size: 0.85rem;
     }
 }
+
 // Container for buttons
 .button-group {
     width: 100%;
@@ -57,6 +58,7 @@ ion-content {
     display: flex;
     justify-content: center;
     gap: 16px;
+    padding: 0 16px;
 }
 
 ion-button {
@@ -82,5 +84,77 @@ ion-button[fill="outline"] {
     font-weight: bold;
     line-height: 1.5;
     margin-bottom: 10px;
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+    .welcome-container {
+        padding: 16px;
+    }
+    
+    .title {
+        font-size: 1.6rem;
+    }
+    
+    .remedy ion-icon {
+        font-size: 2.2rem;
+    }
+    
+    .remedy div {
+        font-size: 0.8rem;
+    }
+    
+    .button-group {
+        max-width: 350px;
+        gap: 12px;
+    }
+    
+    ion-button {
+        height: 44px;
+        font-size: 0.9rem;
+    }
+    
+    .subtitle {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .welcome-container {
+        padding: 12px;
+    }
+    
+    .logo {
+        max-width: 100px;
+    }
+    
+    .title {
+        font-size: 1.4rem;
+        margin-top: 8px;
+    }
+    
+    .remedy ion-icon {
+        font-size: 2rem;
+    }
+    
+    .remedy div {
+        font-size: 0.75rem;
+    }
+    
+    .button-group {
+        max-width: 300px;
+        gap: 8px;
+        padding: 0 8px;
+    }
+    
+    ion-button {
+        height: 40px;
+        font-size: 0.85rem;
+    }
+    
+    .subtitle {
+        font-size: 1rem;
+        margin-bottom: 8px;
+    }
 }
 

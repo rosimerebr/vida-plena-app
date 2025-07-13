@@ -8,25 +8,57 @@
     border-radius: 12px;
     padding: 12px 12px 0 12px;
     margin-bottom: 8px;
-  }
-  
-  .bar-group {
+}
+
+.bar-group {
     display: flex;
     flex-direction: column;
     align-items: center;
     flex: 1;
-  }
-  
-  .bar {
+}
+
+.bar {
     width: 18px;
     background: #a5d6a7;
     border-radius: 8px 8px 0 0;
     margin-bottom: 6px;
     transition: height 0.3s;
-  }
-  
-  .bar-label {
+}
+
+.bar-label {
     font-size: 1rem;
     color: #7a8c7a;
     margin-top: 2px;
-  } 
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+    .bar-chart {
+        height: 100px;
+        padding: 8px 8px 0 8px;
+    }
+    
+    .bar {
+        width: 16px;
+    }
+    
+    .bar-label {
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .bar-chart {
+        height: 80px;
+        padding: 6px 6px 0 6px;
+    }
+    
+    .bar {
+        width: 14px;
+        margin-bottom: 4px;
+    }
+    
+    .bar-label {
+        font-size: 0.8rem;
+    }
+} 

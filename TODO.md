@@ -38,6 +38,14 @@
 - [x] **NOVO: Validação de dados com class-validator**
 - [x] **NOVO: Remoção de senha do response da API**
 
+### Responsividade
+- [x] **NOVO: Media queries para login e registro (480px, 768px)**
+- [x] **NOVO: Responsividade da página home com ícones adaptáveis**
+- [x] **NOVO: Responsividade da página welcome com grid flexível**
+- [x] **NOVO: Responsividade do componente bar-chart**
+- [x] **NOVO: Estilos responsivos globais no global.scss**
+- [x] **NOVO: Melhorias de acessibilidade e usabilidade**
+
 ## 🔄 Em Progresso
 
 ### Integração Backend
@@ -52,6 +60,8 @@
 - [ ] Adicionar gráficos na página de relatórios
 - [ ] Implementar filtros por data nos relatórios
 - [ ] Adicionar animações e melhorar UX
+- [ ] Implementar modo escuro (dark mode)
+- [ ] Adicionar testes de responsividade automatizados
 
 ### Melhorias no Backend
 - [x] ~~Implementar autenticação JWT~~ (Já implementado)
@@ -92,6 +102,13 @@
 - **Validação de e-mail**: Impede cadastro de e-mails duplicados
 - **Validação de dados**: Usa class-validator para validar formato dos dados
 - **Proteção de dados**: Senha nunca é retornada nas respostas da API
+
+### Responsividade Implementada
+- **Mobile (480px)**: Otimizações para telas pequenas
+- **Tablet (768px)**: Ajustes para tablets
+- **Desktop**: Layout otimizado para telas grandes
+- **Flexbox/Grid**: Uso de layouts flexíveis
+- **Unidades relativas**: rem, %, vw em vez de pixels fixos
 
 ### Próxima Tarefa Prioritária
 Implementar integração completa do userId com o sistema de autenticação para substituir o valor hardcoded 'default-user'. 

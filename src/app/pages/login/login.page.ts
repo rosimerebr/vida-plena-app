@@ -12,6 +12,7 @@ import {
 } from "@ionic/angular/standalone";
 import { AuthService } from "src/app/services/auth.service";
 import { Router } from "@angular/router";
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: "app-login",
@@ -37,7 +38,11 @@ export class LoginPage implements OnInit {
   passwordError: boolean = false;
   loginError: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService, 
+    private router: Router,
+    private toastController: ToastController
+  ) {}
 
   ngOnInit() {}
 
@@ -45,16 +50,60 @@ export class LoginPage implements OnInit {
     this.emailError = !this.email;
     this.passwordError = !this.password;
     this.loginError = '';
+    
     if (this.emailError || this.passwordError) {
       return;
     }
+
+    console.log('Tentando login com:', { email: this.email, password: this.password });
+
     this.authService.login(this.email, this.password).subscribe({
-      next: (res) => {
-        // Aqui você pode salvar token, usuário, etc.
+      next: async (res) => {
+        console.log('Login bem-sucedido:', res);
+        
+        // Salvar token e dados do usuário (opcional)
+        if (res.access_token) {
+          localStorage.setItem('token', res.access_token);
+        }
+        if (res.user) {
+          localStorage.setItem('user', JSON.stringify(res.user));
+        }
+
+        // Mostrar toast de sucesso
+        const toast = await this.toastController.create({
+          message: 'Login realizado com sucesso!',
+          duration: 2000,
+          color: 'success',
+          position: 'top'
+        });
+        await toast.present();
+
+        // Navegar para home
         this.router.navigate(["/home"]);
       },
-      error: (err) => {
-        this.loginError = 'Invalid email or password.';
+      error: async (err) => {
+        console.error('Erro no login:', err);
+        
+        let errorMessage = 'E-mail ou senha inválidos.';
+        
+        if (err.status === 0) {
+          errorMessage = 'Erro de conexão. Verifique se o backend está rodando.';
+        } else if (err.error?.message) {
+          errorMessage = err.error.message;
+        } else if (err.status === 401) {
+          errorMessage = 'E-mail ou senha incorretos.';
+        }
+
+        this.loginError = errorMessage;
+
+        // Mostrar toast de erro
+        const toast = await this.toastController.create({
+          message: errorMessage,
+          duration: 3000,
+          color: 'danger',
+          position: 'top'
+        });
+        await toast.present();
       }
     });
   }

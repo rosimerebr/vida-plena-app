@@ -6,38 +6,38 @@
     border-radius: 100%;
     background:#D7F1C3;
     padding: 0;
-  }
-  
-  .logo-container {
+}
+
+.logo-container {
     width: 100%;
     display: flex;
     background: #D7F1C3;
     justify-content: center;
     margin-top: 40px;
     margin-bottom: 0px;
-  }
-  
-  .menu-container {
+}
+
+.menu-container {
     background: #D7F1C3;
     min-height: 100vh;
     padding: 16px;
-  }
-  
-  .menu-grid {
+}
+
+.menu-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 16px;
     max-width: 600px;
     margin: 0 auto;
-  }
-  
-  .menu-item {
+}
+
+.menu-item {
     height: auto;
     --padding-start: 8px;
     --padding-end: 8px;
-  }
-  
-  .home-icons-row {
+}
+
+.home-icons-row {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -47,9 +47,10 @@
     margin: 0 auto 32px auto;
     max-width: 900px;
     flex-wrap: wrap;
-  }
-  
-  .icon-block {
+    gap: 8px;
+}
+
+.icon-block {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -57,34 +58,39 @@
     min-width: 80px;
     cursor: pointer;
     transition: transform 0.2s ease;
-  }
-  
-  .icon-block:hover {
+    flex: 1;
+    min-width: 60px;
+}
+
+.icon-block:hover {
     transform: scale(1.05);
-  }
-  
-  .icon-block:active {
+}
+
+.icon-block:active {
     transform: scale(0.95);
-  }
-  
-  .icon-block ion-icon {
+}
+
+.icon-block ion-icon {
     font-size: 40px;
     margin-bottom: 4px;
-  }
-  
-  .icon-block span {
+}
+
+.icon-block span {
     font-size: 1rem;
     color: #2e473b;
     margin-top: 2px;
-  }
-  
-  .challenge-btn-container {
+    text-align: center;
+    line-height: 1.2;
+}
+
+.challenge-btn-container {
     display: flex;
     justify-content: center;
     margin: 32px 0 24px 0;
-  }
-  
-  .challenge-btn {
+    padding: 0 16px;
+}
+
+.challenge-btn {
     background: #176b3a;
     color: #fff;
     font-size: 1.5rem;
@@ -95,54 +101,133 @@
     height: 64px;
     --background: #176b3a;
     --color: #fff;
-  }
-  
-  .spiritual-message-container {
+}
+
+.spiritual-message-container {
     background: #d8f9be;
     border-radius: 12px;
     max-width: 600px;
     margin: 0 auto 32px auto;
     padding: 20px 24px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  }
-  
-  .spiritual-message-title {
+}
+
+.spiritual-message-title {
     font-weight: bold;
     font-size: 1.1rem;
     margin-bottom: 8px;
     color: #2e473b;
-  }
-  
-  .spiritual-message-content {
+}
+
+.spiritual-message-content {
     font-size: 1rem;
     color: #2e473b;
-  }
-  
-  .spiritual-message-ref {
+}
+
+.spiritual-message-ref {
     font-size: 0.95rem;
     color: #176b3a;
-  }
-  
-  .reports-container {
+}
+
+.reports-container {
     max-width: 600px;
     margin: 0 auto 32px auto;
     background: #f0f8f0;
     border-radius: 12px;
     padding: 84px 16px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.04);
-  }
-  
-  .reports-title {
+}
+
+.reports-title {
     font-weight: bold;
     font-size: 1.1rem;
     margin-bottom: 12px;
     color: #2e473b;
-  }
-  
-  .reports-placeholder {
+}
+
+.reports-placeholder {
     display: flex;
     justify-content: center;
     align-items: center;
-  }
+}
+
+/* Media Queries para Responsividade */
+@media (max-width: 768px) {
+    .home-icons-row {
+        padding: 12px 4px;
+        margin: 0 8px 24px 8px;
+    }
+    
+    .icon-block {
+        min-width: 50px;
+        margin: 0 4px;
+    }
+    
+    .icon-block ion-icon {
+        font-size: 32px;
+    }
+    
+    .icon-block span {
+        font-size: 0.9rem;
+    }
+    
+    .challenge-btn {
+        font-size: 1.3rem;
+        height: 56px;
+    }
+    
+    .spiritual-message-container {
+        margin: 0 16px 24px 16px;
+        padding: 16px 20px;
+    }
+    
+    .reports-container {
+        margin: 0 16px 24px 16px;
+        padding: 60px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-img {
+        max-width: 180px;
+    }
+    
+    .logo-container {
+        margin-top: 20px;
+    }
+    
+    .home-icons-row {
+        padding: 8px 2px;
+        margin: 0 4px 20px 4px;
+    }
+    
+    .icon-block {
+        min-width: 40px;
+        margin: 0 2px;
+    }
+    
+    .icon-block ion-icon {
+        font-size: 28px;
+    }
+    
+    .icon-block span {
+        font-size: 0.8rem;
+    }
+    
+    .challenge-btn {
+        font-size: 1.2rem;
+        height: 52px;
+    }
+    
+    .spiritual-message-container {
+        margin: 0 8px 20px 8px;
+        padding: 12px 16px;
+    }
+    
+    .reports-container {
+        margin: 0 8px 20px 8px;
+        padding: 50px 8px;
+    }
+}
   
   
