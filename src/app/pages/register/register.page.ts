@@ -29,6 +29,42 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
   }
 
+  // Método para formatar a data automaticamente
+  formatDateOfBirth(event: any) {
+    let value = event.target.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+    
+    if (value.length > 8) {
+      value = value.substring(0, 8);
+    }
+    
+    // Adiciona as barras automaticamente
+    if (value.length >= 2) {
+      value = value.substring(0, 2) + '/' + value.substring(2);
+    }
+    if (value.length >= 5) {
+      value = value.substring(0, 5) + '/' + value.substring(5);
+    }
+    
+    this.dob = value;
+  }
+
+  // Método para converter DD/MM/YY para YYYY-MM-DD
+  convertDateForBackend(dateString: string): string {
+    if (!dateString || dateString.length !== 8) return '';
+    
+    const parts = dateString.split('/');
+    if (parts.length !== 3) return '';
+    
+    const day = parts[0];
+    const month = parts[1];
+    const year = parts[2];
+    
+    // Adiciona 20 ao ano se for menor que 50, senão adiciona 19
+    const fullYear = parseInt(year) < 50 ? '20' + year : '19' + year;
+    
+    return `${fullYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
+  }
+
   async onRegister() {
     // Validação dos campos obrigatórios
     if (!this.fullName || !this.email || !this.password || !this.dob) {
@@ -42,12 +78,24 @@ export class RegisterPage implements OnInit {
       return;
     }
 
+    // Validar formato da data
+    if (this.dob.length !== 8) { // DD/MM/YY = 8 caracteres
+      const errorToast = await this.toastController.create({
+        message: 'Por favor, insira uma data válida no formato DD/MM/YY.',
+        duration: 2000,
+        color: 'danger',
+        position: 'top'
+      });
+      await errorToast.present();
+      return;
+    }
+
     // Preparar dados para envio
     const userData = {
       fullName: this.fullName,
       email: this.email,
       password: this.password,
-      dateOfBirth: this.dob,
+      dateOfBirth: this.convertDateForBackend(this.dob),
       weight: parseFloat(this.weight) || 0
     };
 

@@ -26,6 +26,11 @@
 - [x] Implementação do serviço de relatórios (report.service.ts)
 - [x] Integração com backend para buscar dados de relatório
 - [x] Página de relatórios (report.page.ts)
+- [x] **NOVO: Gráfico de barras por hábito na página home**
+- [x] **NOVO: Dados reais do backend exibidos no relatório**
+- [x] **NOVO: Estatísticas de total completado e melhor hábito**
+- [x] **NOVO: Interface HabitData para dados estruturados**
+- [x] **NOVO: Componente bar-chart melhorado com suporte a múltiplos hábitos**
 
 ### Configuração
 - [x] Configuração do environment.ts com URL do backend
@@ -46,6 +51,14 @@
 - [x] **NOVO: Estilos responsivos globais no global.scss**
 - [x] **NOVO: Melhorias de acessibilidade e usabilidade**
 
+### UX/UI Melhorias
+- [x] **NOVO: Campo de data de nascimento com formato DD/MM/YY**
+- [x] **NOVO: Formatação automática das barras na data**
+- [x] **NOVO: Validação de formato de data no frontend e backend**
+- [x] **NOVO: Logo maior na página welcome (160px → 140px → 120px)**
+- [x] **NOVO: Ícones posicionados mais abaixo na página welcome**
+- [x] **NOVO: Melhor espaçamento entre elementos**
+
 ## 🔄 Em Progresso
 
 ### Integração Backend
@@ -57,7 +70,7 @@
 
 ### Melhorias no Frontend
 - [ ] Implementar sistema de notificações para hábitos
-- [ ] Adicionar gráficos na página de relatórios
+- [ ] Adicionar gráficos detalhados na página de relatórios
 - [ ] Implementar filtros por data nos relatórios
 - [ ] Adicionar animações e melhorar UX
 - [ ] Implementar modo escuro (dark mode)
@@ -88,6 +101,7 @@
 ### Estrutura de Dados
 - **HabitLog**: Interface para dados locais de hábitos
 - **HabitReport**: Interface para envio ao backend
+- **HabitData**: Interface para dados estruturados de hábitos no relatório
 - **Environment**: Configuração centralizada de URLs
 
 ### Fluxo de Dados
@@ -96,6 +110,7 @@
 3. Hábitos marcados são enviados para backend via POST /report
 4. Em caso de falha no backend, dados permanecem salvos localmente
 5. Relatórios são buscados do backend via GET /report
+6. **NOVO: Dados são processados e exibidos como gráfico de barras por hábito**
 
 ### Melhorias de Segurança Implementadas
 - **Hash de senha**: Senhas são hasheadas com bcrypt antes de salvar no banco
@@ -109,6 +124,19 @@
 - **Desktop**: Layout otimizado para telas grandes
 - **Flexbox/Grid**: Uso de layouts flexíveis
 - **Unidades relativas**: rem, %, vw em vez de pixels fixos
+
+### UX/UI Melhorias Implementadas
+- **Formato de data**: DD/MM/YY com formatação automática
+- **Validação de entrada**: Apenas números permitidos no campo de data
+- **Layout welcome**: Logo maior e ícones posicionados mais abaixo
+- **Espaçamento**: Melhor distribuição visual dos elementos
+
+### Relatório Melhorado Implementado
+- **Gráfico por hábito**: Cada barra representa um hábito específico
+- **Dados reais**: Integração completa com backend para dados dinâmicos
+- **Estatísticas**: Total completado e melhor hábito da semana
+- **Responsivo**: Gráfico adaptável para diferentes tamanhos de tela
+- **Visual intuitivo**: Altura da barra proporcional ao progresso
 
 ### Próxima Tarefa Prioritária
 Implementar integração completa do userId com o sistema de autenticação para substituir o valor hardcoded 'default-user'. 

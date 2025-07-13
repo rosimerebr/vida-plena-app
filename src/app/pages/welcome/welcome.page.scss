@@ -24,14 +24,16 @@ ion-content {
 }
 
 .logo {
-    max-width: 120px;
-    margin-top: 10px;
+    max-width: 160px; // Aumentado de 120px para 160px
+    margin-top: 20px; // Aumentado de 10px para 20px
+    margin-bottom: 20px; // Adicionado margem inferior
 }
 
 .title {
     font-size: 1.8rem;
     font-weight: bold;  
     margin-top: 10px;
+    margin-bottom: 30px; // Adicionado margem inferior para empurrar os ícones para baixo
 }
 
 // Style for each item in the medicine grid
@@ -59,6 +61,7 @@ ion-content {
     justify-content: center;
     gap: 16px;
     padding: 0 16px;
+    margin-top: 20px; 
 }
 
 ion-button {
@@ -84,6 +87,7 @@ ion-button[fill="outline"] {
     font-weight: bold;
     line-height: 1.5;
     margin-bottom: 10px;
+    margin-top: 20px; // Adicionado margem superior
 }
 
 /* Media Queries para Responsividade */
@@ -92,8 +96,15 @@ ion-button[fill="outline"] {
         padding: 16px;
     }
     
+    .logo {
+        max-width: 140px; // Ajustado para tablet
+        margin-top: 15px;
+        margin-bottom: 15px;
+    }
+    
     .title {
         font-size: 1.6rem;
+        margin-bottom: 25px; // Ajustado para tablet
     }
     
     .remedy ion-icon {
@@ -107,6 +118,7 @@ ion-button[fill="outline"] {
     .button-group {
         max-width: 350px;
         gap: 12px;
+        margin-top: 15px;
     }
     
     ion-button {
@@ -116,6 +128,7 @@ ion-button[fill="outline"] {
     
     .subtitle {
         font-size: 1.1rem;
+        margin-top: 15px;
     }
 }
 
@@ -125,12 +138,15 @@ ion-button[fill="outline"] {
     }
     
     .logo {
-        max-width: 100px;
+        max-width: 120px; // Ajustado para mobile
+        margin-top: 10px;
+        margin-bottom: 10px;
     }
     
     .title {
         font-size: 1.4rem;
         margin-top: 8px;
+        margin-bottom: 20px; // Ajustado para mobile
     }
     
     .remedy ion-icon {
@@ -145,6 +161,7 @@ ion-button[fill="outline"] {
         max-width: 300px;
         gap: 8px;
         padding: 0 8px;
+        margin-top: 10px;
     }
     
     ion-button {
@@ -155,6 +172,7 @@ ion-button[fill="outline"] {
     .subtitle {
         font-size: 1rem;
         margin-bottom: 8px;
+        margin-top: 10px;
     }
 }
 

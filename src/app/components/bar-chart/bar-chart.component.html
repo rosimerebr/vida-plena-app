@@ -1,6 +1,39 @@
-<div class="bar-chart">
-  <div class="bar-group" *ngFor="let day of weekData">
-    <div class="bar" [style.height.%]="day.value * 12.5"></div>
-    <div class="bar-label">{{ day.label }}</div>
+<div class="bar-chart-container">
+  <!-- Gráfico simples (mantido para compatibilidade) -->
+  <div class="simple-chart" *ngIf="weekData.length > 0 && habitsData.length === 0">
+    <div class="bar-group" *ngFor="let day of weekData">
+      <div class="bar" [style.height.%]="day.value * 12.5"></div>
+      <div class="bar-label">{{ day.label }}</div>
+    </div>
+  </div>
+
+  <!-- Gráfico de hábitos por barra -->
+  <div class="habits-chart" *ngIf="habitsData.length > 0">
+    <div class="chart-title">Weekly Habits Progress</div>
+    
+    <div class="bars-container">
+      <div class="bar-group" *ngFor="let habit of habits">
+        <div class="bar" 
+             [style.height.%]="getBarHeight(habit.name)"
+             [class.completed]="(getHabitData(habit.name)?.weeklyTotal || 0) > 0">
+        </div>
+        <div class="bar-info">
+          <ion-icon [name]="habit.icon" class="habit-icon"></ion-icon>
+          <div class="habit-name">{{ habit.name }}</div>
+          <div class="habit-total">{{ getHabitData(habit.name)?.weeklyTotal || 0 }}/7</div>
+        </div>
+      </div>
+    </div>
+    
+    <div class="chart-summary">
+      <div class="summary-item">
+        <span class="summary-label">Total Completed:</span>
+        <span class="summary-value">{{ getTotalCompleted() }}</span>
+      </div>
+      <div class="summary-item">
+        <span class="summary-label">Best Habit:</span>
+        <span class="summary-value">{{ getBestHabit() }}</span>
+      </div>
+    </div>
   </div>
 </div> 

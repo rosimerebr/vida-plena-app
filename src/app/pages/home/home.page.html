@@ -48,8 +48,18 @@
       <span class="spiritual-message-ref">- {{ spiritualVerse?.reference }}</span>
     </div>
   </div>
+  
   <div class="reports-container">
-    <div class="reports-title">Reports (em breve)</div>
-    <app-bar-chart [weekData]="weekData"></app-bar-chart>
+    <app-bar-chart [habitsData]="habitsData"></app-bar-chart>
+    <div class="stats-container">
+      <div class="stat-item">
+        <ion-icon name="flame" class="stat-icon"></ion-icon>
+        <span class="stat-text">{{ streak }}-day streak</span>
+      </div>
+      <div class="stat-item">
+        <ion-icon name="checkmark-circle" class="stat-icon"></ion-icon>
+        <span class="stat-text">{{ totalCompleted }} total completed</span>
+      </div>
     </div>
   </div>
+</div>

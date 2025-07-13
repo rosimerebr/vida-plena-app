@@ -1,15 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import {
-  IonContent,
-  IonItem,
-  IonInput,
-  IonInputPasswordToggle,
-  IonButton,
-  IonRippleEffect,
-  IonImg,
-} from "@ionic/angular/standalone";
+import {IonContent, IonItem, IonInput, IonInputPasswordToggle, IonButton, IonRippleEffect, IonImg} from "@ionic/angular/standalone";
 import { AuthService } from "src/app/services/auth.service";
 import { Router } from "@angular/router";
 import { ToastController } from '@ionic/angular';
@@ -55,13 +47,13 @@ export class LoginPage implements OnInit {
       return;
     }
 
-    console.log('Tentando login com:', { email: this.email, password: this.password });
+    console.log('Trying to login with:', { email: this.email, password: this.password });
 
     this.authService.login(this.email, this.password).subscribe({
       next: async (res) => {
-        console.log('Login bem-sucedido:', res);
+        console.log('Successful login:', res);
         
-        // Salvar token e dados do usuário (opcional)
+        // Save token and user data 
         if (res.access_token) {
           localStorage.setItem('token', res.access_token);
         }
@@ -69,34 +61,34 @@ export class LoginPage implements OnInit {
           localStorage.setItem('user', JSON.stringify(res.user));
         }
 
-        // Mostrar toast de sucesso
+        // Show success toast
         const toast = await this.toastController.create({
-          message: 'Login realizado com sucesso!',
+          message: 'Login successfully!',
           duration: 2000,
           color: 'success',
           position: 'top'
         });
         await toast.present();
 
-        // Navegar para home
+        // Navigate to home
         this.router.navigate(["/home"]);
       },
       error: async (err) => {
-        console.error('Erro no login:', err);
+        console.error('Login error:', err);
         
-        let errorMessage = 'E-mail ou senha inválidos.';
+        let errorMessage = 'Invalid email or password.';
         
         if (err.status === 0) {
-          errorMessage = 'Erro de conexão. Verifique se o backend está rodando.';
+          errorMessage = 'Connection error. Check if the backend is running..';
         } else if (err.error?.message) {
           errorMessage = err.error.message;
         } else if (err.status === 401) {
-          errorMessage = 'E-mail ou senha incorretos.';
+          errorMessage = 'Incorrect email or password.';
         }
 
         this.loginError = errorMessage;
 
-        // Mostrar toast de erro
+        // Show error toast
         const toast = await this.toastController.create({
           message: errorMessage,
           duration: 3000,

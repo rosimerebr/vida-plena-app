@@ -145,6 +145,31 @@
     color: #2e473b;
 }
 
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 16px;
+    padding: 16px 0;
+    border-top: 1px solid #e0e0e0;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.stat-icon {
+    font-size: 20px;
+    color: #176b3a;
+}
+
+.stat-text {
+    font-size: 0.9rem;
+    color: #2e473b;
+    font-weight: 500;
+}
+
 .reports-placeholder {
     display: flex;
     justify-content: center;
