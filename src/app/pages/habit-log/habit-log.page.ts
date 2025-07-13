@@ -51,8 +51,24 @@ export class HabitLogPage implements OnInit {
       date: this.today,
       habits: { ...this.habitStatus }
     };
-    this.habitService.saveHabitLog(log);
-    // Navigate to home after saving
-    this.router.navigate(['/home']);
+    
+    // Use the new method that saves locally and sends to backend
+    // For now, using a default userId - in a real app, this would come from auth service
+    const userId = 'default-user'; // TODO: Get from auth service
+    
+    this.habitService.saveHabitWithBackendSync(log, userId).subscribe({
+      next: (response) => {
+        console.log('Habits saved successfully:', response);
+        // Navigate to home after saving
+        this.router.navigate(['/home']);
+      },
+      error: (error) => {
+        console.error('Error saving habits to backend:', error);
+        // Even if backend fails, we still save locally
+        this.habitService.saveHabitLog(log);
+        // Navigate to home after saving locally
+        this.router.navigate(['/home']);
+      }
+    });
   }
 }

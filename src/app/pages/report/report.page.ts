@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonIcon} from '@ionic/angular/standalone';
 import { BarChartComponent } from 'src/app/components/bar-chart/bar-chart.component';
-
+import { ReportService } from 'src/app/services/report.service';
 
 @Component({
   selector: 'app-report',
@@ -25,18 +25,29 @@ export class ReportPage implements OnInit {
   ];
   streak = 5;
   totalCompleted = 32;
+  reportData: any = null; // Holds the report data from backend
 
-  constructor() { }
+  constructor(private reportService: ReportService) { }
 
   ngOnInit() {
+    // Get today's date for display
     const now = new Date();
-    // Exemplo de formatação: April 23, 2024
     this.today = now.toLocaleDateString('en-US', {
       year: 'numeric',
       month: 'long',
       day: 'numeric'
     });
-  }
 
+    // Fetch the weekly report from backend
+    this.reportService.getWeeklyReport().subscribe({
+      next: (data) => {
+        this.reportData = data;
+        console.log('Weekly report received:', data);
+      },
+      error: (err) => {
+        console.error('Error fetching weekly report:', err);
+      }
+    });
+  }
 }
 
