@@ -1,11 +1,11 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { IonIcon } from '@ionic/angular/standalone';
+import { Chart, ChartConfiguration, ChartData } from 'chart.js/auto';
 
 export interface HabitData {
   name: string;
   icon: string;
-  weeklyTotal: number; // Total de vezes que o hábito foi realizado na semana
+  weeklyTotal: number;
 }
 
 @Component({
@@ -13,47 +13,142 @@ export interface HabitData {
   templateUrl: './bar-chart.component.html',
   styleUrls: ['./bar-chart.component.scss'],
   standalone: true,
-  imports: [CommonModule, IonIcon]
+  imports: [CommonModule]
 })
-export class BarChartComponent {
+export class BarChartComponent implements OnChanges, AfterViewInit {
   @Input() weekData: { label: string, value: number }[] = [];
   @Input() habitsData: HabitData[] = [];
+  @ViewChild('chartCanvas') chartCanvas!: ElementRef<HTMLCanvasElement>;
   
-  readonly habits = [
-    { name: 'Sunlight', icon: 'sunny' },
-    { name: 'Water', icon: 'water' },
-    { name: 'Air', icon: 'leaf' },
-    { name: 'Healthy Food', icon: 'restaurant' },
-    { name: 'Exercise', icon: 'walk' },
-    { name: 'Temperance', icon: 'scale' },
-    { name: 'Rest', icon: 'moon' },
-    { name: 'Trust in God', icon: 'heart-circle-outline' }
-  ];
+  private chart: Chart | null = null;
 
-  getHabitData(habitName: string): HabitData | undefined {
-    return this.habitsData.find(h => h.name === habitName);
+  ngAfterViewInit() {
+    this.createChart();
   }
 
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['habitsData'] && this.chart) {
+      this.updateChart();
+    }
+  }
+
+  createChart() {
+    if (!this.chartCanvas) return;
+
+    const ctx = this.chartCanvas.nativeElement.getContext('2d');
+    if (!ctx) return;
+
+    const chartData: ChartData<'bar'> = {
+      labels: this.habitsData.map(h => h.name),
+      datasets: [{
+        label: 'Weekly Progress',
+        data: this.habitsData.map(h => h.weeklyTotal),
+        backgroundColor: this.habitsData.map(h => 
+          h.weeklyTotal === 0 ? '#cccccc' : '#4CAF50'
+        ),
+        borderColor: this.habitsData.map(h => 
+          h.weeklyTotal === 0 ? '#999999' : '#2E7D32'
+        ),
+        borderWidth: 1,
+        borderRadius: 4,
+        borderSkipped: false,
+      }]
+    };
+
+    const config: ChartConfiguration<'bar'> = {
+      type: 'bar',
+      data: chartData,
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          },
+          tooltip: {
+            callbacks: {
+              label: function(context) {
+                return `${context.parsed.y} times this week`;
+              }
+            }
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            max: Math.max(...this.habitsData.map(h => h.weeklyTotal), 7),
+            ticks: {
+              stepSize: 1
+            }
+          },
+          x: {
+            ticks: {
+              maxRotation: 45,
+              minRotation: 45
+            }
+          }
+        }
+      }
+    };
+
+    this.chart = new Chart(ctx, config);
+  }
+
+  updateChart() {
+    if (!this.chart) return;
+
+    this.chart.data.labels = this.habitsData.map(h => h.name);
+    this.chart.data.datasets[0].data = this.habitsData.map(h => h.weeklyTotal);
+    this.chart.data.datasets[0].backgroundColor = this.habitsData.map(h => 
+      h.weeklyTotal === 0 ? '#cccccc' : '#4CAF50'
+    );
+    this.chart.data.datasets[0].borderColor = this.habitsData.map(h => 
+      h.weeklyTotal === 0 ? '#999999' : '#2E7D32'
+    );
+
+    this.chart.update();
+  }
+
+  // Métodos legados para compatibilidade
   getMaxValue(): number {
-    if (this.habitsData.length === 0) return 7; // Máximo possível por semana
-    return Math.max(...this.habitsData.map(h => h.weeklyTotal));
+    if (this.habitsData.length === 0) return 7;
+    const maxValue = Math.max(...this.habitsData.map(h => h.weeklyTotal));
+    console.log('Max value:', maxValue);
+    return maxValue;
   }
 
   getBarHeight(habitName: string): number {
-    const habit = this.getHabitData(habitName);
+    const habit = this.habitsData.find(h => h.name === habitName);
     if (!habit) return 0;
+    
+    console.log(`Calculating height for ${habitName}: value=${habit.weeklyTotal}`);
+    
+    // Se o hábito tem 0 registros, altura fixa de 20%
+    if (habit.weeklyTotal === 0) {
+      return 20;
+    }
+    
+    // Se tem registros, calcular altura proporcional
     const maxValue = this.getMaxValue();
-    return maxValue > 0 ? (habit.weeklyTotal / maxValue) * 100 : 0;
+    const height = (habit.weeklyTotal / maxValue) * 100;
+    
+    // Retornar altura proporcional real, sem forçar altura mínima
+    const finalHeight = Math.max(height, 5); // Apenas 5% de altura mínima para visibilidade
+    
+    console.log(`Bar height for ${habitName}: ${finalHeight}% (${habit.weeklyTotal}/${maxValue})`);
+    return finalHeight;
   }
 
-  getTotalCompleted(): number {
-    return this.habitsData.reduce((sum, h) => sum + h.weeklyTotal, 0);
-  }
-
-  getBestHabit(): string {
-    if (this.habitsData.length === 0) return 'None';
-    const bestHabit = this.habitsData.reduce((max, h) => 
-      h.weeklyTotal > max.weeklyTotal ? h : max);
-    return bestHabit.weeklyTotal > 0 ? bestHabit.name : 'None';
+  getBarColor(habitName: string): string {
+    const habit = this.habitsData.find(h => h.name === habitName);
+    if (!habit) return '#ccc';
+    
+    // Se o hábito tem 0 registros, cor cinza
+    if (habit.weeklyTotal === 0) {
+      return '#cccccc';
+    }
+    
+    // Se tem registros, cor verde
+    return '#4CAF50';
   }
 } 

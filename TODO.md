@@ -31,6 +31,10 @@
 - [x] **NOVO: Estatísticas de total completado e melhor hábito**
 - [x] **NOVO: Interface HabitData para dados estruturados**
 - [x] **NOVO: Componente bar-chart melhorado com suporte a múltiplos hábitos**
+- [x] **NOVO: Implementação do Chart.js para gráficos profissionais**
+- [x] **NOVO: Gráfico responsivo e proporcional com cores dinâmicas**
+- [x] **NOVO: Tooltips informativos e animações suaves**
+- [x] **NOVO: Correção da proporcionalidade das barras (altura real vs forçada)**
 
 ### Configuração
 - [x] Configuração do environment.ts com URL do backend
@@ -137,6 +141,11 @@
 - **Estatísticas**: Total completado e melhor hábito da semana
 - **Responsivo**: Gráfico adaptável para diferentes tamanhos de tela
 - **Visual intuitivo**: Altura da barra proporcional ao progresso
+- **Chart.js**: Implementação de biblioteca profissional de gráficos
+- **Proporcionalidade real**: Barras refletem exatamente os valores sem distorção
+- **Cores dinâmicas**: Cinza para hábitos não realizados, verde para realizados
+- **Tooltips informativos**: Mostram quantidade de vezes realizados
+- **Animações suaves**: Transições profissionais e responsivas
 
 ### Próxima Tarefa Prioritária
 Implementar integração completa do userId com o sistema de autenticação para substituir o valor hardcoded 'default-user'. 

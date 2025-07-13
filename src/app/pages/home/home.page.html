@@ -1,65 +1,66 @@
-<div class="logo-container">
-  <img src="assets/images/logo.png" alt="Logo Vida Plena" class="logo-img">
-</div>
-<div class="home-container">
-  <div class="home-icons-row">
-    <div class="icon-block" (click)="navigateToHabit()">
-      <ion-icon name="sunny"></ion-icon>
-      <span>Sunlight</span>
-    </div>
-    <div class="icon-block" (click)="navigateToHabit()">
-      <ion-icon name="water"></ion-icon>
-      <span>Water</span>
-    </div>
-    <div class="icon-block" (click)="navigateToHabit()">
-      <ion-icon name="leaf"></ion-icon>
-      <span>Air</span>
-    </div>
-    <div class="icon-block" (click)="navigateToHabit()">
-      <ion-icon name="restaurant"></ion-icon>
-      <span>Healthy Food</span>
-    </div>
-    <div class="icon-block" (click)="navigateToHabit()">
-      <ion-icon name="walk"></ion-icon>
-      <span>Exercise</span>
-    </div>
-    <div class="icon-block" (click)="navigateToHabit()">
-      <ion-icon name="scale"></ion-icon>
-      <span>Temperance</span>
-    </div>
-    <div class="icon-block" (click)="navigateToHabit()">
-      <ion-icon name="moon"></ion-icon>
-      <span>Rest</span>
-    </div>
-    <div class="icon-block" (click)="navigateToHabit()">
-      <ion-icon name="heart-circle-outline"></ion-icon>
-      <span>Trust in God</span>
-    </div>
-  </div>
 
-  <div class="challenge-btn-container">
-    <ion-button expand="block" class="challenge-btn" (click)="startDailyChallenge()">Start Daily Challenge</ion-button>
+  <div class="logo-container">
+    <img src="assets/images/logo.png" alt="Logo Vida Plena" class="logo-img">
   </div>
-
-  <div class="spiritual-message-container">
-    <div class="spiritual-message-title">Spiritual Message of the Day</div>
-    <div class="spiritual-message-content">
-      {{ spiritualVerse?.text }}<br>
-      <span class="spiritual-message-ref">- {{ spiritualVerse?.reference }}</span>
-    </div>
-  </div>
-  
-  <div class="reports-container">
-    <app-bar-chart [habitsData]="habitsData"></app-bar-chart>
-    <div class="stats-container">
-      <div class="stat-item">
-        <ion-icon name="flame" class="stat-icon"></ion-icon>
-        <span class="stat-text">{{ streak }}-day streak</span>
+  <div class="home-container">
+    <div class="home-icons-row">
+      <div class="icon-block" (click)="navigateToHabit()">
+        <ion-icon name="sunny"></ion-icon>
+        <span>Sunlight</span>
       </div>
-      <div class="stat-item">
-        <ion-icon name="checkmark-circle" class="stat-icon"></ion-icon>
-        <span class="stat-text">{{ totalCompleted }} total completed</span>
+      <div class="icon-block" (click)="navigateToHabit()">
+        <ion-icon name="water"></ion-icon>
+        <span>Water</span>
+      </div>
+      <div class="icon-block" (click)="navigateToHabit()">
+        <ion-icon name="leaf"></ion-icon>
+        <span>Air</span>
+      </div>
+      <div class="icon-block" (click)="navigateToHabit()">
+        <ion-icon name="restaurant"></ion-icon>
+        <span>Healthy Food</span>
+      </div>
+      <div class="icon-block" (click)="navigateToHabit()">
+        <ion-icon name="walk"></ion-icon>
+        <span>Exercise</span>
+      </div>
+      <div class="icon-block" (click)="navigateToHabit()">
+        <ion-icon name="scale"></ion-icon>
+        <span>Temperance</span>
+      </div>
+      <div class="icon-block" (click)="navigateToHabit()">
+        <ion-icon name="moon"></ion-icon>
+        <span>Rest</span>
+      </div>
+      <div class="icon-block" (click)="navigateToHabit()">
+        <ion-icon name="heart-circle-outline"></ion-icon>
+        <span>Trust in God</span>
       </div>
     </div>
+
+    <div class="challenge-btn-container">
+      <ion-button expand="block" class="challenge-btn" (click)="startDailyChallenge()">Start Daily Challenge</ion-button>
+    </div>
+
+    <div class="spiritual-message-container">
+      <div class="spiritual-message-title">Spiritual Message of the Day</div>
+      <div class="spiritual-message-content">
+        {{ spiritualVerse?.text }}<br>
+        <span class="spiritual-message-ref">- {{ spiritualVerse?.reference }}</span>
+      </div>
+    </div>
+    
+    <div class="reports-container">
+      <app-bar-chart [habitsData]="habitsData"></app-bar-chart>
+      <div class="stats-container">
+        <div class="stat-item">
+          <ion-icon name="flame" class="stat-icon"></ion-icon>
+          <span class="stat-text">{{ streak }}-day streak</span>
+        </div>
+        <div class="stat-item">
+          <ion-icon name="checkmark-circle" class="stat-icon"></ion-icon>
+          <span class="stat-text">{{ totalCompleted }} total completed</span>
+        </div>
+      </div>
+    </div>
   </div>
-</div>

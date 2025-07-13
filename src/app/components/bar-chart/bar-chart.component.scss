@@ -1,208 +1,33 @@
 .bar-chart-container {
-  width: 100%;
-}
-
-// Gráfico simples (mantido para compatibilidade)
-.simple-chart {
-  display: flex;
-  justify-content: space-around;
-  align-items: flex-end;
-  height: 120px;
-  padding: 16px 0;
-}
-
-.bar-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-}
-
-.bar {
-  width: 20px;
-  background: #176b3a;
-  border-radius: 2px;
-  min-height: 4px;
-  transition: height 0.3s ease;
-}
-
-.bar-label {
-  margin-top: 8px;
-  font-size: 0.8rem;
-  color: #2e473b;
-  font-weight: 500;
-}
-
-// Gráfico de hábitos por barra
-.habits-chart {
-  width: 100%;
-  background: #f8f9fa;
-  border-radius: 12px;
   padding: 20px;
-  margin-top: 16px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .chart-title {
-  font-size: 1.1rem;
-  font-weight: 600;
-  color: #2e473b;
-  text-align: center;
-  margin-bottom: 20px;
-}
-
-.bars-container {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-end;
-  height: 200px;
-  gap: 8px;
-  margin-bottom: 20px;
-}
-
-.bar-group {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  flex: 1;
-  height: 100%;
-}
-
-.bar {
-  width: 100%;
-  max-width: 30px;
-  background: #e9ecef;
-  border-radius: 4px 4px 0 0;
-  min-height: 8px;
-  transition: all 0.3s ease;
-  margin-bottom: 12px;
-}
-
-.bar.completed {
-  background: #176b3a;
-}
-
-.bar-info {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  gap: 4px;
-}
-
-.habit-icon {
   font-size: 18px;
-  color: #176b3a;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
 }
 
-.habit-name {
-  font-size: 0.75rem;
-  color: #2e473b;
-  font-weight: 500;
-  line-height: 1.2;
+.chart-wrapper {
+  position: relative;
+  height: 300px;
+  width: 100%;
 }
 
-.habit-total {
-  font-size: 0.7rem;
-  color: #6c757d;
-  font-weight: 600;
-}
-
-.chart-summary {
-  display: flex;
-  justify-content: space-around;
-  padding-top: 16px;
-  border-top: 1px solid #e9ecef;
-}
-
-.summary-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 4px;
-}
-
-.summary-label {
-  font-size: 0.8rem;
-  color: #6c757d;
-  font-weight: 500;
-}
-
-.summary-value {
-  font-size: 1rem;
-  color: #176b3a;
-  font-weight: 600;
-}
-
-// Responsividade
+// Responsive design
 @media (max-width: 768px) {
-  .habits-chart {
-    padding: 16px;
-  }
-  
-  .bars-container {
-    height: 160px;
-    gap: 6px;
-  }
-  
-  .bar {
-    max-width: 25px;
-  }
-  
-  .habit-name {
-    font-size: 0.7rem;
-  }
-  
-  .habit-total {
-    font-size: 0.65rem;
-  }
-  
-  .summary-label {
-    font-size: 0.75rem;
-  }
-  
-  .summary-value {
-    font-size: 0.9rem;
+  .chart-wrapper {
+    height: 250px;
   }
 }
 
 @media (max-width: 480px) {
-  .habits-chart {
-    padding: 12px;
-  }
-  
-  .chart-title {
-    font-size: 1rem;
-    margin-bottom: 16px;
-  }
-  
-  .bars-container {
-    height: 140px;
-    gap: 4px;
-  }
-  
-  .bar {
-    max-width: 20px;
-  }
-  
-  .habit-icon {
-    font-size: 16px;
-  }
-  
-  .habit-name {
-    font-size: 0.65rem;
-  }
-  
-  .habit-total {
-    font-size: 0.6rem;
-  }
-  
-  .chart-summary {
-    flex-direction: column;
-    gap: 12px;
-  }
-  
-  .summary-item {
-    flex-direction: row;
-    justify-content: space-between;
+  .chart-wrapper {
+    height: 200px;
   }
 } 
