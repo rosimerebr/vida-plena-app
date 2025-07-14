@@ -21,6 +21,7 @@
 - [x] Interface para marcar hábitos como realizados
 - [x] **NOVO: Integração com backend para envio de hábitos**
 - [x] **NOVO: Método saveHabitWithBackendSync para sincronização local/backend**
+- [x] **NOVO: Padronização do botão de voltar na página habit-log para o mesmo estilo visual da página habit**
 
 ### Relatórios
 - [x] Implementação do serviço de relatórios (report.service.ts)

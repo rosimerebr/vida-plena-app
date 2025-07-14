@@ -1,7 +1,7 @@
 import { Component, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonIcon, IonToggle, IonButton } from '@ionic/angular/standalone';
+import { IonContent, IonIcon, IonToggle, IonButton, IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton } from '@ionic/angular/standalone';
 import { HabitService, HabitLog } from 'src/app/services/habit.service';
 import { Router } from '@angular/router';
 
@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './habit-log.page.html',
   styleUrls: ['./habit-log.page.scss'],
   standalone: true,
-  imports: [IonContent, CommonModule, FormsModule, IonIcon, IonToggle, IonButton]
+  imports: [IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent, CommonModule, FormsModule, IonIcon, IonToggle, IonButton]
 })
 export class HabitLogPage implements OnInit {
   today: string = '';
@@ -70,5 +70,9 @@ export class HabitLogPage implements OnInit {
         this.router.navigate(['/home']);
       }
     });
+  }
+
+  goBack() {
+    this.router.navigate(['/home']);
   }
 }

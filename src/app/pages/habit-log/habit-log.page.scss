@@ -118,6 +118,20 @@
     margin-top: 2px;
   }
   
+  .habit-back-btn {
+    position: absolute;
+    top: 18px;
+    left: 12px;
+    z-index: 10;
+  }
+  
+  .habit-back-btn ion-button {
+    --background: transparent;
+    --box-shadow: none;
+    font-size: 2rem;
+    padding: 0;
+  }
+  
 
   @media (max-width: 480px) {
     .habit-log-container {
