@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { IonButton, IonIcon } from '@ionic/angular/standalone';
+import { IonButton, IonIcon, IonContent } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { BarChartComponent, HabitData } from 'src/app/components/bar-chart/bar-chart.component';
 import { BibleService, BibleVerse } from 'src/app/services/bible.service';
@@ -11,7 +11,7 @@ import { Observable, shareReplay, map } from 'rxjs';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [IonButton, IonIcon, BarChartComponent]
+  imports: [IonButton, IonIcon, IonContent, BarChartComponent]
 })
 export class HomePage implements OnInit {
   weekData = [

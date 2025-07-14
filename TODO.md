@@ -63,6 +63,7 @@
 - [x] **NOVO: Logo maior na página welcome (160px → 140px → 120px)**
 - [x] **NOVO: Ícones posicionados mais abaixo na página welcome**
 - [x] **NOVO: Melhor espaçamento entre elementos**
+- [x] **NOVO: Adicionada barra de rolagem nativa na página Home com <ion-content> para melhor visualização do report**
 
 ## 🔄 Em Progresso
 
