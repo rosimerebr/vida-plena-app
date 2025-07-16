@@ -20,7 +20,7 @@ export class HabitLogPage implements OnInit {
     { name: 'Water', icon: 'water' },
     { name: 'Air', icon: 'leaf' },
     { name: 'Healthy Food', icon: 'restaurant' },
-    { name: 'Physical Exercise', icon: 'walk' },
+    { name: 'Exercise', icon: 'walk' },
     { name: 'Temperance', icon: 'scale' },
     { name: 'Rest', icon: 'moon' },
     { name: 'Trust in God', icon: 'heart-circle-outline' }
