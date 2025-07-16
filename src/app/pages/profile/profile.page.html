@@ -1,0 +1,26 @@
+<ion-content [fullscreen]="true">
+  <div class="profile-container">
+    <h2>My Profile</h2>
+    <div *ngIf="loading">Loading...</div>
+    <div *ngIf="error" class="error-message">{{ error }}</div>
+    <form *ngIf="!loading && !error">
+      <ion-item>
+        <ion-input label="Full name:" [(ngModel)]="user.fullName" name="fullName" placeholder="Enter your full name"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Email:" [(ngModel)]="user.email" name="email" type="email" placeholder="Enter your email"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Date of birth:" [(ngModel)]="user.dateOfBirth" name="dateOfBirth" placeholder="YYYY-MM-DD"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-input label="Weight (kg):" [(ngModel)]="user.weight" name="weight" type="number" placeholder="Enter your weight"></ion-input>
+      </ion-item>
+      <ion-button expand="block" color="success" (click)="onSave()" [disabled]="saving">
+        <ion-icon *ngIf="saving" name="refresh" class="ion-spin" slot="start"></ion-icon>
+        Save
+      </ion-button>
+      <div *ngIf="success" class="success-message">{{ success }}</div>
+    </form>
+  </div>
+</ion-content> 

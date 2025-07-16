@@ -5,6 +5,7 @@ import { BarChartComponent, HabitData } from 'src/app/components/bar-chart/bar-c
 import { BibleService, BibleVerse } from 'src/app/services/bible.service';
 import { ReportService } from 'src/app/services/report.service';
 import { Observable, shareReplay, map } from 'rxjs';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-home',
@@ -33,7 +34,8 @@ export class HomePage implements OnInit {
   constructor(
     private router: Router, 
     private bibleService: BibleService,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {
@@ -54,12 +56,16 @@ export class HomePage implements OnInit {
 
   loadWeeklyReport() {
     console.log('Loading weekly report...');
-    this.reportService.getWeeklyReport().subscribe({
+    const userId = this.authService.getUserIdFromToken();
+    if (!userId) {
+      console.error('Usuário não autenticado.');
+      this.useTestData();
+      return;
+    }
+    this.reportService.getWeeklyReport(userId).subscribe({
       next: (data) => {
         console.log('Weekly report received:', data);
         this.reportData = data;
-        
-        // Adicionar um pequeno delay para garantir que os dados sejam processados
         setTimeout(() => {
           this.processHabitsData(data);
           this.calculateStats(data);
@@ -68,7 +74,6 @@ export class HomePage implements OnInit {
       },
       error: (error) => {
         console.error('Error fetching weekly report:', error);
-        // Se houver erro, usar dados de teste
         this.useTestData();
       }
     });

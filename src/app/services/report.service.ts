@@ -7,7 +7,7 @@ import { environment } from '../../environments/environment';
 export class ReportService {
   constructor(private http: HttpClient) {}
 
-  getWeeklyReport(): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/report`);
+  getWeeklyReport(userId: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/report?userId=${userId}`);
   }
 }

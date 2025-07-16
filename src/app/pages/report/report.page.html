@@ -1,25 +1,47 @@
+<div class="report-back-btn">
+  <ion-button fill="clear" (click)="goBack()">
+    <ion-icon name="arrow-back-circle"></ion-icon>
+  </ion-button>
+</div>
 <ion-content [fullscreen]="true">
   <div class="report-main-container">
-    <div class="report-title">Report</div>
-    <div class="report-card">
-      <div class="report-bar-chart">
-        <div class="bar-group" *ngFor="let day of weekData">
-          <div class="bar" [style.height.%]="day.value * 12.5"></div>
-          <div class="bar-label">{{ day.label }}</div>
-        </div>
+    <div class="report-title">Weekly Report</div>
+    <div class="report-period">{{ period }}</div>
 
-        <app-bar-chart [weekData]="weekData"></app-bar-chart>
-      </div>
-      <div class="report-stats">
-        <div class="streak-row">
-          <ion-icon name="flame" class="streak-icon"></ion-icon>
-          <span class="streak-text">{{ streak }}-day streak</span>
+    <div *ngIf="loading" class="report-loading">
+      <ion-spinner name="crescent"></ion-spinner>
+      Loading report...
+    </div>
+    <div *ngIf="error" class="report-error">
+      {{ error }}
+    </div>
+    <ng-container *ngIf="!loading && !error">
+      <div class="report-card">
+        <div class="report-bar-chart-title">Habits completed this week</div>
+        <div class="report-bar-chart">
+          <ng-container *ngIf="habitsData && habitsData.length > 0; else noData">
+            <app-bar-chart [habitsData]="habitsData"></app-bar-chart>
+          </ng-container>
+          <ng-template #noData>
+            <div class="no-data-message">No habits registered this week.</div>
+          </ng-template>
         </div>
-        <div class="total-remedies">Total Remedies Completed: {{ totalCompleted }}</div>
       </div>
-    </div>
-    <div class="report-message-card">
-      Great job! Keep your<br />healthy habits strong
-    </div>
+      <div class="report-stats-card">
+        <div>
+          <ion-icon name="flame" class="streak-icon"></ion-icon>
+          <span class="streak-label">Streak:</span>
+          <span class="streak-value">{{ streak }} days</span>
+        </div>
+        <div>
+          <ion-icon name="checkmark-circle" class="stat-icon"></ion-icon>
+          <span class="stat-label">Total completed:</span>
+          <span class="stat-value">{{ totalCompleted }}</span>
+        </div>
+      </div>
+      <div class="report-message-card">
+        {{ motivationalMessage }}
+      </div>
+    </ng-container>
   </div>
-</ion-content>
+</ion-content> 

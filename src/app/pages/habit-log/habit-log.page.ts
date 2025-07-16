@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
   templateUrl: './habit-log.page.html',
   styleUrls: ['./habit-log.page.scss'],
   standalone: true,
-  imports: [IonHeader, IonToolbar, IonTitle, IonButtons, IonBackButton, IonContent, CommonModule, FormsModule, IonIcon, IonToggle, IonButton]
+  imports: [IonContent, CommonModule, FormsModule, IonIcon, IonToggle, IonButton]
 })
 export class HabitLogPage implements OnInit {
   today: string = '';

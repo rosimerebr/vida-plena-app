@@ -24,4 +24,15 @@ export class AuthService {
   }): Observable<any> {
     return this.http.post(`${this.apiUrl}/user`, userData);
   }
+
+  getUserIdFromToken(): string | null {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+    try {
+      const decoded: any = (window as any).jwt_decode ? (window as any).jwt_decode(token) : JSON.parse(atob(token.split('.')[1]));
+      return decoded.userId || decoded.sub || null;
+    } catch (e) {
+      return null;
+    }
+  }
 }
