@@ -34,4 +34,8 @@ export const routes: Routes = [
     path: 'habit-log',
     loadComponent: () => import('./pages/habit-log/habit-log.page').then( m => m.HabitLogPage)
   },
+  {
+    path: 'about',
+    loadComponent: () => import('./pages/about/about.page').then(m => m.AboutPage)
+  },
 ];
