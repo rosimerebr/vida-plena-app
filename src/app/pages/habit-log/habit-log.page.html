@@ -1,9 +1,17 @@
-<div class="habit-back-btn">
-  <ion-button fill="clear" (click)="goBack()">
-    <ion-icon name="arrow-back-circle"></ion-icon>
-  </ion-button>
-</div>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Habit Log</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content [fullscreen]="true">
+  <div class="habit-back-btn">
+    <ion-button fill="clear" (click)="goBack()">
+      <ion-icon name="arrow-back-circle"></ion-icon>
+    </ion-button>
+  </div>
   <div class="habit-log-container">
     <div class="habit-log-date">{{ displayDate }}</div>
     <div class="habit-log-list">

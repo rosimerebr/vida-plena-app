@@ -114,12 +114,12 @@ ion-menu ion-item[routerLink] {
   }
 }
 
-/* Melhorias de acessibilidade e usabilidade */
+/* Accessibility and usability improvements */
 * {
   box-sizing: border-box;
 }
 
-/* Melhorar legibilidade em telas pequenas */
+/* Improve readability on small screens */
 @media (max-width: 480px) {
   body {
     font-size: 14px;

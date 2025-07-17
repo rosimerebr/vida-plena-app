@@ -1,64 +1,11 @@
-<div class="logo-container">
-  <img src="assets/images/logo.png" alt="Logo Vida Plena" class="logo-img">
-</div>
-<div class="menu-container">
-  <div class="menu-grid">
-    <!-- First Row -->
-    <ion-button class="menu-item" fill="clear">
-      <div class="icon-container">
-        <ion-icon name="sunny" class="sunny-icon"></ion-icon>
-        <span>Sunlight</span>
-      </div>
-    </ion-button>
-
-    <ion-button class="menu-item" fill="clear">
-      <div class="icon-container">
-        <ion-icon name="water" class="water-icon"></ion-icon>
-        <span>Water</span>
-      </div>
-    </ion-button>
-
-    <ion-button class="menu-item" fill="clear">
-      <div class="icon-container">
-        <ion-icon name="leaf"></ion-icon>
-        <span>Air</span>
-      </div>
-    </ion-button>
-
-    <ion-button class="menu-item" fill="clear">
-      <div class="icon-container">
-        <ion-icon name="restaurant"></ion-icon>
-        <span>Healthy Food</span>
-      </div>
-    </ion-button>
-
-    <!-- Second Row -->
-    <ion-button class="menu-item" fill="clear">
-      <div class="icon-container">
-        <ion-icon name="walk"></ion-icon>
-        <span>Exercise</span>
-      </div>
-    </ion-button>
-
-    <ion-button class="menu-item" fill="clear">
-      <div class="icon-container">
-        <ion-icon name="scale"></ion-icon>
-        <span>Temperance</span>
-      </div>
-    </ion-button>
-
-    <ion-button class="menu-item" fill="clear">
-      <div class="icon-container">
-        <ion-icon name="moon" class="moon-icon"></ion-icon>
-        <span>Rest</span>
-      </div>
-    </ion-button>
-
-    <ion-button class="menu-item" fill="clear">
-      <div class="icon-container">
-        <ion-icon name="heart-circle-outline"></ion-icon>
-        <span>Trust in God</span>
-      </div>
-    </ion-button>
-  </div>
-</div>
+<ion-toolbar>
+  <ion-img slot="start" src="assets/images/logo.png" style="width:40px; height:40px; margin-right:8px;"></ion-img>
+  <ion-title>Vida Plena</ion-title>
+  <ion-buttons slot="end">
+    <ion-button routerLink="/home">Home</ion-button>
+    <ion-button routerLink="/habit">Habit</ion-button>
+    <ion-button routerLink="/habit-log">Habit Log</ion-button>
+    <ion-button routerLink="/report">Report</ion-button>
+    <ion-button routerLink="/about">About</ion-button>
+  </ion-buttons>
+</ion-toolbar>

@@ -1,47 +1,84 @@
-<div class="report-back-btn">
-  <ion-button fill="clear" (click)="goBack()">
-    <ion-icon name="arrow-back-circle"></ion-icon>
-  </ion-button>
-</div>
-<ion-content [fullscreen]="true">
-  <div class="report-main-container">
-    <div class="report-title">Weekly Report</div>
-    <div class="report-period">{{ period }}</div>
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Report</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-    <div *ngIf="loading" class="report-loading">
-      <ion-spinner name="crescent"></ion-spinner>
-      Loading report...
-    </div>
-    <div *ngIf="error" class="report-error">
-      {{ error }}
-    </div>
-    <ng-container *ngIf="!loading && !error">
-      <div class="report-card">
-        <div class="report-bar-chart-title">Habits completed this week</div>
-        <div class="report-bar-chart">
-          <ng-container *ngIf="habitsData && habitsData.length > 0; else noData">
-            <app-bar-chart [habitsData]="habitsData"></app-bar-chart>
-          </ng-container>
-          <ng-template #noData>
-            <div class="no-data-message">No habits registered this week.</div>
-          </ng-template>
-        </div>
-      </div>
-      <div class="report-stats-card">
-        <div>
-          <ion-icon name="flame" class="streak-icon"></ion-icon>
-          <span class="streak-label">Streak:</span>
-          <span class="streak-value">{{ streak }} days</span>
-        </div>
-        <div>
-          <ion-icon name="checkmark-circle" class="stat-icon"></ion-icon>
-          <span class="stat-label">Total completed:</span>
-          <span class="stat-value">{{ totalCompleted }}</span>
-        </div>
-      </div>
-      <div class="report-message-card">
-        {{ motivationalMessage }}
-      </div>
-    </ng-container>
-  </div>
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="report-top-row" justify-content-center>
+      <ion-col size="12" size-md="4">
+        <ion-card class="report-top-card streak-card">
+          <ion-card-header>
+            <ion-icon name="flame" size="large"></ion-icon>
+            <ion-card-title>Streak</ion-card-title>
+            <ion-chip *ngIf="streak >= 7" color="warning" style="margin-left:8px;">
+              <ion-icon name="star"></ion-icon>
+              {{ streak >= 30 ? 'Incrível! 30+ dias!' : 'Ótimo progresso!' }}
+            </ion-chip>
+          </ion-card-header>
+          <ion-card-content>
+            <h2>{{ streak }} days</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-md="4">
+        <ion-card class="report-top-card">
+          <ion-card-header>
+            <ion-icon name="checkmark-circle" size="large"></ion-icon>
+            <ion-card-title>Complete</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <h2>{{ totalCompleted }}</h2>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col size="12" size-md="4">
+        <ion-card class="report-top-card">
+          <ion-card-header>
+            <ion-card-title>Motivational Message</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <p style="font-size:1.2em;">
+              <span *ngIf="streak >= 7">🔥</span>
+              {{ motivationalMessage }}
+            </p>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Habits completed this week</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ng-container *ngIf="habitsData && habitsData.length > 0; else noData">
+              <app-bar-chart [habitsData]="habitsData"></app-bar-chart>
+            </ng-container>
+            <ng-template #noData>
+              <div class="no-data-message">No habits registered this week.</div>
+            </ng-template>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="12">
+        <ion-card>
+          <ion-card-header>
+            <ion-card-title>Monthly progress</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-progress-bar value="{{ streak / 30 }}" color="success"></ion-progress-bar>
+            <div style="margin-top:8px;">Current streak: {{ streak }} 30 days</div>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content> 

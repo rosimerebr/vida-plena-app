@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonIcon, IonButton, IonSpinner } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton, IonContent, IonIcon, IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonProgressBar, IonChip } from '@ionic/angular/standalone';
 import { BarChartComponent, HabitData } from 'src/app/components/bar-chart/bar-chart.component';
 import { ReportService } from 'src/app/services/report.service';
 import { AuthService } from 'src/app/services/auth.service';
@@ -11,7 +11,11 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './report.page.html',
   styleUrls: ['./report.page.scss'],
   standalone: true,
-  imports: [IonContent, CommonModule, FormsModule, IonIcon, IonButton, IonSpinner, BarChartComponent]
+  imports: [
+    IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton, IonContent, IonIcon,
+    IonGrid, IonRow, IonCol, IonCard, IonCardHeader, IonCardTitle, IonCardContent, IonProgressBar, IonChip,
+    BarChartComponent, CommonModule, FormsModule
+  ]
 })
 export class ReportPage implements OnInit {
   loading = true;

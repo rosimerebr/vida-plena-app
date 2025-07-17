@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { IonButton, IonIcon, IonContent } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton, IonContent, IonIcon, IonButton } from '@ionic/angular/standalone';
+import { MainMenuComponent } from 'src/app/components/main-menu/main-menu.component';
 import { Router } from '@angular/router';
 import { BarChartComponent, HabitData } from 'src/app/components/bar-chart/bar-chart.component';
 import { BibleService, BibleVerse } from 'src/app/services/bible.service';
@@ -12,7 +13,7 @@ import { AuthService } from 'src/app/services/auth.service';
   templateUrl: './home.page.html',
   styleUrls: ['./home.page.scss'],
   standalone: true,
-  imports: [IonButton, IonIcon, IonContent, BarChartComponent]
+  imports: [IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton, IonContent, IonIcon, IonButton, BarChartComponent]
 })
 export class HomePage implements OnInit {
   weekData = [
@@ -58,7 +59,7 @@ export class HomePage implements OnInit {
     console.log('Loading weekly report...');
     const userId = this.authService.getUserIdFromToken();
     if (!userId) {
-      console.error('Usuário não autenticado.');
+      console.error('Unauthenticated user.');
       this.useTestData();
       return;
     }

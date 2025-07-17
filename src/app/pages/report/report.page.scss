@@ -136,6 +136,31 @@
   text-align: center;
 }
 
+.motivational-card {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+.report-top-row {
+  margin-bottom: 24px;
+  justify-content: center;
+}
+
+.report-top-card {
+  max-width: 400px;
+  min-height: 140px;
+  margin: 0 auto 16px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+}
+
+.streak-card {
+  --ion-card-background: #c3dab1;
+ 
+}
+
 @media (max-width: 600px) {
   .report-card {
     padding: 20px 6px 12px 6px;

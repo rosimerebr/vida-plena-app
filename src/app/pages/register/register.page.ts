@@ -69,7 +69,7 @@ export class RegisterPage implements OnInit {
     // Validação dos campos obrigatórios
     if (!this.fullName || !this.email || !this.password || !this.dob) {
       const errorToast = await this.toastController.create({
-        message: 'Por favor, preencha todos os campos obrigatórios.',
+        message: 'PPlease fill in all required fields.',
         duration: 2000,
         color: 'danger',
         position: 'top'
@@ -81,7 +81,7 @@ export class RegisterPage implements OnInit {
     // Validar formato da data
     if (this.dob.length !== 8) { // DD/MM/YY = 8 caracteres
       const errorToast = await this.toastController.create({
-        message: 'Por favor, insira uma data válida no formato DD/MM/YY.',
+        message: 'Please enter a valid date in DD/MM/YY format.',
         duration: 2000,
         color: 'danger',
         position: 'top'
@@ -102,9 +102,9 @@ export class RegisterPage implements OnInit {
     // Chamar o serviço de registro
     this.authService.register(userData).subscribe({
       next: async (response) => {
-        console.log('Usuário registrado com sucesso:', response);
+        console.log('User registered successfully:', response);
         const toast = await this.toastController.create({
-          message: 'Cadastro realizado com sucesso!',
+          message: 'Registration completed successfully!',
           duration: 2000,
           color: 'success',
           position: 'top'
@@ -115,15 +115,15 @@ export class RegisterPage implements OnInit {
         }, 2000);
       },
       error: async (error) => {
-        console.error('Erro no registro:', error);
-        let errorMessage = 'Erro ao realizar cadastro.';
+        console.error('Error in registration:', error);
+        let errorMessage = 'Error when registering.';
         
         if (error.error?.message) {
           errorMessage = error.error.message;
         } else if (error.status === 409) {
-          errorMessage = 'Este e-mail já está cadastrado.';
+          errorMessage = 'This email is already registered.';
         } else if (error.status === 0) {
-          errorMessage = 'Erro de conexão. Verifique se o backend está rodando.';
+          errorMessage = 'Connection error. Check if the backend is running.';
         }
 
         const errorToast = await this.toastController.create({
