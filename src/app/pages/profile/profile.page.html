@@ -1,4 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
 <ion-content [fullscreen]="true">
+  <div class="profile-back-btn">
+    <ion-button fill="clear" (click)="goBack()">
+      <ion-icon name="arrow-back-circle"></ion-icon>
+    </ion-button>
+  </div>
   <div class="profile-container">
     <h2>My Profile</h2>
     <div *ngIf="loading">Loading...</div>
@@ -22,5 +35,13 @@
       </ion-button>
       <div *ngIf="success" class="success-message">{{ success }}</div>
     </form>
+    <ion-button expand="block" color="medium" (click)="onChangePassword()" style="margin-top: 16px;">
+      <ion-icon name="key-outline" slot="start"></ion-icon>
+      Change password
+    </ion-button>
+    <ion-button expand="block" color="danger" (click)="onLogout()" style="margin-top: 8px;">
+      <ion-icon name="log-out-outline" slot="start"></ion-icon>
+      Logout
+    </ion-button>
   </div>
 </ion-content> 

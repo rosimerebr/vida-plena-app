@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonItem, IonInput, IonButton, IonIcon } from '@ionic/angular/standalone';
+import { IonContent, IonItem, IonInput, IonButton, IonIcon, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from '@ionic/angular/standalone';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 interface UserProfile {
   fullName: string;
@@ -17,7 +18,7 @@ interface UserProfile {
   templateUrl: './profile.page.html',
   styleUrls: ['./profile.page.scss'],
   standalone: true,
-  imports: [IonContent, CommonModule, FormsModule, IonItem, IonInput, IonButton, IonIcon]
+  imports: [IonContent, CommonModule, FormsModule, IonItem, IonInput, IonButton, IonIcon, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle]
 })
 export class ProfilePage implements OnInit {
   user: UserProfile = { fullName: '', email: '', dateOfBirth: '', weight: 0 };
@@ -26,7 +27,7 @@ export class ProfilePage implements OnInit {
   error = '';
   success = '';
 
-  constructor(private authService: AuthService, private userService: UserService) {}
+  constructor(private authService: AuthService, private userService: UserService, private router: Router) {}
 
   ngOnInit() {
     const userId = this.authService.getUserIdFromToken();
@@ -89,5 +90,20 @@ export class ProfilePage implements OnInit {
         this.saving = false;
       }
     });
+  }
+
+  onLogout() {
+    // Chama o serviço de logout e redireciona para login
+    this.authService.logout();
+    window.location.href = '/login';
+  }
+
+  onChangePassword() {
+    // Exibe um alerta ou redireciona para uma página de alteração de senha
+    alert('Funcionalidade de alteração de senha em breve!');
+  }
+
+  goBack() {
+    this.router.navigate(['/home']);
   }
 } 
