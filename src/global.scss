@@ -81,6 +81,10 @@ ion-content {
   --background: #D7F1C3; 
 }
 
+ion-menu ion-item[routerLink] {
+  cursor: pointer !important;
+}
+
 /* Responsividade Global */
 @media (max-width: 768px) {
   ion-icon {
