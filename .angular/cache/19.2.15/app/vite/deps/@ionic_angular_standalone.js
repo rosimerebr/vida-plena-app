@@ -1,4 +1,15 @@
 import {
+  isRTL
+} from "./chunk-EUT5B6DW.js";
+import {
+  KEYBOARD_DID_OPEN
+} from "./chunk-XHHRHLWL.js";
+import {
+  Keyboard,
+  KeyboardResize,
+  getCapacitor
+} from "./chunk-M5FIGEAW.js";
+import {
   ION_CONTENT_CLASS_SELECTOR,
   ION_CONTENT_ELEMENT_SELECTOR,
   disableContentScrollY,
@@ -12,17 +23,6 @@ import {
 import {
   startFocusVisible
 } from "./chunk-7Q5HCUSL.js";
-import {
-  isRTL
-} from "./chunk-EUT5B6DW.js";
-import {
-  KEYBOARD_DID_OPEN
-} from "./chunk-XHHRHLWL.js";
-import {
-  Keyboard,
-  KeyboardResize,
-  getCapacitor
-} from "./chunk-M5FIGEAW.js";
 import {
   AngularDelegate,
   BACKDROP,
@@ -86,13 +86,16 @@ import {
   setIonicClasses,
   setOverlayId,
   toastController
-} from "./chunk-XTTG7QUG.js";
+} from "./chunk-OW57JJ2B.js";
+import {
+  NG_VALUE_ACCESSOR
+} from "./chunk-JVVWIBB6.js";
 import {
   iosTransitionAnimation
-} from "./chunk-4QRQDTOV.js";
+} from "./chunk-LT5FKXFG.js";
 import {
   mdTransitionAnimation
-} from "./chunk-Y4DWUSOB.js";
+} from "./chunk-GC6AVRV6.js";
 import {
   LIFECYCLE_DID_LEAVE,
   LIFECYCLE_WILL_LEAVE,
@@ -103,7 +106,7 @@ import {
   setPageHidden,
   transition,
   waitForMount
-} from "./chunk-QWT3EWU6.js";
+} from "./chunk-TRJZULQP.js";
 import {
   Build,
   Fragment,
@@ -143,34 +146,31 @@ import {
 } from "./chunk-BF4AXLRD.js";
 import {
   shouldUseCloseWatcher
-} from "./chunk-XM6BCPTN.js";
+} from "./chunk-S4JCOTKF.js";
+import {
+  doc,
+  win
+} from "./chunk-44IZU6OF.js";
 import {
   config,
   printIonError,
   printIonWarning
 } from "./chunk-CBIR4FRL.js";
 import {
-  doc,
-  win
-} from "./chunk-44IZU6OF.js";
-import {
-  NG_VALUE_ACCESSOR
-} from "./chunk-7JHFWUDJ.js";
-import {
   ActivatedRoute,
   Router
-} from "./chunk-U23BEHC6.js";
-import "./chunk-M7I6GFXP.js";
-import "./chunk-5UFCX5FM.js";
+} from "./chunk-HEJOEK2Q.js";
+import "./chunk-HYLHGUX6.js";
 import {
   CommonModule,
   Location,
   NgIf,
   NgTemplateOutlet
-} from "./chunk-5WDROKZS.js";
+} from "./chunk-CULO5UQC.js";
+import "./chunk-WO2BFLBX.js";
 import {
   DOCUMENT
-} from "./chunk-QOQ3QR2B.js";
+} from "./chunk-WXGLU2G4.js";
 import {
   APP_INITIALIZER,
   Attribute,
@@ -1464,7 +1464,7 @@ var iosEnterAnimation = (baseEl, opts) => {
     baseAnimation.addAnimation(contentAnimation);
   }
   if (presentingEl) {
-    const isMobile = window.innerWidth < 768;
+    const isPortrait = window.innerWidth < 768;
     const hasCardModal = presentingEl.tagName === "ION-MODAL" && presentingEl.presentingElement !== void 0;
     const presentingElRoot = getElementRoot(presentingEl);
     const presentingAnimation = createAnimation().beforeStyles({
@@ -1473,7 +1473,7 @@ var iosEnterAnimation = (baseEl, opts) => {
       overflow: "hidden"
     });
     const bodyEl = document.body;
-    if (isMobile) {
+    if (isPortrait) {
       const transformOffset = !CSS.supports("width", "max(0px, 1px)") ? "30px" : "max(30px, var(--ion-safe-area-top))";
       const modalTransform = hasCardModal ? "-10px" : transformOffset;
       const toPresentingScale = SwipeToCloseDefaults.MIN_PRESENTING_SCALE;
@@ -1553,7 +1553,7 @@ var iosLeaveAnimation = (baseEl, opts, duration = 500) => {
   });
   const baseAnimation = createAnimation("leaving-base").addElement(baseEl).easing("cubic-bezier(0.32,0.72,0,1)").duration(duration).addAnimation(wrapperAnimation);
   if (presentingEl) {
-    const isMobile = window.innerWidth < 768;
+    const isPortrait = window.innerWidth < 768;
     const hasCardModal = presentingEl.tagName === "ION-MODAL" && presentingEl.presentingElement !== void 0;
     const presentingElRoot = getElementRoot(presentingEl);
     const presentingAnimation = createAnimation().beforeClearStyles(["transform"]).afterClearStyles(["transform"]).onFinish((currentStep) => {
@@ -1567,7 +1567,7 @@ var iosLeaveAnimation = (baseEl, opts, duration = 500) => {
       }
     });
     const bodyEl = document.body;
-    if (isMobile) {
+    if (isPortrait) {
       const transformOffset = !CSS.supports("width", "max(0px, 1px)") ? "30px" : "max(30px, var(--ion-safe-area-top))";
       const modalTransform = hasCardModal ? "-10px" : transformOffset;
       const toPresentingScale = SwipeToCloseDefaults.MIN_PRESENTING_SCALE;
@@ -1618,6 +1618,106 @@ var iosLeaveAnimation = (baseEl, opts, duration = 500) => {
     }
   } else {
     baseAnimation.addAnimation(backdropAnimation);
+  }
+  return baseAnimation;
+};
+var portraitToLandscapeTransition = (baseEl, opts, duration = 300) => {
+  const {
+    presentingEl
+  } = opts;
+  if (!presentingEl) {
+    return createAnimation("portrait-to-landscape-transition");
+  }
+  const presentingElIsCardModal = presentingEl.tagName === "ION-MODAL" && presentingEl.presentingElement !== void 0;
+  const presentingElRoot = getElementRoot(presentingEl);
+  const bodyEl = document.body;
+  const baseAnimation = createAnimation("portrait-to-landscape-transition").addElement(baseEl).easing("cubic-bezier(0.32,0.72,0,1)").duration(duration);
+  const presentingAnimation = createAnimation().beforeStyles({
+    transform: "translateY(0)",
+    "transform-origin": "top center",
+    overflow: "hidden"
+  });
+  if (!presentingElIsCardModal) {
+    const root = getElementRoot(baseEl);
+    const wrapperAnimation = createAnimation().addElement(root.querySelectorAll(".modal-wrapper, .modal-shadow")).fromTo("opacity", "1", "1");
+    const backdropAnimation = createAnimation().addElement(root.querySelector("ion-backdrop")).fromTo("opacity", "var(--backdrop-opacity)", "var(--backdrop-opacity)");
+    const transformOffset = !CSS.supports("width", "max(0px, 1px)") ? "30px" : "max(30px, var(--ion-safe-area-top))";
+    const toPresentingScale = SwipeToCloseDefaults.MIN_PRESENTING_SCALE;
+    const fromTransform = `translateY(${transformOffset}) scale(${toPresentingScale})`;
+    presentingAnimation.addElement(presentingEl).afterStyles({
+      transform: "translateY(0px) scale(1)",
+      "border-radius": "0px"
+    }).beforeAddWrite(() => bodyEl.style.setProperty("background-color", "")).fromTo("transform", fromTransform, "translateY(0px) scale(1)").fromTo("filter", "contrast(0.85)", "contrast(1)").fromTo("border-radius", "10px 10px 0 0", "0px");
+    baseAnimation.addAnimation([presentingAnimation, wrapperAnimation, backdropAnimation]);
+  } else {
+    const toPresentingScale = SwipeToCloseDefaults.MIN_PRESENTING_SCALE;
+    const fromTransform = `translateY(-10px) scale(${toPresentingScale})`;
+    const toTransform = `translateY(0px) scale(1)`;
+    presentingAnimation.addElement(presentingEl).afterStyles({
+      transform: toTransform
+    }).fromTo("transform", fromTransform, toTransform).fromTo("filter", "contrast(0.85)", "contrast(1)");
+    const shadowAnimation = createAnimation().addElement(presentingElRoot.querySelector(".modal-shadow")).afterStyles({
+      transform: toTransform,
+      opacity: "0"
+    }).fromTo("transform", fromTransform, toTransform);
+    baseAnimation.addAnimation([presentingAnimation, shadowAnimation]);
+  }
+  return baseAnimation;
+};
+var landscapeToPortraitTransition = (baseEl, opts, duration = 300) => {
+  const {
+    presentingEl
+  } = opts;
+  if (!presentingEl) {
+    return createAnimation("landscape-to-portrait-transition");
+  }
+  const presentingElIsCardModal = presentingEl.tagName === "ION-MODAL" && presentingEl.presentingElement !== void 0;
+  const presentingElRoot = getElementRoot(presentingEl);
+  const bodyEl = document.body;
+  const baseAnimation = createAnimation("landscape-to-portrait-transition").addElement(baseEl).easing("cubic-bezier(0.32,0.72,0,1)").duration(duration);
+  const presentingAnimation = createAnimation().beforeStyles({
+    transform: "translateY(0)",
+    "transform-origin": "top center",
+    overflow: "hidden"
+  });
+  if (!presentingElIsCardModal) {
+    const root = getElementRoot(baseEl);
+    const wrapperAnimation = createAnimation().addElement(root.querySelectorAll(".modal-wrapper, .modal-shadow")).fromTo("opacity", "1", "1");
+    const backdropAnimation = createAnimation().addElement(root.querySelector("ion-backdrop")).fromTo("opacity", "var(--backdrop-opacity)", "var(--backdrop-opacity)");
+    const transformOffset = !CSS.supports("width", "max(0px, 1px)") ? "30px" : "max(30px, var(--ion-safe-area-top))";
+    const toPresentingScale = SwipeToCloseDefaults.MIN_PRESENTING_SCALE;
+    const toTransform = `translateY(${transformOffset}) scale(${toPresentingScale})`;
+    presentingAnimation.addElement(presentingEl).afterStyles({
+      transform: toTransform
+    }).beforeAddWrite(() => bodyEl.style.setProperty("background-color", "black")).keyframes([{
+      offset: 0,
+      transform: "translateY(0px) scale(1)",
+      filter: "contrast(1)",
+      borderRadius: "0px"
+    }, {
+      offset: 0.2,
+      transform: "translateY(0px) scale(1)",
+      filter: "contrast(1)",
+      borderRadius: "10px 10px 0 0"
+    }, {
+      offset: 1,
+      transform: toTransform,
+      filter: "contrast(0.85)",
+      borderRadius: "10px 10px 0 0"
+    }]);
+    baseAnimation.addAnimation([presentingAnimation, wrapperAnimation, backdropAnimation]);
+  } else {
+    const toPresentingScale = SwipeToCloseDefaults.MIN_PRESENTING_SCALE;
+    const fromTransform = `translateY(-10px) scale(${toPresentingScale})`;
+    const toTransform = `translateY(0) scale(1)`;
+    presentingAnimation.addElement(presentingEl).afterStyles({
+      transform: toTransform
+    }).fromTo("transform", fromTransform, toTransform);
+    const shadowAnimation = createAnimation().addElement(presentingElRoot.querySelector(".modal-shadow")).afterStyles({
+      transform: toTransform,
+      opacity: "0"
+    }).fromTo("transform", fromTransform, toTransform);
+    baseAnimation.addAnimation([presentingAnimation, shadowAnimation]);
   }
   return baseAnimation;
 };
@@ -2061,6 +2161,27 @@ var Modal = proxyCustomElement(class Modal2 extends H {
         el.dispatchEvent(ev);
       }
     };
+    this.onModalFocus = (ev) => {
+      const {
+        dragHandleEl,
+        el
+      } = this;
+      if (ev.target === el && dragHandleEl && dragHandleEl.tabIndex !== -1) {
+        dragHandleEl.focus();
+      }
+    };
+    this.onSlotChange = ({
+      target
+    }) => {
+      const slot = target;
+      slot.assignedElements().forEach((el) => {
+        el.querySelectorAll("ion-modal").forEach((childModal) => {
+          if (childModal.getAttribute("data-parent-ion-modal") === null) {
+            childModal.setAttribute("data-parent-ion-modal", this.el.id);
+          }
+        });
+      });
+    };
   }
   onIsOpenChange(newValue, oldValue) {
     if (newValue === true && oldValue === false) {
@@ -2079,6 +2200,15 @@ var Modal = proxyCustomElement(class Modal2 extends H {
       triggerController.addClickListener(el, trigger);
     }
   }
+  onWindowResize() {
+    if (getIonMode(this) !== "ios" || !this.presentingElement || this.enterAnimation || this.leaveAnimation) {
+      return;
+    }
+    clearTimeout(this.resizeTimeout);
+    this.resizeTimeout = setTimeout(() => {
+      this.handleViewTransition();
+    }, 50);
+  }
   breakpointsChanged(breakpoints) {
     if (breakpoints !== void 0) {
       this.sortedBreakpoints = breakpoints.sort((a, b) => a - b);
@@ -2093,6 +2223,8 @@ var Modal = proxyCustomElement(class Modal2 extends H {
   }
   disconnectedCallback() {
     this.triggerController.removeClickListener();
+    this.cleanupViewTransitionListener();
+    this.cleanupParentRemovalObserver();
   }
   componentWillLoad() {
     var _a;
@@ -2105,6 +2237,9 @@ var Modal = proxyCustomElement(class Modal2 extends H {
     const isSheetModal = this.isSheetModal = breakpoints !== void 0 && initialBreakpoint !== void 0;
     const attributesToInherit = ["aria-label", "role"];
     this.inheritedAttributes = inheritAttributes(el, attributesToInherit);
+    if (el.parentNode) {
+      this.cachedOriginalParent = el.parentNode;
+    }
     if (htmlAttributes !== void 0) {
       attributesToInherit.forEach((attribute) => {
         const attributeValue = htmlAttributes[attribute];
@@ -2229,6 +2364,8 @@ var Modal = proxyCustomElement(class Modal2 extends H {
       } else if (hasCardModal) {
         this.initSwipeToClose();
       }
+      this.initViewTransitionListener();
+      this.initParentRemovalObserver();
       unlock();
     });
   }
@@ -2309,13 +2446,13 @@ var Modal = proxyCustomElement(class Modal2 extends H {
   }
   /**
    * Dismiss the modal overlay after it has been presented.
-   *
-   * @param data Any data to emit in the dismiss events.
-   * @param role The role of the element that is dismissing the modal. For example, 'cancel' or 'backdrop'.
-   *
    * This is a no-op if the overlay has not been presented yet. If you want
    * to remove an overlay from the DOM that was never presented, use the
    * [remove](https://developer.mozilla.org/en-US/docs/Web/API/Element/remove) method.
+   *
+   * @param data Any data to emit in the dismiss events.
+   * @param role The role of the element that is dismissing the modal.
+   * For example, `cancel` or `backdrop`.
    */
   dismiss(data, role) {
     return __async(this, null, function* () {
@@ -2324,6 +2461,7 @@ var Modal = proxyCustomElement(class Modal2 extends H {
         return false;
       }
       const unlock = yield this.lockController.lock();
+      yield this.dismissNestedModals();
       if (role !== "handler" && !(yield this.checkCanDismiss(data, role))) {
         unlock();
         return false;
@@ -2357,6 +2495,8 @@ var Modal = proxyCustomElement(class Modal2 extends H {
         if (this.gesture) {
           this.gesture.destroy();
         }
+        this.cleanupViewTransitionListener();
+        this.cleanupParentRemovalObserver();
       }
       this.currentBreakpoint = void 0;
       this.animation = void 0;
@@ -2377,8 +2517,10 @@ var Modal = proxyCustomElement(class Modal2 extends H {
     return eventMethod(this.el, "ionModalWillDismiss");
   }
   /**
-   * Move a sheet style modal to a specific breakpoint. The breakpoint value must
-   * be a value defined in your `breakpoints` array.
+   * Move a sheet style modal to a specific breakpoint.
+   *
+   * @param breakpoint The breakpoint value to move the sheet modal to.
+   * Must be a value defined in your `breakpoints` array.
    */
   setCurrentBreakpoint(breakpoint) {
     return __async(this, null, function* () {
@@ -2437,6 +2579,139 @@ var Modal = proxyCustomElement(class Modal2 extends H {
       return true;
     });
   }
+  initViewTransitionListener() {
+    if (getIonMode(this) !== "ios" || !this.presentingElement || this.enterAnimation || this.leaveAnimation) {
+      return;
+    }
+    this.currentViewIsPortrait = window.innerWidth < 768;
+  }
+  handleViewTransition() {
+    const isPortrait = window.innerWidth < 768;
+    if (this.currentViewIsPortrait === isPortrait) {
+      return;
+    }
+    if (this.viewTransitionAnimation) {
+      this.viewTransitionAnimation.destroy();
+      this.viewTransitionAnimation = void 0;
+    }
+    const {
+      presentingElement
+    } = this;
+    if (!presentingElement) {
+      return;
+    }
+    let transitionAnimation;
+    if (this.currentViewIsPortrait && !isPortrait) {
+      transitionAnimation = portraitToLandscapeTransition(this.el, {
+        presentingEl: presentingElement
+      });
+    } else {
+      transitionAnimation = landscapeToPortraitTransition(this.el, {
+        presentingEl: presentingElement
+      });
+    }
+    this.currentViewIsPortrait = isPortrait;
+    this.viewTransitionAnimation = transitionAnimation;
+    transitionAnimation.play().then(() => {
+      this.viewTransitionAnimation = void 0;
+      this.reinitSwipeToClose();
+    });
+  }
+  cleanupViewTransitionListener() {
+    if (this.resizeTimeout) {
+      clearTimeout(this.resizeTimeout);
+      this.resizeTimeout = void 0;
+    }
+    if (this.viewTransitionAnimation) {
+      this.viewTransitionAnimation.destroy();
+      this.viewTransitionAnimation = void 0;
+    }
+  }
+  reinitSwipeToClose() {
+    if (getIonMode(this) !== "ios" || !this.presentingElement) {
+      return;
+    }
+    if (this.gesture) {
+      this.gesture.destroy();
+      this.gesture = void 0;
+    }
+    if (this.animation) {
+      this.animation.progressEnd(0, 0, 0);
+      this.animation.destroy();
+      this.animation = void 0;
+    }
+    raf(() => {
+      this.ensureCorrectModalPosition();
+      this.initSwipeToClose();
+    });
+  }
+  ensureCorrectModalPosition() {
+    const {
+      el,
+      presentingElement
+    } = this;
+    const root = getElementRoot(el);
+    const wrapperEl = root.querySelector(".modal-wrapper");
+    if (wrapperEl) {
+      wrapperEl.style.transform = "translateY(0vh)";
+      wrapperEl.style.opacity = "1";
+    }
+    if ((presentingElement === null || presentingElement === void 0 ? void 0 : presentingElement.tagName) === "ION-MODAL") {
+      const isPortrait = window.innerWidth < 768;
+      if (isPortrait) {
+        const transformOffset = !CSS.supports("width", "max(0px, 1px)") ? "30px" : "max(30px, var(--ion-safe-area-top))";
+        const scale = SwipeToCloseDefaults.MIN_PRESENTING_SCALE;
+        presentingElement.style.transform = `translateY(${transformOffset}) scale(${scale})`;
+      } else {
+        presentingElement.style.transform = "translateY(0px) scale(1)";
+      }
+    }
+  }
+  dismissNestedModals() {
+    return __async(this, null, function* () {
+      const nestedModals = document.querySelectorAll(`ion-modal[data-parent-ion-modal="${this.el.id}"]`);
+      nestedModals === null || nestedModals === void 0 ? void 0 : nestedModals.forEach((modal) => __async(this, null, function* () {
+        yield modal.dismiss(void 0, "parent-dismissed");
+      }));
+    });
+  }
+  initParentRemovalObserver() {
+    if (typeof MutationObserver === "undefined") {
+      return;
+    }
+    if (typeof window === "undefined" || !this.cachedOriginalParent) {
+      return;
+    }
+    if (this.cachedOriginalParent.nodeType === Node.DOCUMENT_NODE || this.cachedOriginalParent.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
+      return;
+    }
+    this.parentRemovalObserver = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === "childList" && mutation.removedNodes.length > 0) {
+          const cachedParentWasRemoved = Array.from(mutation.removedNodes).some((node) => {
+            var _a, _b;
+            const isDirectMatch = node === this.cachedOriginalParent;
+            const isContainedMatch = this.cachedOriginalParent ? (_b = (_a = node).contains) === null || _b === void 0 ? void 0 : _b.call(_a, this.cachedOriginalParent) : false;
+            return isDirectMatch || isContainedMatch;
+          });
+          const cachedParentDisconnected = this.cachedOriginalParent && !this.cachedOriginalParent.isConnected;
+          if (cachedParentWasRemoved || cachedParentDisconnected) {
+            this.dismiss(void 0, "parent-removed");
+            this.cachedOriginalParent = void 0;
+          }
+        }
+      });
+    });
+    this.parentRemovalObserver.observe(document.body, {
+      childList: true,
+      subtree: true
+    });
+  }
+  cleanupParentRemovalObserver() {
+    var _a;
+    (_a = this.parentRemovalObserver) === null || _a === void 0 ? void 0 : _a.disconnect();
+    this.parentRemovalObserver = void 0;
+  }
   render() {
     const {
       handle,
@@ -2452,10 +2727,12 @@ var Modal = proxyCustomElement(class Modal2 extends H {
     const mode = getIonMode(this);
     const isCardModal = presentingElement !== void 0 && mode === "ios";
     const isHandleCycle = handleBehavior === "cycle";
+    const isSheetModalWithHandle = isSheetModal && showHandle;
     return h(Host, Object.assign({
-      key: "0bcbdcfcd7d890eb599da3f97f21c317d34f8e0e",
+      key: "9e9a7bd591eb17a225a00b4fa2e379e94601d17f",
       "no-router": true,
-      tabindex: "-1"
+      // Allow the modal to be navigable when the handle is focusable
+      tabIndex: isHandleCycle && isSheetModalWithHandle ? 0 : -1
     }, htmlAttributes, {
       style: {
         zIndex: `${2e4 + this.overlayIndex}`
@@ -2473,18 +2750,19 @@ var Modal = proxyCustomElement(class Modal2 extends H {
       onIonModalDidPresent: this.onLifecycle,
       onIonModalWillPresent: this.onLifecycle,
       onIonModalWillDismiss: this.onLifecycle,
-      onIonModalDidDismiss: this.onLifecycle
+      onIonModalDidDismiss: this.onLifecycle,
+      onFocus: this.onModalFocus
     }), h("ion-backdrop", {
-      key: "d72159e73daa5af7349aa9e8f695aa435eb43069",
+      key: "e5eae2c14f830f75e308fcd7f4c10c86fac5b962",
       ref: (el) => this.backdropEl = el,
       visible: this.showBackdrop,
       tappable: this.backdropDismiss,
       part: "backdrop"
     }), mode === "ios" && h("div", {
-      key: "fd2d9b13676ae72473881649a397b6eacde03a03",
+      key: "e268f9cd310c3cf4e051b5b92524ce4fb70d005e",
       class: "modal-shadow"
     }), h("div", Object.assign({
-      key: "908eccb1ad982dcde2dbcff0cbb18b6e60f8ba74",
+      key: "9c380f36c18144c153077b15744d1c3346bce63e",
       /*
         role and aria-modal must be used on the
         same element. They must also be set inside the
@@ -2498,15 +2776,17 @@ var Modal = proxyCustomElement(class Modal2 extends H {
       part: "content",
       ref: (el) => this.wrapperEl = el
     }), showHandle && h("button", {
-      key: "332dc0b40363a77c7be62331d9f26def91c790e9",
+      key: "2d5ee6d5959d97309c306e8ce72eb0f2c19be144",
       class: "modal-handle",
       // Prevents the handle from receiving keyboard focus when it does not cycle
       tabIndex: !isHandleCycle ? -1 : 0,
       "aria-label": "Activate to adjust the size of the dialog overlaying the screen",
       onClick: isHandleCycle ? this.onHandleClick : void 0,
-      part: "handle"
+      part: "handle",
+      ref: (el) => this.dragHandleEl = el
     }), h("slot", {
-      key: "c32698350193c450327e97049daf8b8d1fda0d0e"
+      key: "5590434c35ea04c42fc006498bc189038e15a298",
+      onSlotchange: this.onSlotChange
     })));
   }
   get el() {
@@ -2557,7 +2837,7 @@ var Modal = proxyCustomElement(class Modal2 extends H {
   "onWillDismiss": [64],
   "setCurrentBreakpoint": [64],
   "getCurrentBreakpoint": [64]
-}, void 0, {
+}, [[9, "resize", "onWindowResize"]], {
   "isOpen": ["onIsOpenChange"],
   "trigger": ["triggerChanged"]
 }]);
@@ -3553,6 +3833,8 @@ var Popover = proxyCustomElement(class Popover2 extends H {
    * Developers can pass a mouse, touch, or pointer event
    * to position the popover relative to where that event
    * was dispatched.
+   *
+   * @param event The event to position the popover relative to.
    */
   present(event) {
     return __async(this, null, function* () {
@@ -3595,15 +3877,14 @@ var Popover = proxyCustomElement(class Popover2 extends H {
   }
   /**
    * Dismiss the popover overlay after it has been presented.
-   *
-   * @param data Any data to emit in the dismiss events.
-   * @param role The role of the element that is dismissing the popover. For example, 'cancel' or 'backdrop'.
-   * @param dismissParentPopover If `true`, dismissing this popover will also dismiss
-   * a parent popover if this popover is nested. Defaults to `true`.
-   *
    * This is a no-op if the overlay has not been presented yet. If you want
    * to remove an overlay from the DOM that was never presented, use the
    * [remove](https://developer.mozilla.org/en-US/docs/Web/API/Element/remove) method.
+   *
+   * @param data Any data to emit in the dismiss events.
+   * @param role The role of the element that is dismissing the popover. For example, `cancel` or `backdrop`.
+   * @param dismissParentPopover If `true`, dismissing this popover will also dismiss
+   * a parent popover if this popover is nested. Defaults to `true`.
    */
   dismiss(data, role, dismissParentPopover = true) {
     return __async(this, null, function* () {
@@ -3668,7 +3949,7 @@ var Popover = proxyCustomElement(class Popover2 extends H {
     const desktop = isPlatform("desktop");
     const enableArrow = arrow && !parentPopover;
     return h(Host, Object.assign({
-      key: "1de4862099cfcb5035e78008e6dc7c1371846f9a",
+      key: "16866c02534968c982cf4730d2936d03a5107c8b",
       "aria-modal": "true",
       "no-router": true,
       tabindex: "-1"
@@ -3691,24 +3972,24 @@ var Popover = proxyCustomElement(class Popover2 extends H {
       onIonPopoverDidDismiss: onLifecycle,
       onIonBackdropTap: this.onBackdropTap
     }), !parentPopover && h("ion-backdrop", {
-      key: "981aa4e0102cb93312ffbd8243cdf2a0cdc60469",
+      key: "0df258601a4d30df3c27aa8234a7d5e056c3ecbb",
       tappable: this.backdropDismiss,
       visible: this.showBackdrop,
       part: "backdrop"
     }), h("div", {
-      key: "1a28ed55e9d34ef78cf0eb0178643301fd2dd75d",
+      key: "f94e80ed996b957b5cd09b826472b4f60e8fcc78",
       class: "popover-wrapper ion-overlay-wrapper",
       onClick: dismissOnSelect ? () => this.dismiss() : void 0
     }, enableArrow && h("div", {
-      key: "1c206ea5eb3c0b5883a3d45c34cd22dd5ffe4b65",
+      key: "185ce22f6386e8444a9cc7b8818dbfc16c463c99",
       class: "popover-arrow",
       part: "arrow"
     }), h("div", {
-      key: "5ba561486a328c0c7ab825995fdbfb7a196429a4",
+      key: "206202b299404e110de5397b229678cca18568d3",
       class: "popover-content",
       part: "content"
     }, h("slot", {
-      key: "00fc244ce9dcc2dfc677e6c34b7c8e7a330b2b03"
+      key: "ee543a0b92d6e35a837c0a0e4617c7b0fc4ad0b0"
     }))));
   }
   get el() {
@@ -4632,16 +4913,15 @@ var ActionSheet = proxyCustomElement(class ActionSheet2 extends H {
   }
   /**
    * Dismiss the action sheet overlay after it has been presented.
+   * This is a no-op if the overlay has not been presented yet. If you want
+   * to remove an overlay from the DOM that was never presented, use the
+   * [remove](https://developer.mozilla.org/en-US/docs/Web/API/Element/remove) method.
    *
    * @param data Any data to emit in the dismiss events.
    * @param role The role of the element that is dismissing the action sheet.
    * This can be useful in a button handler for determining which button was
-   * clicked to dismiss the action sheet.
-   * Some examples include: ``"cancel"`, `"destructive"`, "selected"`, and `"backdrop"`.
-   *
-   * This is a no-op if the overlay has not been presented yet. If you want
-   * to remove an overlay from the DOM that was never presented, use the
-   * [remove](https://developer.mozilla.org/en-US/docs/Web/API/Element/remove) method.
+   * clicked to dismiss the action sheet. Some examples include:
+   * `"cancel"`, `"destructive"`, `"selected"`, and `"backdrop"`.
    */
   dismiss(data, role) {
     return __async(this, null, function* () {
@@ -4746,7 +5026,7 @@ var ActionSheet = proxyCustomElement(class ActionSheet2 extends H {
     const buttons = allButtons.filter((b) => b.role !== "cancel");
     const headerID = `action-sheet-${overlayIndex}-header`;
     return h(Host, Object.assign({
-      key: "7bbd202ca9e19727e7514abbe073687d982f80c3",
+      key: "9fef156b2a1f09ca4a6c1fe1f37c374139bde03c",
       role: "dialog",
       "aria-modal": "true",
       "aria-labelledby": header !== void 0 ? headerID : null,
@@ -4764,32 +5044,32 @@ var ActionSheet = proxyCustomElement(class ActionSheet2 extends H {
       onIonActionSheetWillDismiss: this.dispatchCancelHandler,
       onIonBackdropTap: this.onBackdropTap
     }), h("ion-backdrop", {
-      key: "23344a9221a2e6720d7b9de5249dc37256cafa7b",
+      key: "81cf3f7d19864e041813987b46d2d115b8466819",
       tappable: this.backdropDismiss
     }), h("div", {
-      key: "fbc2ba15549c2ab04e759e82df6e177fd80cc0a6",
+      key: "791c6a976683646fc306a42c15c5078b6f06a45f",
       tabindex: "0",
       "aria-hidden": "true"
     }), h("div", {
-      key: "748ee5235d0b4cb26d6f1b7589f77af2e37ad28a",
+      key: "a350b489ef7852eab9dc2227ce6d92da27dd9bf9",
       class: "action-sheet-wrapper ion-overlay-wrapper",
       ref: (el) => this.wrapperEl = el
     }, h("div", {
-      key: "7ce5fa236cf75e9b1e49c4725c9a811078706554",
+      key: "69ba51ee13510c1a411d87cb4845b11b7302a36f",
       class: "action-sheet-container"
     }, h("div", {
-      key: "dc2251f3bcee4a93e3449f09621cbd2b65d329e9",
+      key: "bded15b8306c36591e526f0f99e1eeabcbab3915",
       class: "action-sheet-group",
       ref: (el) => this.groupEl = el
     }, header !== void 0 && h("div", {
-      key: "48d325c8a852f56ed57a9ada1a6709d05ba32ee2",
+      key: "06b5147c0f6d9180fe8f12e75c9b4a0310226adc",
       id: headerID,
       class: {
         "action-sheet-title": true,
         "action-sheet-has-sub-title": this.subHeader !== void 0
       }
     }, header, this.subHeader && h("div", {
-      key: "66093728052eb67f37a35f3232761ce4a08896f3",
+      key: "54874362a75c679aba803bf4f8768f5404d2dd28",
       class: "action-sheet-sub-title"
     }, this.subHeader)), buttons.map((b) => h("button", Object.assign({}, b.htmlAttributes, {
       type: "button",
@@ -4805,27 +5085,27 @@ var ActionSheet = proxyCustomElement(class ActionSheet2 extends H {
       lazy: false,
       class: "action-sheet-icon"
     }), b.text), mode === "md" && h("ion-ripple-effect", null)))), cancelButton && h("div", {
-      key: "f4eb8e3e2885b85af5080df18d0de0bdd1d719de",
+      key: "67b0de298eb424f3dea846a841b7a06d70e3930d",
       class: "action-sheet-group action-sheet-group-cancel"
     }, h("button", Object.assign({
-      key: "169f4eb09255aba85062baad49ceb151239fbfb7"
+      key: "e7e3f9a5495eea9b97dbf885ef36944f2e420eff"
     }, cancelButton.htmlAttributes, {
       type: "button",
       class: buttonClass(cancelButton),
       onClick: () => this.buttonClick(cancelButton)
     }), h("span", {
-      key: "25fb8a466dd67ea94c79cfb4f9965527e1ce6d42",
+      key: "f889d29ed6c3d14bbc1d805888351d87f5122377",
       class: "action-sheet-button-inner"
     }, cancelButton.icon && h("ion-icon", {
-      key: "eb5b071e120a2c86afdf967af6a763a43044d1ca",
+      key: "7c05cf424b38c37fd40aaeb42a494387291571fb",
       icon: cancelButton.icon,
       "aria-hidden": "true",
       lazy: false,
       class: "action-sheet-icon"
     }), cancelButton.text), mode === "md" && h("ion-ripple-effect", {
-      key: "452ad7e1052b2c681e2d98de8193949755ad4d54"
+      key: "bed927b477dc2708a5123ef560274fca9819b3d6"
     }))))), h("div", {
-      key: "e1cecf280c987c050d9445e2c458b903f153089b",
+      key: "c5df1b11dc15a93892d57065d3dd5fbe02e43b39",
       tabindex: "0",
       "aria-hidden": "true"
     }));
@@ -5155,16 +5435,15 @@ var Alert = proxyCustomElement(class Alert2 extends H {
   }
   /**
    * Dismiss the alert overlay after it has been presented.
+   * This is a no-op if the overlay has not been presented yet. If you want
+   * to remove an overlay from the DOM that was never presented, use the
+   * [remove](https://developer.mozilla.org/en-US/docs/Web/API/Element/remove) method.
    *
    * @param data Any data to emit in the dismiss events.
    * @param role The role of the element that is dismissing the alert.
    * This can be useful in a button handler for determining which button was
-   * clicked to dismiss the alert.
-   * Some examples include: ``"cancel"`, `"destructive"`, "selected"`, and `"backdrop"`.
-   *
-   * This is a no-op if the overlay has not been presented yet. If you want
-   * to remove an overlay from the DOM that was never presented, use the
-   * [remove](https://developer.mozilla.org/en-US/docs/Web/API/Element/remove) method.
+   * clicked to dismiss the alert. Some examples include:
+   * `"cancel"`, `"destructive"`, `"selected"`, and `"backdrop"`.
    */
   dismiss(data, role) {
     return __async(this, null, function* () {
@@ -5433,7 +5712,7 @@ var Alert = proxyCustomElement(class Alert2 extends H {
     const role = this.inputs.length > 0 || this.buttons.length > 0 ? "alertdialog" : "alert";
     const ariaLabelledBy = header && subHeader ? `${hdrId} ${subHdrId}` : header ? hdrId : subHeader ? subHdrId : null;
     return h(Host, {
-      key: "f8ee04fe6a97a2585b302c8e1a9eea3b122e3479",
+      key: "6025440b9cd369d4fac89e7e4296c84a10a0b8e0",
       tabindex: "-1",
       style: {
         zIndex: `${2e4 + overlayIndex}`
@@ -5446,14 +5725,14 @@ var Alert = proxyCustomElement(class Alert2 extends H {
       onIonAlertWillDismiss: this.dispatchCancelHandler,
       onIonBackdropTap: this.onBackdropTap
     }, h("ion-backdrop", {
-      key: "e9592e879f51c27ef20016beec12c986be632cf3",
+      key: "3cd5ca8b99cb95b11dd22ab41a820d841142896f",
       tappable: this.backdropDismiss
     }), h("div", {
-      key: "5e9425c3c8acdea6f8006389689c73220e2ce423",
+      key: "4cc62ae6e21424057d22aeef1e8fc77011e77cd5",
       tabindex: "0",
       "aria-hidden": "true"
     }), h("div", Object.assign({
-      key: "615465703e357619681fc36ed7276591a6fe3787",
+      key: "364057a69f25aa88904df17bdcf7e5bf714e7830",
       class: "alert-wrapper ion-overlay-wrapper",
       role,
       "aria-modal": "true",
@@ -5462,22 +5741,22 @@ var Alert = proxyCustomElement(class Alert2 extends H {
       tabindex: "0",
       ref: (el) => this.wrapperEl = el
     }, htmlAttributes), h("div", {
-      key: "934eba3759456cd4660e10f274edc7859f908461",
+      key: "78694e3c0db2d408df3899fb1a90859bcc8d14cc",
       class: "alert-head"
     }, header && h("h2", {
-      key: "7d5d98d71f81f59a2cba227121b6fa01e6cc53b6",
+      key: "ec88ff3e4e1ea871b5975133fdcf4cac38b05e0f",
       id: hdrId,
       class: "alert-title"
     }, header), subHeader && !header && h("h2", {
-      key: "e5f5d35748c58a98ee933eb15cb1dcaf8113e9a7",
+      key: "9b09bc8bb68af255ef8b7d22587acc946148e544",
       id: subHdrId,
       class: "alert-sub-title"
     }, subHeader), subHeader && header && h("h3", {
-      key: "a5cb89ca02bfa9c4828e694cb0835493a9088b05",
+      key: "99abe815f75d2df7f1b77c0df9f3436724fea76f",
       id: subHdrId,
       class: "alert-sub-title"
     }, subHeader)), this.renderAlertMessage(msgId), this.renderAlertInputs(), this.renderAlertButtons()), h("div", {
-      key: "cacffc31c911882df73e6845d15c8bb2d4acab56",
+      key: "a43d0c22c0e46b1ef911f92ffeb253d7911b85f7",
       tabindex: "0",
       "aria-hidden": "true"
     }));
@@ -5584,16 +5863,16 @@ var App = proxyCustomElement(class App2 extends H {
       rIC(() => __async(this, null, function* () {
         const isHybrid = isPlatform(window, "hybrid");
         if (!config.getBoolean("_testing")) {
-          import("./index7-FIM6ONEQ.js").then((module) => module.startTapClick(config));
+          import("./index7-IEGVFW7N.js").then((module) => module.startTapClick(config));
         }
         if (config.getBoolean("statusTap", isHybrid)) {
           import("./status-tap-6CXTDNKF.js").then((module) => module.startStatusTap());
         }
         if (config.getBoolean("inputShims", needInputShims())) {
           const platform = isPlatform(window, "ios") ? "ios" : "android";
-          import("./input-shims-7O5OYJDB.js").then((module) => module.startInputShims(config, platform));
+          import("./input-shims-B6QSXVHO.js").then((module) => module.startInputShims(config, platform));
         }
-        const hardwareBackButtonModule = yield import("./hardware-back-button-ET6UMG53.js");
+        const hardwareBackButtonModule = yield import("./hardware-back-button-JU4HA5E4.js");
         const supportsHardwareBackButtonEvents = isHybrid || shouldUseCloseWatcher();
         if (config.getBoolean("hardwareBackButton", supportsHardwareBackButtonEvents)) {
           hardwareBackButtonModule.startHardwareBackButton();
@@ -5618,6 +5897,8 @@ var App = proxyCustomElement(class App2 extends H {
    * a result of another user action. (Ex: We focus the first element
    * inside of a popover when the user presents it, but the popover is not always
    * presented as a result of keyboard action.)
+   *
+   * @param elements An array of HTML elements to set focus on.
    */
   setFocus(elements) {
     return __async(this, null, function* () {
@@ -5629,7 +5910,7 @@ var App = proxyCustomElement(class App2 extends H {
   render() {
     const mode = getIonMode(this);
     return h(Host, {
-      key: "03aa892f986330078d112b1e8b010df98fa7e39e",
+      key: "9be440c65819e4fa67c2c3c6477ab40b3ad3eed3",
       class: {
         [mode]: true,
         "ion-page": true,
@@ -10403,11 +10684,16 @@ var Item = proxyCustomElement(class Item2 extends H {
     this.inheritedAriaAttributes = {};
     this.multipleInputs = false;
     this.focusable = true;
+    this.isInteractive = false;
     this.button = false;
     this.detailIcon = chevronForward;
     this.disabled = false;
     this.routerDirection = "forward";
     this.type = "button";
+    this.updateInteractivityOnSlotChange = () => {
+      this.setIsInteractive();
+      this.setMultipleInputs();
+    };
   }
   buttonChanged() {
     this.focusable = this.isFocusable();
@@ -10453,17 +10739,38 @@ var Item = proxyCustomElement(class Item2 extends H {
   componentDidLoad() {
     raf(() => {
       this.setMultipleInputs();
+      this.setIsInteractive();
       this.focusable = this.isFocusable();
     });
+  }
+  totalNestedInputs() {
+    const covers = this.el.querySelectorAll("ion-checkbox, ion-datetime, ion-select, ion-radio");
+    const inputs = this.el.querySelectorAll("ion-input, ion-range, ion-searchbar, ion-segment, ion-textarea, ion-toggle");
+    const clickables = this.el.querySelectorAll("ion-router-link, ion-button, a, button");
+    return {
+      covers,
+      inputs,
+      clickables
+    };
   }
   // If the item contains multiple clickable elements and/or inputs, then the item
   // should not have a clickable input cover over the entire item to prevent
   // interfering with their individual click events
   setMultipleInputs() {
-    const covers = this.el.querySelectorAll("ion-checkbox, ion-datetime, ion-select, ion-radio");
-    const inputs = this.el.querySelectorAll("ion-input, ion-range, ion-searchbar, ion-segment, ion-textarea, ion-toggle");
-    const clickables = this.el.querySelectorAll("ion-router-link, ion-button, a, button");
+    const {
+      covers,
+      inputs,
+      clickables
+    } = this.totalNestedInputs();
     this.multipleInputs = covers.length + inputs.length > 1 || covers.length + clickables.length > 1 || covers.length > 0 && this.isClickable();
+  }
+  setIsInteractive() {
+    const {
+      covers,
+      inputs,
+      clickables
+    } = this.totalNestedInputs();
+    this.isInteractive = covers.length > 0 || inputs.length > 0 || clickables.length > 0;
   }
   // If the item contains an input including a checkbox, datetime, select, or radio
   // then the item will have a clickable input cover that covers the item
@@ -10557,7 +10864,7 @@ var Item = proxyCustomElement(class Item2 extends H {
     const inList = hostContext("ion-list", this.el) && !hostContext("ion-radio-group", this.el);
     const firstInteractiveNeedsPointerCursor = firstInteractive !== void 0 && !["ION-INPUT", "ION-TEXTAREA"].includes(firstInteractive.tagName);
     return h(Host, {
-      key: "15e7d3b674c25232bc2d51573b291c72548690e5",
+      key: "24b59935bd8db8b0b7f940582455a42b82cbf762",
       "aria-disabled": ariaDisabled,
       class: Object.assign(Object.assign(Object.assign({}, childStyles), labelColorStyles), createColorClasses(this.color, {
         item: true,
@@ -10574,27 +10881,30 @@ var Item = proxyCustomElement(class Item2 extends H {
       })),
       role: inList ? "listitem" : null
     }, h(TagType, Object.assign({
-      key: "f27ae647501e29db554efe8f12f498b165d1dbf6"
+      key: "fd77b6e5f3eb2e1857a0cdd45562d71eabd30255"
     }, attrs, inheritedAriaAttributes, {
       class: "item-native",
       part: "native",
       disabled
     }, clickFn), h("slot", {
-      key: "ba039a321df0e4bd5ce11e7a6e7e174c8623b112",
-      name: "start"
+      key: "8824ac8395aafa3d63c92f2128e947cac8393ac4",
+      name: "start",
+      onSlotchange: this.updateInteractivityOnSlotChange
     }), h("div", {
-      key: "e67fdf4ad9086d855da8402ca04ffe292cf6ce67",
+      key: "5c9127e388a432687766d86a9db91fd1663abf03",
       class: "item-inner"
     }, h("div", {
-      key: "2434348a0b3f10052a340c57a7ac127ddc851729",
+      key: "9dc2d2f58c4067c0143b3963334c346c3c7f77df",
       class: "input-wrapper"
     }, h("slot", {
-      key: "3e27090ae4dab734541b3fd2c94de0f98c0f0030"
+      key: "8377d9e56dc4b1913f1346111b706e7f14c24d30",
+      onSlotchange: this.updateInteractivityOnSlotChange
     })), h("slot", {
-      key: "52dc633b60fe612d48d2efffbf2c4c62692bef85",
-      name: "end"
+      key: "bc771e106174f4a84ee12e92d14df81ad7ed177d",
+      name: "end",
+      onSlotchange: this.updateInteractivityOnSlotChange
     }), showDetail && h("ion-icon", {
-      key: "4fb7397dc8cf4cecb82f19a6151f85112b73992b",
+      key: "45336d121a097cbf71ee8a3f6b554745ba5e0bbf",
       icon: detailIcon,
       lazy: false,
       class: "item-detail-icon",
@@ -10602,7 +10912,7 @@ var Item = proxyCustomElement(class Item2 extends H {
       "aria-hidden": "true",
       "flip-rtl": detailIcon === chevronForward
     })), canActivate && mode === "md" && h("ion-ripple-effect", {
-      key: "09b2413a7a484ecd8ffb00805223727da4d4e344"
+      key: "197e244ae3bffebfa6ac9bfe7658d12e1af0ecb1"
     })));
   }
   get el() {
@@ -10634,7 +10944,8 @@ var Item = proxyCustomElement(class Item2 extends H {
   "target": [1],
   "type": [1],
   "multipleInputs": [32],
-  "focusable": [32]
+  "focusable": [32],
+  "isInteractive": [32]
 }, [[0, "ionColor", "labelColorChanged"], [0, "ionStyle", "itemStyle"]], {
   "button": ["buttonChanged"]
 }]);
@@ -11783,16 +12094,15 @@ var Loading = proxyCustomElement(class Loading2 extends H {
   }
   /**
    * Dismiss the loading overlay after it has been presented.
+   * This is a no-op if the overlay has not been presented yet. If you want
+   * to remove an overlay from the DOM that was never presented, use the
+   * [remove](https://developer.mozilla.org/en-US/docs/Web/API/Element/remove) method.
    *
    * @param data Any data to emit in the dismiss events.
    * @param role The role of the element that is dismissing the loading.
    * This can be useful in a button handler for determining which button was
-   * clicked to dismiss the loading.
-   * Some examples include: ``"cancel"`, `"destructive"`, "selected"`, and `"backdrop"`.
-   *
-   * This is a no-op if the overlay has not been presented yet. If you want
-   * to remove an overlay from the DOM that was never presented, use the
-   * [remove](https://developer.mozilla.org/en-US/docs/Web/API/Element/remove) method.
+   * clicked to dismiss the loading. Some examples include:
+   * `"cancel"`, `"destructive"`, `"selected"`, and `"backdrop"`.
    */
   dismiss(data, role) {
     return __async(this, null, function* () {
@@ -11848,7 +12158,7 @@ var Loading = proxyCustomElement(class Loading2 extends H {
     const msgId = `loading-${overlayIndex}-msg`;
     const ariaLabelledBy = message !== void 0 ? msgId : null;
     return h(Host, Object.assign({
-      key: "6369ed244c06c39aa338141bffacf7a861d7da1a",
+      key: "4497183ce220242abe19ae15f328f9a92ccafbbc",
       role: "dialog",
       "aria-modal": "true",
       "aria-labelledby": ariaLabelledBy,
@@ -11864,25 +12174,25 @@ var Loading = proxyCustomElement(class Loading2 extends H {
         "loading-translucent": this.translucent
       })
     }), h("ion-backdrop", {
-      key: "1fd5fd8581d59eec321e534f9116f3ec0501010a",
+      key: "231dec84e424a2dc358ce95b84d6035cf43e4dea",
       visible: this.showBackdrop,
       tappable: this.backdropDismiss
     }), h("div", {
-      key: "b4028045b0c8fbb9946136d85d939d55120b867c",
+      key: "c9af29b6e6bb49a217396a5c874bbfb8835a926c",
       tabindex: "0",
       "aria-hidden": "true"
     }), h("div", {
-      key: "b045fb0e61cc28e8163d45be18b431918dc27c80",
+      key: "a8659863743cdeccbe1ba810eaabfd3ebfcb86f3",
       class: "loading-wrapper ion-overlay-wrapper"
     }, spinner && h("div", {
-      key: "2cf9df796f987d1251b3599d10a48ed87a1d0eb9",
+      key: "3b346f39bc71691bd8686556a1e142198a7b12fa",
       class: "loading-spinner"
     }, h("ion-spinner", {
-      key: "371cd41655402326adcb1e2fe1481009a83243b2",
+      key: "8dc2bf1556e5138e262827f1516c59ecd09f3520",
       name: spinner,
       "aria-hidden": "true"
     })), message !== void 0 && this.renderLoadingMessage(msgId)), h("div", {
-      key: "2a5e5e66d22ee4c1cef0c93815ef023d47e7a8eb",
+      key: "054164c0dbae9a0e0973dd3c8e28f5b771820310",
       tabindex: "0",
       "aria-hidden": "true"
     }));
@@ -12130,7 +12440,7 @@ var Menu = proxyCustomElement(class Menu2 extends H {
     return Promise.resolve(this._isOpen);
   }
   /**
-   * Returns `true` is the menu is active.
+   * Returns `true` if the menu is active.
    *
    * A menu is active when it can be opened or closed, meaning it's enabled
    * and it's not part of a `ion-split-pane`.
@@ -12141,6 +12451,10 @@ var Menu = proxyCustomElement(class Menu2 extends H {
   /**
    * Opens the menu. If the menu is already open or it can't be opened,
    * it returns `false`.
+   *
+   * @param animated If `true`, the menu will animate when opening.
+   * If `false`, the menu will open instantly without animation.
+   * Defaults to `true`.
    */
   open(animated = true) {
     return this.setOpen(true, animated);
@@ -12148,20 +12462,38 @@ var Menu = proxyCustomElement(class Menu2 extends H {
   /**
    * Closes the menu. If the menu is already closed or it can't be closed,
    * it returns `false`.
+   *
+   * @param animated If `true`, the menu will animate when closing. If `false`,
+   * the menu will close instantly without animation. Defaults to `true`.
+   * @param role The role of the element that is closing the menu.
+   * This can be useful in a button handler for determining which button was
+   * clicked to close the menu. Some examples include:
+   * `"cancel"`, `"destructive"`, `"selected"`, and `"backdrop"`.
    */
   close(animated = true, role) {
     return this.setOpen(false, animated, role);
   }
   /**
-   * Toggles the menu. If the menu is already open, it will try to close, otherwise it will try to open it.
+   * Toggles the menu. If the menu is already open, it will try to close,
+   * otherwise it will try to open it.
    * If the operation can't be completed successfully, it returns `false`.
+   *
+   * @param animated If `true`, the menu will animate when opening/closing.
+   * If `false`, the menu will open/close instantly without animation.
+   * Defaults to `true`.
    */
   toggle(animated = true) {
     return this.setOpen(!this._isOpen, animated);
   }
   /**
-   * Opens or closes the button.
+   * Opens or closes the menu.
    * If the operation can't be completed successfully, it returns `false`.
+   *
+   * @param shouldOpen If `true`, the menu will open. If `false`, the menu
+   * will close.
+   * @param animated If `true`, the menu will animate when opening/closing.
+   * If `false`, the menu will open/close instantly without animation.
+   * @param role The role of the element that is closing the menu.
    */
   setOpen(shouldOpen, animated = true, role) {
     return menuController._setOpen(this, shouldOpen, animated, role);
@@ -12388,7 +12720,7 @@ var Menu = proxyCustomElement(class Menu2 extends H {
     } = this;
     const mode = getIonMode(this);
     return h(Host, {
-      key: "9e4ae9476a76781f1d228395c9af9e1c39ec82bb",
+      key: "a5c75aa40a34530b56ee3b98d706a5ac5ae300de",
       onKeyDown: shouldUseCloseWatcher() ? null : this.onKeydown,
       role: "navigation",
       "aria-label": inheritedAttributes["aria-label"] || "menu",
@@ -12401,14 +12733,14 @@ var Menu = proxyCustomElement(class Menu2 extends H {
         "split-pane-side": hostContext("ion-split-pane", el)
       }
     }, h("div", {
-      key: "c6153589d872ac7e3fdf5eedfdb858eb64ccd713",
+      key: "3f5f70acd4d3ed6bb445122f4f01d73db738a75f",
       class: "menu-inner",
       part: "container",
       ref: (el2) => this.menuInnerEl = el2
     }, h("slot", {
-      key: "9994aac4b22f17db34c9b8b2aa56b8710b9df645"
+      key: "3161326c9330e7f7441299c428b87a91b31a83e9"
     })), h("ion-backdrop", {
-      key: "f09ac30cc4dd2dcb10628965e659dae5a23baf98",
+      key: "917b50f38489bdf03d0c642af8b4e4e172c7dc4c",
       ref: (el2) => this.backdropEl = el2,
       class: "menu-backdrop",
       tappable: false,
@@ -13258,7 +13590,13 @@ var PickerColumn = proxyCustomElement(class PickerColumn2 extends H {
             return;
           }
           const elementsAtPoint = referenceNode.elementsFromPoint(centerX, centerY);
-          const newActiveElement = elementsAtPoint.find((el2) => el2.tagName === "ION-PICKER-COLUMN-OPTION");
+          let newActiveElement = elementsAtPoint.find((el2) => el2.tagName === "ION-PICKER-COLUMN-OPTION");
+          if (newActiveElement === void 0) {
+            const fallbackActiveElement = referenceNode.elementFromPoint(centerX, centerY);
+            if ((fallbackActiveElement === null || fallbackActiveElement === void 0 ? void 0 : fallbackActiveElement.tagName) === "ION-PICKER-COLUMN-OPTION") {
+              newActiveElement = fallbackActiveElement;
+            }
+          }
           if (activeEl !== void 0) {
             this.setPickerItemActiveState(activeEl, false);
           }
@@ -13524,7 +13862,7 @@ var PickerColumn = proxyCustomElement(class PickerColumn2 extends H {
     } = this;
     const mode = getIonMode(this);
     return h(Host, {
-      key: "a221dc10f1eb7c41637a16d2c7167c16939822fd",
+      key: "ea0280355b2f87895bf7dddd289ccf473aa759f3",
       class: createColorClasses(color, {
         [mode]: true,
         ["picker-column-active"]: isActive,
@@ -13532,10 +13870,10 @@ var PickerColumn = proxyCustomElement(class PickerColumn2 extends H {
         ["picker-column-disabled"]: disabled
       })
     }, this.renderAssistiveFocusable(), h("slot", {
-      key: "81b0656f606856f3dc0a657bf167d81a5011405e",
+      key: "482992131cdeb85b1f61430d7fe1322a16345769",
       name: "prefix"
     }), h("div", {
-      key: "71b9de67c04150255dd66592601c9d926db0c31c",
+      key: "43f7f80d621d411ef366b3ca1396299e8c9a0c97",
       "aria-hidden": "true",
       class: "picker-opts",
       ref: (el) => {
@@ -13561,33 +13899,33 @@ var PickerColumn = proxyCustomElement(class PickerColumn2 extends H {
        */
       tabIndex: -1
     }, h("div", {
-      key: "ebdc2f08c83db0cf17b4be29f28fcb00f529601e",
+      key: "13a9ee686132af32240710730765de4c0003a9e8",
       class: "picker-item-empty",
       "aria-hidden": "true"
     }, " "), h("div", {
-      key: "04ab56fcb8e6a7d6af00204c4560feb99ff34a56",
+      key: "dbccba4920833cfcebe9b0fc763458ec3053705a",
       class: "picker-item-empty",
       "aria-hidden": "true"
     }, " "), h("div", {
-      key: "6cf8f538903faf0fe1e4130f3eaf7b4e2e17cb52",
+      key: "682b43f83a5ea2e46067457f3af118535e111edb",
       class: "picker-item-empty",
       "aria-hidden": "true"
     }, " "), h("slot", {
-      key: "1cc392307b70c576be5b81b5226ceba735957f0f"
+      key: "d27e1e1dc0504b2f4627a29912a05bb91e8e413a"
     }), h("div", {
-      key: "23e3f28e2a99b9aa8b7c8f68ad9583e3ca63e9e2",
+      key: "61c948dbb9cf7469aed3018542bc0954211585ba",
       class: "picker-item-empty",
       "aria-hidden": "true"
     }, " "), h("div", {
-      key: "8a0563f09780c3116af0caebe4f40587ec1f041f",
+      key: "cf46c277fbee65e35ff44ce0d53ce12aa9cbf9db",
       class: "picker-item-empty",
       "aria-hidden": "true"
     }, " "), h("div", {
-      key: "13207e248fc0009f37e0c90a3ee2bac2f130b856",
+      key: "bbc0e2d491d3f836ab849493ade2f7fa6ad9244e",
       class: "picker-item-empty",
       "aria-hidden": "true"
     }, " ")), h("slot", {
-      key: "55ecf2ab5f214f936c2468cbdb7952daf89416b8",
+      key: "d25cbbe14b2914fe7b878d43b4e3f4a8c8177d24",
       name: "suffix"
     }));
   }
@@ -15775,7 +16113,6 @@ var ReorderGroup = proxyCustomElement(class ReorderGroup2 extends H {
   }
   /**
    * Completes the reorder operation. Must be called by the `ionItemReorder` event.
-   *
    * If a list of items is passed, the list will be reordered and returned in the
    * proper order.
    *
@@ -15949,7 +16286,7 @@ var ReorderGroup = proxyCustomElement(class ReorderGroup2 extends H {
   render() {
     const mode = getIonMode(this);
     return h(Host, {
-      key: "f30613b361c5c3095b7928a92fb4b1e8d6eff600",
+      key: "dfcdc3a6aa1b2fba15f861ec868d6a11e667c9de",
       class: {
         [mode]: true,
         "reorder-enabled": !this.disabled,
@@ -16249,7 +16586,7 @@ function defineCustomElement$145() {
 var defineCustomElement84 = defineCustomElement$145;
 
 // node_modules/@ionic/core/components/ion-segment-content.js
-var segmentContentCss = ":host{scroll-snap-align:center;scroll-snap-stop:always;-ms-flex-negative:0;flex-shrink:0;width:100%;overflow-y:scroll;scrollbar-width:none;-ms-overflow-style:none;}:host::-webkit-scrollbar{display:none}";
+var segmentContentCss = ":host{scroll-snap-align:center;scroll-snap-stop:always;-ms-flex-negative:0;flex-shrink:0;width:100%;min-height:1px;overflow-y:scroll;scrollbar-width:none;-ms-overflow-style:none;}:host::-webkit-scrollbar{display:none}";
 var SegmentContent = proxyCustomElement(class SegmentContent2 extends H {
   constructor() {
     super();
@@ -18425,16 +18762,15 @@ var Toast = proxyCustomElement(class Toast2 extends H {
   }
   /**
    * Dismiss the toast overlay after it has been presented.
+   * This is a no-op if the overlay has not been presented yet. If you want
+   * to remove an overlay from the DOM that was never presented, use the
+   * [remove](https://developer.mozilla.org/en-US/docs/Web/API/Element/remove) method.
    *
    * @param data Any data to emit in the dismiss events.
    * @param role The role of the element that is dismissing the toast.
    * This can be useful in a button handler for determining which button was
    * clicked to dismiss the toast.
-   * Some examples include: ``"cancel"`, `"destructive"`, "selected"`, and `"backdrop"`.
-   *
-   * This is a no-op if the overlay has not been presented yet. If you want
-   * to remove an overlay from the DOM that was never presented, use the
-   * [remove](https://developer.mozilla.org/en-US/docs/Web/API/Element/remove) method.
+   * Some examples include: `"cancel"`, `"destructive"`, `"selected"`, and `"backdrop"`.
    */
   dismiss(data, role) {
     return __async(this, null, function* () {
@@ -18644,7 +18980,7 @@ var Toast = proxyCustomElement(class Toast2 extends H {
       printIonWarning("[ion-toast] - This toast is using start and end buttons with the stacked toast layout. We recommend following the best practice of using either start or end buttons with the stacked toast layout.", el);
     }
     return h(Host, Object.assign({
-      key: "425be734aee0eeef281ab1609a9f982ce8b5e852",
+      key: "d1ecd90c87700aad4685e230cdd430aa286b8791",
       tabindex: "-1"
     }, this.htmlAttributes, {
       style: {
@@ -18658,21 +18994,21 @@ var Toast = proxyCustomElement(class Toast2 extends H {
       })),
       onIonToastWillDismiss: this.dispatchCancelHandler
     }), h("div", {
-      key: "7c3ad1a8df9e21fc30fc179c7edebeabcf3c6874",
+      key: "4bfc863417324de69e222054d5cf9c452038b41e",
       class: wrapperClass
     }, h("div", {
-      key: "f950c21e8d7bf92653e0bd52e820ed6b84fa8cf5",
+      key: "3417940afec0392e81b7d54c7cb00f3ab6c30d47",
       class: "toast-container",
       part: "container"
     }, this.renderButtons(startButtons, "start"), this.icon !== void 0 && h("ion-icon", {
-      key: "0266241927dbe16799adb57f9fc11bd5372877b2",
+      key: "6bf878fbc85c01e1e5faa9d97d46255a6511a952",
       class: "toast-icon",
       part: "icon",
       icon: this.icon,
       lazy: false,
       "aria-hidden": "true"
     }), h("div", {
-      key: "9ef4b87bad672af6a5b693af61375564daf1eeeb",
+      key: "54b500348a9c37660c3aff37436d9188e4374947",
       class: "toast-content",
       role: "status",
       "aria-atomic": "true",
@@ -20304,6 +20640,8 @@ var Datetime = proxyCustomElement(class Datetime2 extends H {
    * Confirms the selected datetime value, updates the
    * `value` property, and optionally closes the popover
    * or modal that the datetime was presented in.
+   *
+   * @param closeOverlay If `true`, closes the parent overlay. Defaults to `false`.
    */
   confirm(closeOverlay = false) {
     return __async(this, null, function* () {
@@ -20334,6 +20672,8 @@ var Datetime = proxyCustomElement(class Datetime2 extends H {
    * Resets the internal state of the datetime but does not update the value.
    * Passing a valid ISO-8601 string will reset the state of the component to the provided date.
    * If no value is provided, the internal state will be reset to the clamped value of the min, max and today.
+   *
+   * @param startDate A valid [ISO-8601 string](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date#date_time_string_format) to reset the datetime state to.
    */
   reset(startDate) {
     return __async(this, null, function* () {
@@ -20345,6 +20685,8 @@ var Datetime = proxyCustomElement(class Datetime2 extends H {
    * optionally closes the popover
    * or modal that the datetime was
    * presented in.
+   *
+   * @param closeOverlay If `true`, closes the parent overlay. Defaults to `false`.
    */
   cancel(closeOverlay = false) {
     return __async(this, null, function* () {
@@ -21318,7 +21660,7 @@ var Datetime = proxyCustomElement(class Datetime2 extends H {
     const hasWheelVariant = hasDatePresentation && preferWheel;
     renderHiddenInput(true, el, name, formatValue(value), disabled);
     return h(Host, {
-      key: "7ea46c27aa5fb01b748dd4d6eb2340ad13f65175",
+      key: "79677f5bc0fb32fb68569636bd76e68238e62eb8",
       "aria-disabled": disabled ? "true" : null,
       onFocus: this.onFocus,
       onBlur: this.onBlur,
@@ -21334,7 +21676,7 @@ var Datetime = proxyCustomElement(class Datetime2 extends H {
         [`datetime-grid`]: isGridStyle
       }))
     }, h("div", {
-      key: "6964378424c58b053e23279d08eaedf28dfcc315",
+      key: "bf07b1e3c64af6e837663ff470bea93787a6e86f",
       class: "intersection-tracker",
       ref: (el2) => this.intersectionTrackerRef = el2
     }), this.renderDatetime(mode));
@@ -22004,8 +22346,8 @@ var defaultCounterFormatter = (length, maxlength) => {
 };
 
 // node_modules/@ionic/core/components/ion-input.js
-var inputIosCss = ".sc-ion-input-ios-h{--placeholder-color:initial;--placeholder-font-style:initial;--placeholder-font-weight:initial;--placeholder-opacity:var(--ion-placeholder-opacity, 0.6);--padding-top:0px;--padding-end:0px;--padding-bottom:0px;--padding-start:0px;--background:transparent;--color:initial;--border-style:solid;--highlight-color-focused:var(--ion-color-primary, #0054e9);--highlight-color-valid:var(--ion-color-success, #2dd55b);--highlight-color-invalid:var(--ion-color-danger, #c5000f);--highlight-color:var(--highlight-color-focused);display:block;position:relative;width:100%;min-height:44px;padding:0 !important;color:var(--color);font-family:var(--ion-font-family, inherit);z-index:2}ion-item[slot=start].sc-ion-input-ios-h,ion-item [slot=start].sc-ion-input-ios-h,ion-item[slot=end].sc-ion-input-ios-h,ion-item [slot=end].sc-ion-input-ios-h{width:auto}.ion-color.sc-ion-input-ios-h{--highlight-color-focused:var(--ion-color-base)}.input-label-placement-floating.sc-ion-input-ios-h,.input-label-placement-stacked.sc-ion-input-ios-h{min-height:56px}.native-input.sc-ion-input-ios{padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-decoration:inherit;text-indent:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit;display:inline-block;position:relative;-ms-flex:1;flex:1;width:100%;max-width:100%;height:100%;max-height:100%;border:0;outline:none;background:transparent;-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-appearance:none;-moz-appearance:none;appearance:none;z-index:1}.native-input.sc-ion-input-ios::-webkit-input-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-ios::-moz-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-ios:-ms-input-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-ios::-ms-input-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-ios::placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-ios:-webkit-autofill{background-color:transparent}.native-input.sc-ion-input-ios:invalid{-webkit-box-shadow:none;box-shadow:none}.native-input.sc-ion-input-ios::-ms-clear{display:none}.cloned-input.sc-ion-input-ios{top:0;bottom:0;position:absolute;pointer-events:none}.cloned-input.sc-ion-input-ios{inset-inline-start:0}.cloned-input.sc-ion-input-ios:disabled{opacity:1}.input-clear-icon.sc-ion-input-ios{-webkit-margin-start:auto;margin-inline-start:auto;-webkit-margin-end:auto;margin-inline-end:auto;margin-top:auto;margin-bottom:auto;padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;background-position:center;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;width:30px;height:30px;border:0;outline:none;background-color:transparent;background-repeat:no-repeat;color:var(--ion-color-step-600, var(--ion-text-color-step-400, #666666));visibility:hidden;-webkit-appearance:none;-moz-appearance:none;appearance:none}.in-item-color.sc-ion-input-ios-h .input-clear-icon.sc-ion-input-ios{color:inherit}.input-clear-icon.sc-ion-input-ios:focus{opacity:0.5}.has-value.sc-ion-input-ios-h .input-clear-icon.sc-ion-input-ios{visibility:visible}.input-wrapper.sc-ion-input-ios{-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);border-radius:var(--border-radius);display:-ms-flexbox;display:flex;position:relative;-ms-flex-positive:1;flex-grow:1;-ms-flex-align:stretch;align-items:stretch;height:inherit;min-height:inherit;-webkit-transition:background-color 15ms linear;transition:background-color 15ms linear;background:var(--background);line-height:normal}.native-wrapper.sc-ion-input-ios{display:-ms-flexbox;display:flex;position:relative;-ms-flex-positive:1;flex-grow:1;-ms-flex-align:center;align-items:center;width:100%}.ion-touched.ion-invalid.sc-ion-input-ios-h{--highlight-color:var(--highlight-color-invalid)}.ion-valid.sc-ion-input-ios-h{--highlight-color:var(--highlight-color-valid)}.input-bottom.sc-ion-input-ios{-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end);padding-top:5px;padding-bottom:0;display:-ms-flexbox;display:flex;-ms-flex-pack:justify;justify-content:space-between;border-top:var(--border-width) var(--border-style) var(--border-color);font-size:0.75rem;white-space:normal}.has-focus.ion-valid.sc-ion-input-ios-h,.ion-touched.ion-invalid.sc-ion-input-ios-h{--border-color:var(--highlight-color)}.input-bottom.sc-ion-input-ios .error-text.sc-ion-input-ios{display:none;color:var(--highlight-color-invalid)}.input-bottom.sc-ion-input-ios .helper-text.sc-ion-input-ios{display:block;color:var(--ion-color-step-700, var(--ion-text-color-step-300, #4d4d4d))}.ion-touched.ion-invalid.sc-ion-input-ios-h .input-bottom.sc-ion-input-ios .error-text.sc-ion-input-ios{display:block}.ion-touched.ion-invalid.sc-ion-input-ios-h .input-bottom.sc-ion-input-ios .helper-text.sc-ion-input-ios{display:none}.input-bottom.sc-ion-input-ios .counter.sc-ion-input-ios{-webkit-margin-start:auto;margin-inline-start:auto;color:var(--ion-color-step-700, var(--ion-text-color-step-300, #4d4d4d));white-space:nowrap;-webkit-padding-start:16px;padding-inline-start:16px}.has-focus.sc-ion-input-ios-h input.sc-ion-input-ios{caret-color:var(--highlight-color)}.label-text-wrapper.sc-ion-input-ios{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;max-width:200px;-webkit-transition:color 150ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-transform 150ms cubic-bezier(0.4, 0, 0.2, 1);transition:color 150ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-transform 150ms cubic-bezier(0.4, 0, 0.2, 1);transition:color 150ms cubic-bezier(0.4, 0, 0.2, 1), transform 150ms cubic-bezier(0.4, 0, 0.2, 1);transition:color 150ms cubic-bezier(0.4, 0, 0.2, 1), transform 150ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-transform 150ms cubic-bezier(0.4, 0, 0.2, 1);pointer-events:none}.label-text.sc-ion-input-ios,.sc-ion-input-ios-s>[slot=label]{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.label-text-wrapper-hidden.sc-ion-input-ios,.input-outline-notch-hidden.sc-ion-input-ios{display:none}.input-wrapper.sc-ion-input-ios input.sc-ion-input-ios{-webkit-transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1)}.input-label-placement-start.sc-ion-input-ios-h .input-wrapper.sc-ion-input-ios{-ms-flex-direction:row;flex-direction:row}.input-label-placement-start.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios{-webkit-margin-start:0;margin-inline-start:0;-webkit-margin-end:16px;margin-inline-end:16px;margin-top:0;margin-bottom:0}.input-label-placement-end.sc-ion-input-ios-h .input-wrapper.sc-ion-input-ios{-ms-flex-direction:row-reverse;flex-direction:row-reverse}.input-label-placement-end.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios{-webkit-margin-start:16px;margin-inline-start:16px;-webkit-margin-end:0;margin-inline-end:0;margin-top:0;margin-bottom:0}.input-label-placement-fixed.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios{-webkit-margin-start:0;margin-inline-start:0;-webkit-margin-end:16px;margin-inline-end:16px;margin-top:0;margin-bottom:0}.input-label-placement-fixed.sc-ion-input-ios-h .label-text.sc-ion-input-ios{-ms-flex:0 0 100px;flex:0 0 100px;width:100px;min-width:100px;max-width:200px}.input-label-placement-stacked.sc-ion-input-ios-h .input-wrapper.sc-ion-input-ios,.input-label-placement-floating.sc-ion-input-ios-h .input-wrapper.sc-ion-input-ios{-ms-flex-direction:column;flex-direction:column;-ms-flex-align:start;align-items:start}.input-label-placement-stacked.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios,.input-label-placement-floating.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios{-webkit-transform-origin:left top;transform-origin:left top;max-width:100%;z-index:2}[dir=rtl].sc-ion-input-ios-h -no-combinator.input-label-placement-stacked.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios,[dir=rtl] .sc-ion-input-ios-h -no-combinator.input-label-placement-stacked.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios,[dir=rtl].input-label-placement-stacked.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios,[dir=rtl] .input-label-placement-stacked.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios,[dir=rtl].sc-ion-input-ios-h -no-combinator.input-label-placement-floating.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios,[dir=rtl] .sc-ion-input-ios-h -no-combinator.input-label-placement-floating.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios,[dir=rtl].input-label-placement-floating.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios,[dir=rtl] .input-label-placement-floating.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios{-webkit-transform-origin:right top;transform-origin:right top}@supports selector(:dir(rtl)){.input-label-placement-stacked.sc-ion-input-ios-h:dir(rtl) .label-text-wrapper.sc-ion-input-ios,.input-label-placement-floating.sc-ion-input-ios-h:dir(rtl) .label-text-wrapper.sc-ion-input-ios{-webkit-transform-origin:right top;transform-origin:right top}}.input-label-placement-stacked.sc-ion-input-ios-h input.sc-ion-input-ios,.input-label-placement-floating.sc-ion-input-ios-h input.sc-ion-input-ios{margin-left:0;margin-right:0;margin-top:1px;margin-bottom:0}.input-label-placement-floating.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios{-webkit-transform:translateY(100%) scale(1);transform:translateY(100%) scale(1)}.input-label-placement-floating.sc-ion-input-ios-h input.sc-ion-input-ios{opacity:0}.has-focus.input-label-placement-floating.sc-ion-input-ios-h input.sc-ion-input-ios,.has-value.input-label-placement-floating.sc-ion-input-ios-h input.sc-ion-input-ios{opacity:1}.label-floating.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios{-webkit-transform:translateY(50%) scale(0.75);transform:translateY(50%) scale(0.75);max-width:calc(100% / 0.75)}.sc-ion-input-ios-s>[slot=start]:last-of-type{-webkit-margin-end:16px;margin-inline-end:16px;-webkit-margin-start:0;margin-inline-start:0}.sc-ion-input-ios-s>[slot=end]:first-of-type{-webkit-margin-start:16px;margin-inline-start:16px;-webkit-margin-end:0;margin-inline-end:0}.sc-ion-input-ios-h[disabled].sc-ion-input-ios-s>ion-input-password-toggle,.sc-ion-input-ios-h[disabled] .sc-ion-input-ios-s>ion-input-password-toggle,.sc-ion-input-ios-h[readonly].sc-ion-input-ios-s>ion-input-password-toggle,.sc-ion-input-ios-h[readonly] .sc-ion-input-ios-s>ion-input-password-toggle{display:none}.sc-ion-input-ios-h{--border-width:0.55px;--border-color:var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-250, var(--ion-background-color-step-250, #c8c7cc))));--highlight-height:0px;font-size:inherit}.input-clear-icon.sc-ion-input-ios ion-icon.sc-ion-input-ios{width:18px;height:18px}.input-disabled.sc-ion-input-ios-h{opacity:0.3}.sc-ion-input-ios-s>ion-button[slot=start].button-has-icon-only,.sc-ion-input-ios-s>ion-button[slot=end].button-has-icon-only{--border-radius:50%;--padding-start:0;--padding-end:0;--padding-top:0;--padding-bottom:0;aspect-ratio:1}";
-var inputMdCss = ".sc-ion-input-md-h{--placeholder-color:initial;--placeholder-font-style:initial;--placeholder-font-weight:initial;--placeholder-opacity:var(--ion-placeholder-opacity, 0.6);--padding-top:0px;--padding-end:0px;--padding-bottom:0px;--padding-start:0px;--background:transparent;--color:initial;--border-style:solid;--highlight-color-focused:var(--ion-color-primary, #0054e9);--highlight-color-valid:var(--ion-color-success, #2dd55b);--highlight-color-invalid:var(--ion-color-danger, #c5000f);--highlight-color:var(--highlight-color-focused);display:block;position:relative;width:100%;min-height:44px;padding:0 !important;color:var(--color);font-family:var(--ion-font-family, inherit);z-index:2}ion-item[slot=start].sc-ion-input-md-h,ion-item [slot=start].sc-ion-input-md-h,ion-item[slot=end].sc-ion-input-md-h,ion-item [slot=end].sc-ion-input-md-h{width:auto}.ion-color.sc-ion-input-md-h{--highlight-color-focused:var(--ion-color-base)}.input-label-placement-floating.sc-ion-input-md-h,.input-label-placement-stacked.sc-ion-input-md-h{min-height:56px}.native-input.sc-ion-input-md{padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-decoration:inherit;text-indent:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit;display:inline-block;position:relative;-ms-flex:1;flex:1;width:100%;max-width:100%;height:100%;max-height:100%;border:0;outline:none;background:transparent;-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-appearance:none;-moz-appearance:none;appearance:none;z-index:1}.native-input.sc-ion-input-md::-webkit-input-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-md::-moz-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-md:-ms-input-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-md::-ms-input-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-md::placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-md:-webkit-autofill{background-color:transparent}.native-input.sc-ion-input-md:invalid{-webkit-box-shadow:none;box-shadow:none}.native-input.sc-ion-input-md::-ms-clear{display:none}.cloned-input.sc-ion-input-md{top:0;bottom:0;position:absolute;pointer-events:none}.cloned-input.sc-ion-input-md{inset-inline-start:0}.cloned-input.sc-ion-input-md:disabled{opacity:1}.input-clear-icon.sc-ion-input-md{-webkit-margin-start:auto;margin-inline-start:auto;-webkit-margin-end:auto;margin-inline-end:auto;margin-top:auto;margin-bottom:auto;padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;background-position:center;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;width:30px;height:30px;border:0;outline:none;background-color:transparent;background-repeat:no-repeat;color:var(--ion-color-step-600, var(--ion-text-color-step-400, #666666));visibility:hidden;-webkit-appearance:none;-moz-appearance:none;appearance:none}.in-item-color.sc-ion-input-md-h .input-clear-icon.sc-ion-input-md{color:inherit}.input-clear-icon.sc-ion-input-md:focus{opacity:0.5}.has-value.sc-ion-input-md-h .input-clear-icon.sc-ion-input-md{visibility:visible}.input-wrapper.sc-ion-input-md{-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);border-radius:var(--border-radius);display:-ms-flexbox;display:flex;position:relative;-ms-flex-positive:1;flex-grow:1;-ms-flex-align:stretch;align-items:stretch;height:inherit;min-height:inherit;-webkit-transition:background-color 15ms linear;transition:background-color 15ms linear;background:var(--background);line-height:normal}.native-wrapper.sc-ion-input-md{display:-ms-flexbox;display:flex;position:relative;-ms-flex-positive:1;flex-grow:1;-ms-flex-align:center;align-items:center;width:100%}.ion-touched.ion-invalid.sc-ion-input-md-h{--highlight-color:var(--highlight-color-invalid)}.ion-valid.sc-ion-input-md-h{--highlight-color:var(--highlight-color-valid)}.input-bottom.sc-ion-input-md{-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end);padding-top:5px;padding-bottom:0;display:-ms-flexbox;display:flex;-ms-flex-pack:justify;justify-content:space-between;border-top:var(--border-width) var(--border-style) var(--border-color);font-size:0.75rem;white-space:normal}.has-focus.ion-valid.sc-ion-input-md-h,.ion-touched.ion-invalid.sc-ion-input-md-h{--border-color:var(--highlight-color)}.input-bottom.sc-ion-input-md .error-text.sc-ion-input-md{display:none;color:var(--highlight-color-invalid)}.input-bottom.sc-ion-input-md .helper-text.sc-ion-input-md{display:block;color:var(--ion-color-step-700, var(--ion-text-color-step-300, #4d4d4d))}.ion-touched.ion-invalid.sc-ion-input-md-h .input-bottom.sc-ion-input-md .error-text.sc-ion-input-md{display:block}.ion-touched.ion-invalid.sc-ion-input-md-h .input-bottom.sc-ion-input-md .helper-text.sc-ion-input-md{display:none}.input-bottom.sc-ion-input-md .counter.sc-ion-input-md{-webkit-margin-start:auto;margin-inline-start:auto;color:var(--ion-color-step-700, var(--ion-text-color-step-300, #4d4d4d));white-space:nowrap;-webkit-padding-start:16px;padding-inline-start:16px}.has-focus.sc-ion-input-md-h input.sc-ion-input-md{caret-color:var(--highlight-color)}.label-text-wrapper.sc-ion-input-md{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;max-width:200px;-webkit-transition:color 150ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-transform 150ms cubic-bezier(0.4, 0, 0.2, 1);transition:color 150ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-transform 150ms cubic-bezier(0.4, 0, 0.2, 1);transition:color 150ms cubic-bezier(0.4, 0, 0.2, 1), transform 150ms cubic-bezier(0.4, 0, 0.2, 1);transition:color 150ms cubic-bezier(0.4, 0, 0.2, 1), transform 150ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-transform 150ms cubic-bezier(0.4, 0, 0.2, 1);pointer-events:none}.label-text.sc-ion-input-md,.sc-ion-input-md-s>[slot=label]{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.label-text-wrapper-hidden.sc-ion-input-md,.input-outline-notch-hidden.sc-ion-input-md{display:none}.input-wrapper.sc-ion-input-md input.sc-ion-input-md{-webkit-transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1)}.input-label-placement-start.sc-ion-input-md-h .input-wrapper.sc-ion-input-md{-ms-flex-direction:row;flex-direction:row}.input-label-placement-start.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-margin-start:0;margin-inline-start:0;-webkit-margin-end:16px;margin-inline-end:16px;margin-top:0;margin-bottom:0}.input-label-placement-end.sc-ion-input-md-h .input-wrapper.sc-ion-input-md{-ms-flex-direction:row-reverse;flex-direction:row-reverse}.input-label-placement-end.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-margin-start:16px;margin-inline-start:16px;-webkit-margin-end:0;margin-inline-end:0;margin-top:0;margin-bottom:0}.input-label-placement-fixed.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-margin-start:0;margin-inline-start:0;-webkit-margin-end:16px;margin-inline-end:16px;margin-top:0;margin-bottom:0}.input-label-placement-fixed.sc-ion-input-md-h .label-text.sc-ion-input-md{-ms-flex:0 0 100px;flex:0 0 100px;width:100px;min-width:100px;max-width:200px}.input-label-placement-stacked.sc-ion-input-md-h .input-wrapper.sc-ion-input-md,.input-label-placement-floating.sc-ion-input-md-h .input-wrapper.sc-ion-input-md{-ms-flex-direction:column;flex-direction:column;-ms-flex-align:start;align-items:start}.input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-transform-origin:left top;transform-origin:left top;max-width:100%;z-index:2}[dir=rtl].sc-ion-input-md-h -no-combinator.input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl] .sc-ion-input-md-h -no-combinator.input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl].input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl] .input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl].sc-ion-input-md-h -no-combinator.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl] .sc-ion-input-md-h -no-combinator.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl].input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl] .input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-transform-origin:right top;transform-origin:right top}@supports selector(:dir(rtl)){.input-label-placement-stacked.sc-ion-input-md-h:dir(rtl) .label-text-wrapper.sc-ion-input-md,.input-label-placement-floating.sc-ion-input-md-h:dir(rtl) .label-text-wrapper.sc-ion-input-md{-webkit-transform-origin:right top;transform-origin:right top}}.input-label-placement-stacked.sc-ion-input-md-h input.sc-ion-input-md,.input-label-placement-floating.sc-ion-input-md-h input.sc-ion-input-md{margin-left:0;margin-right:0;margin-top:1px;margin-bottom:0}.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-transform:translateY(100%) scale(1);transform:translateY(100%) scale(1)}.input-label-placement-floating.sc-ion-input-md-h input.sc-ion-input-md{opacity:0}.has-focus.input-label-placement-floating.sc-ion-input-md-h input.sc-ion-input-md,.has-value.input-label-placement-floating.sc-ion-input-md-h input.sc-ion-input-md{opacity:1}.label-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-transform:translateY(50%) scale(0.75);transform:translateY(50%) scale(0.75);max-width:calc(100% / 0.75)}.sc-ion-input-md-s>[slot=start]:last-of-type{-webkit-margin-end:16px;margin-inline-end:16px;-webkit-margin-start:0;margin-inline-start:0}.sc-ion-input-md-s>[slot=end]:first-of-type{-webkit-margin-start:16px;margin-inline-start:16px;-webkit-margin-end:0;margin-inline-end:0}.sc-ion-input-md-h[disabled].sc-ion-input-md-s>ion-input-password-toggle,.sc-ion-input-md-h[disabled] .sc-ion-input-md-s>ion-input-password-toggle,.sc-ion-input-md-h[readonly].sc-ion-input-md-s>ion-input-password-toggle,.sc-ion-input-md-h[readonly] .sc-ion-input-md-s>ion-input-password-toggle{display:none}.input-fill-solid.sc-ion-input-md-h{--background:var(--ion-color-step-50, var(--ion-background-color-step-50, #f2f2f2));--border-color:var(--ion-color-step-500, var(--ion-background-color-step-500, gray));--border-radius:4px;--padding-start:16px;--padding-end:16px;min-height:56px}.input-fill-solid.sc-ion-input-md-h .input-wrapper.sc-ion-input-md{border-bottom:var(--border-width) var(--border-style) var(--border-color)}.has-focus.input-fill-solid.ion-valid.sc-ion-input-md-h,.input-fill-solid.ion-touched.ion-invalid.sc-ion-input-md-h{--border-color:var(--highlight-color)}.input-fill-solid.sc-ion-input-md-h .input-bottom.sc-ion-input-md{border-top:none}@media (any-hover: hover){.input-fill-solid.sc-ion-input-md-h:hover{--background:var(--ion-color-step-100, var(--ion-background-color-step-100, #e6e6e6));--border-color:var(--ion-color-step-750, var(--ion-background-color-step-750, #404040))}}.input-fill-solid.has-focus.sc-ion-input-md-h{--background:var(--ion-color-step-150, var(--ion-background-color-step-150, #d9d9d9));--border-color:var(--ion-color-step-750, var(--ion-background-color-step-750, #404040))}.input-fill-solid.sc-ion-input-md-h .input-wrapper.sc-ion-input-md{border-start-start-radius:var(--border-radius);border-start-end-radius:var(--border-radius);border-end-end-radius:0px;border-end-start-radius:0px}.label-floating.input-fill-solid.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{max-width:calc(100% / 0.75)}.input-fill-outline.sc-ion-input-md-h{--border-color:var(--ion-color-step-300, var(--ion-background-color-step-300, #b3b3b3));--border-radius:4px;--padding-start:16px;--padding-end:16px;min-height:56px}.input-fill-outline.input-shape-round.sc-ion-input-md-h{--border-radius:28px;--padding-start:32px;--padding-end:32px}.has-focus.input-fill-outline.ion-valid.sc-ion-input-md-h,.input-fill-outline.ion-touched.ion-invalid.sc-ion-input-md-h{--border-color:var(--highlight-color)}@media (any-hover: hover){.input-fill-outline.sc-ion-input-md-h:hover{--border-color:var(--ion-color-step-750, var(--ion-background-color-step-750, #404040))}}.input-fill-outline.has-focus.sc-ion-input-md-h{--border-width:var(--highlight-height);--border-color:var(--highlight-color)}.input-fill-outline.sc-ion-input-md-h .input-bottom.sc-ion-input-md{border-top:none}.input-fill-outline.sc-ion-input-md-h .input-wrapper.sc-ion-input-md{border-bottom:none}.input-fill-outline.input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,.input-fill-outline.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-transform-origin:left top;transform-origin:left top;position:absolute;max-width:calc(100% - var(--padding-start) - var(--padding-end))}[dir=rtl].sc-ion-input-md-h -no-combinator.input-fill-outline.input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl] .sc-ion-input-md-h -no-combinator.input-fill-outline.input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl].input-fill-outline.input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl] .input-fill-outline.input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl].sc-ion-input-md-h -no-combinator.input-fill-outline.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl] .sc-ion-input-md-h -no-combinator.input-fill-outline.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl].input-fill-outline.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl] .input-fill-outline.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-transform-origin:right top;transform-origin:right top}@supports selector(:dir(rtl)){.input-fill-outline.input-label-placement-stacked.sc-ion-input-md-h:dir(rtl) .label-text-wrapper.sc-ion-input-md,.input-fill-outline.input-label-placement-floating.sc-ion-input-md-h:dir(rtl) .label-text-wrapper.sc-ion-input-md{-webkit-transform-origin:right top;transform-origin:right top}}.input-fill-outline.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{position:relative}.label-floating.input-fill-outline.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-transform:translateY(-32%) scale(0.75);transform:translateY(-32%) scale(0.75);margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;max-width:calc((100% - var(--padding-start) - var(--padding-end) - 8px) / 0.75)}.input-fill-outline.input-label-placement-stacked.sc-ion-input-md-h input.sc-ion-input-md,.input-fill-outline.input-label-placement-floating.sc-ion-input-md-h input.sc-ion-input-md{margin-left:0;margin-right:0;margin-top:6px;margin-bottom:6px}.input-fill-outline.sc-ion-input-md-h .input-outline-container.sc-ion-input-md{left:0;right:0;top:0;bottom:0;display:-ms-flexbox;display:flex;position:absolute;width:100%;height:100%}.input-fill-outline.sc-ion-input-md-h .input-outline-start.sc-ion-input-md,.input-fill-outline.sc-ion-input-md-h .input-outline-end.sc-ion-input-md{pointer-events:none}.input-fill-outline.sc-ion-input-md-h .input-outline-start.sc-ion-input-md,.input-fill-outline.sc-ion-input-md-h .input-outline-notch.sc-ion-input-md,.input-fill-outline.sc-ion-input-md-h .input-outline-end.sc-ion-input-md{border-top:var(--border-width) var(--border-style) var(--border-color);border-bottom:var(--border-width) var(--border-style) var(--border-color)}.input-fill-outline.sc-ion-input-md-h .input-outline-notch.sc-ion-input-md{max-width:calc(100% - var(--padding-start) - var(--padding-end))}.input-fill-outline.sc-ion-input-md-h .notch-spacer.sc-ion-input-md{-webkit-padding-end:8px;padding-inline-end:8px;font-size:calc(1em * 0.75);opacity:0;pointer-events:none;-webkit-box-sizing:content-box;box-sizing:content-box}.input-fill-outline.sc-ion-input-md-h .input-outline-start.sc-ion-input-md{border-start-start-radius:var(--border-radius);border-start-end-radius:0px;border-end-end-radius:0px;border-end-start-radius:var(--border-radius);-webkit-border-start:var(--border-width) var(--border-style) var(--border-color);border-inline-start:var(--border-width) var(--border-style) var(--border-color);width:calc(var(--padding-start) - 4px)}.input-fill-outline.sc-ion-input-md-h .input-outline-end.sc-ion-input-md{-webkit-border-end:var(--border-width) var(--border-style) var(--border-color);border-inline-end:var(--border-width) var(--border-style) var(--border-color);border-start-start-radius:0px;border-start-end-radius:var(--border-radius);border-end-end-radius:var(--border-radius);border-end-start-radius:0px;-ms-flex-positive:1;flex-grow:1}.label-floating.input-fill-outline.sc-ion-input-md-h .input-outline-notch.sc-ion-input-md{border-top:none}.sc-ion-input-md-h{--border-width:1px;--border-color:var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, var(--ion-background-color-step-150, rgba(0, 0, 0, 0.13)))));--highlight-height:2px;font-size:inherit}.input-clear-icon.sc-ion-input-md ion-icon.sc-ion-input-md{width:22px;height:22px}.input-disabled.sc-ion-input-md-h{opacity:0.38}.has-focus.ion-valid.sc-ion-input-md-h,.ion-touched.ion-invalid.sc-ion-input-md-h{--border-color:var(--highlight-color)}.input-bottom.sc-ion-input-md .counter.sc-ion-input-md{letter-spacing:0.0333333333em}.input-label-placement-floating.has-focus.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,.input-label-placement-stacked.has-focus.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{color:var(--highlight-color)}.has-focus.input-label-placement-floating.ion-valid.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,.input-label-placement-floating.ion-touched.ion-invalid.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,.has-focus.input-label-placement-stacked.ion-valid.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,.input-label-placement-stacked.ion-touched.ion-invalid.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{color:var(--highlight-color)}.input-highlight.sc-ion-input-md{bottom:-1px;position:absolute;width:100%;height:var(--highlight-height);-webkit-transform:scale(0);transform:scale(0);-webkit-transition:-webkit-transform 200ms;transition:-webkit-transform 200ms;transition:transform 200ms;transition:transform 200ms, -webkit-transform 200ms;background:var(--highlight-color)}.input-highlight.sc-ion-input-md{inset-inline-start:0}.has-focus.sc-ion-input-md-h .input-highlight.sc-ion-input-md{-webkit-transform:scale(1);transform:scale(1)}.in-item.sc-ion-input-md-h .input-highlight.sc-ion-input-md{bottom:0}.in-item.sc-ion-input-md-h .input-highlight.sc-ion-input-md{inset-inline-start:0}.input-shape-round.sc-ion-input-md-h{--border-radius:16px}.sc-ion-input-md-s>ion-button[slot=start].button-has-icon-only,.sc-ion-input-md-s>ion-button[slot=end].button-has-icon-only{--border-radius:50%;--padding-start:8px;--padding-end:8px;--padding-top:8px;--padding-bottom:8px;aspect-ratio:1;min-height:40px}";
+var inputIosCss = ".sc-ion-input-ios-h{--placeholder-color:initial;--placeholder-font-style:initial;--placeholder-font-weight:initial;--placeholder-opacity:var(--ion-placeholder-opacity, 0.6);--padding-top:0px;--padding-end:0px;--padding-bottom:0px;--padding-start:0px;--background:transparent;--color:initial;--border-style:solid;--highlight-color-focused:var(--ion-color-primary, #0054e9);--highlight-color-valid:var(--ion-color-success, #2dd55b);--highlight-color-invalid:var(--ion-color-danger, #c5000f);--highlight-color:var(--highlight-color-focused);display:block;position:relative;width:100%;min-height:44px;padding:0 !important;color:var(--color);font-family:var(--ion-font-family, inherit);z-index:2}ion-item[slot=start].sc-ion-input-ios-h,ion-item [slot=start].sc-ion-input-ios-h,ion-item[slot=end].sc-ion-input-ios-h,ion-item [slot=end].sc-ion-input-ios-h{width:auto}.ion-color.sc-ion-input-ios-h{--highlight-color-focused:var(--ion-color-base)}.input-label-placement-floating.sc-ion-input-ios-h,.input-label-placement-stacked.sc-ion-input-ios-h{min-height:56px}.native-input.sc-ion-input-ios{padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-decoration:inherit;text-indent:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit;display:inline-block;position:relative;-ms-flex:1;flex:1;width:100%;max-width:100%;height:100%;max-height:100%;border:0;outline:none;background:transparent;-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-appearance:none;-moz-appearance:none;appearance:none;z-index:1}.native-input.sc-ion-input-ios::-webkit-input-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-ios::-moz-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-ios:-ms-input-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-ios::-ms-input-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-ios::placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-ios:-webkit-autofill{background-color:transparent}.native-input.sc-ion-input-ios:invalid{-webkit-box-shadow:none;box-shadow:none}.native-input.sc-ion-input-ios::-ms-clear{display:none}.cloned-input.sc-ion-input-ios{top:0;bottom:0;position:absolute;pointer-events:none}.cloned-input.sc-ion-input-ios{inset-inline-start:0}.cloned-input.sc-ion-input-ios:disabled{opacity:1}.input-clear-icon.sc-ion-input-ios{-webkit-margin-start:auto;margin-inline-start:auto;-webkit-margin-end:auto;margin-inline-end:auto;margin-top:auto;margin-bottom:auto;padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;background-position:center;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;width:30px;height:30px;border:0;outline:none;background-color:transparent;background-repeat:no-repeat;color:var(--ion-color-step-600, var(--ion-text-color-step-400, #666666));visibility:hidden;-webkit-appearance:none;-moz-appearance:none;appearance:none}.in-item-color.sc-ion-input-ios-h .input-clear-icon.sc-ion-input-ios{color:inherit}.input-clear-icon.sc-ion-input-ios:focus{opacity:0.5}.has-value.sc-ion-input-ios-h .input-clear-icon.sc-ion-input-ios{visibility:visible}.input-wrapper.sc-ion-input-ios{-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);border-radius:var(--border-radius);display:-ms-flexbox;display:flex;position:relative;-ms-flex-positive:1;flex-grow:1;-ms-flex-align:stretch;align-items:stretch;height:inherit;min-height:inherit;-webkit-transition:background-color 15ms linear;transition:background-color 15ms linear;background:var(--background);line-height:normal}.native-wrapper.sc-ion-input-ios{display:-ms-flexbox;display:flex;position:relative;-ms-flex-positive:1;flex-grow:1;-ms-flex-align:center;align-items:center;width:100%}.ion-touched.ion-invalid.sc-ion-input-ios-h{--highlight-color:var(--highlight-color-invalid)}.ion-valid.sc-ion-input-ios-h{--highlight-color:var(--highlight-color-valid)}.input-bottom.sc-ion-input-ios{-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end);padding-top:5px;padding-bottom:0;display:-ms-flexbox;display:flex;-ms-flex-pack:justify;justify-content:space-between;border-top:var(--border-width) var(--border-style) var(--border-color);font-size:0.75rem;white-space:normal}.has-focus.ion-valid.sc-ion-input-ios-h,.ion-touched.ion-invalid.sc-ion-input-ios-h{--border-color:var(--highlight-color)}.input-bottom.sc-ion-input-ios .error-text.sc-ion-input-ios{display:none;color:var(--highlight-color-invalid)}.input-bottom.sc-ion-input-ios .helper-text.sc-ion-input-ios{display:block;color:var(--ion-color-step-700, var(--ion-text-color-step-300, #4d4d4d))}.ion-touched.ion-invalid.sc-ion-input-ios-h .input-bottom.sc-ion-input-ios .error-text.sc-ion-input-ios{display:block}.ion-touched.ion-invalid.sc-ion-input-ios-h .input-bottom.sc-ion-input-ios .helper-text.sc-ion-input-ios{display:none}.input-bottom.sc-ion-input-ios .counter.sc-ion-input-ios{-webkit-margin-start:auto;margin-inline-start:auto;color:var(--ion-color-step-700, var(--ion-text-color-step-300, #4d4d4d));white-space:nowrap;-webkit-padding-start:16px;padding-inline-start:16px}.has-focus.sc-ion-input-ios-h input.sc-ion-input-ios{caret-color:var(--highlight-color)}.label-text-wrapper.sc-ion-input-ios{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;max-width:200px;-webkit-transition:color 150ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-transform 150ms cubic-bezier(0.4, 0, 0.2, 1);transition:color 150ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-transform 150ms cubic-bezier(0.4, 0, 0.2, 1);transition:color 150ms cubic-bezier(0.4, 0, 0.2, 1), transform 150ms cubic-bezier(0.4, 0, 0.2, 1);transition:color 150ms cubic-bezier(0.4, 0, 0.2, 1), transform 150ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-transform 150ms cubic-bezier(0.4, 0, 0.2, 1);pointer-events:none}.label-text.sc-ion-input-ios,.sc-ion-input-ios-s>[slot=label]{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.label-text-wrapper-hidden.sc-ion-input-ios,.input-outline-notch-hidden.sc-ion-input-ios{display:none}.input-wrapper.sc-ion-input-ios input.sc-ion-input-ios{-webkit-transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1)}.input-label-placement-start.sc-ion-input-ios-h .input-wrapper.sc-ion-input-ios{-ms-flex-direction:row;flex-direction:row}.input-label-placement-start.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios{-webkit-margin-start:0;margin-inline-start:0;-webkit-margin-end:16px;margin-inline-end:16px;margin-top:0;margin-bottom:0}.input-label-placement-end.sc-ion-input-ios-h .input-wrapper.sc-ion-input-ios{-ms-flex-direction:row-reverse;flex-direction:row-reverse}.input-label-placement-end.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios{-webkit-margin-start:16px;margin-inline-start:16px;-webkit-margin-end:0;margin-inline-end:0;margin-top:0;margin-bottom:0}.input-label-placement-fixed.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios{-webkit-margin-start:0;margin-inline-start:0;-webkit-margin-end:16px;margin-inline-end:16px;margin-top:0;margin-bottom:0}.input-label-placement-fixed.sc-ion-input-ios-h .label-text.sc-ion-input-ios{-ms-flex:0 0 100px;flex:0 0 100px;width:100px;min-width:100px;max-width:200px}.input-label-placement-stacked.sc-ion-input-ios-h .input-wrapper.sc-ion-input-ios,.input-label-placement-floating.sc-ion-input-ios-h .input-wrapper.sc-ion-input-ios{-ms-flex-direction:column;flex-direction:column;-ms-flex-align:start;align-items:start}.input-label-placement-stacked.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios,.input-label-placement-floating.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios{-webkit-transform-origin:left top;transform-origin:left top;max-width:100%;z-index:2}[dir=rtl].sc-ion-input-ios-h -no-combinator.input-label-placement-stacked.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios,[dir=rtl] .sc-ion-input-ios-h -no-combinator.input-label-placement-stacked.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios,[dir=rtl].input-label-placement-stacked.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios,[dir=rtl] .input-label-placement-stacked.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios,[dir=rtl].sc-ion-input-ios-h -no-combinator.input-label-placement-floating.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios,[dir=rtl] .sc-ion-input-ios-h -no-combinator.input-label-placement-floating.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios,[dir=rtl].input-label-placement-floating.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios,[dir=rtl] .input-label-placement-floating.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios{-webkit-transform-origin:right top;transform-origin:right top}@supports selector(:dir(rtl)){.input-label-placement-stacked.sc-ion-input-ios-h:dir(rtl) .label-text-wrapper.sc-ion-input-ios,.input-label-placement-floating.sc-ion-input-ios-h:dir(rtl) .label-text-wrapper.sc-ion-input-ios{-webkit-transform-origin:right top;transform-origin:right top}}.input-label-placement-stacked.sc-ion-input-ios-h input.sc-ion-input-ios,.input-label-placement-floating.sc-ion-input-ios-h input.sc-ion-input-ios{margin-left:0;margin-right:0;margin-top:1px;margin-bottom:0}.input-label-placement-floating.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios{-webkit-transform:translateY(100%) scale(1);transform:translateY(100%) scale(1)}.input-label-placement-floating.sc-ion-input-ios-h input.sc-ion-input-ios{opacity:0}.has-focus.input-label-placement-floating.sc-ion-input-ios-h input.sc-ion-input-ios,.has-value.input-label-placement-floating.sc-ion-input-ios-h input.sc-ion-input-ios{opacity:1}.label-floating.sc-ion-input-ios-h .label-text-wrapper.sc-ion-input-ios{-webkit-transform:translateY(50%) scale(0.75);transform:translateY(50%) scale(0.75);max-width:calc(100% / 0.75)}.sc-ion-input-ios-s>[slot=start]:last-of-type{-webkit-margin-end:16px;margin-inline-end:16px;-webkit-margin-start:0;margin-inline-start:0}.sc-ion-input-ios-s>[slot=end]:first-of-type{-webkit-margin-start:16px;margin-inline-start:16px;-webkit-margin-end:0;margin-inline-end:0}.sc-ion-input-ios-h[disabled].sc-ion-input-ios-s>ion-input-password-toggle,.sc-ion-input-ios-h[disabled] .sc-ion-input-ios-s>ion-input-password-toggle,.sc-ion-input-ios-h[readonly].sc-ion-input-ios-s>ion-input-password-toggle,.sc-ion-input-ios-h[readonly] .sc-ion-input-ios-s>ion-input-password-toggle{visibility:hidden}.sc-ion-input-ios-h{--border-width:0.55px;--border-color:var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-250, var(--ion-background-color-step-250, #c8c7cc))));--highlight-height:0px;font-size:inherit}.input-clear-icon.sc-ion-input-ios ion-icon.sc-ion-input-ios{width:18px;height:18px}.input-disabled.sc-ion-input-ios-h{opacity:0.3}.sc-ion-input-ios-s>ion-button[slot=start].button-has-icon-only,.sc-ion-input-ios-s>ion-button[slot=end].button-has-icon-only{--border-radius:50%;--padding-start:0;--padding-end:0;--padding-top:0;--padding-bottom:0;aspect-ratio:1}";
+var inputMdCss = ".sc-ion-input-md-h{--placeholder-color:initial;--placeholder-font-style:initial;--placeholder-font-weight:initial;--placeholder-opacity:var(--ion-placeholder-opacity, 0.6);--padding-top:0px;--padding-end:0px;--padding-bottom:0px;--padding-start:0px;--background:transparent;--color:initial;--border-style:solid;--highlight-color-focused:var(--ion-color-primary, #0054e9);--highlight-color-valid:var(--ion-color-success, #2dd55b);--highlight-color-invalid:var(--ion-color-danger, #c5000f);--highlight-color:var(--highlight-color-focused);display:block;position:relative;width:100%;min-height:44px;padding:0 !important;color:var(--color);font-family:var(--ion-font-family, inherit);z-index:2}ion-item[slot=start].sc-ion-input-md-h,ion-item [slot=start].sc-ion-input-md-h,ion-item[slot=end].sc-ion-input-md-h,ion-item [slot=end].sc-ion-input-md-h{width:auto}.ion-color.sc-ion-input-md-h{--highlight-color-focused:var(--ion-color-base)}.input-label-placement-floating.sc-ion-input-md-h,.input-label-placement-stacked.sc-ion-input-md-h{min-height:56px}.native-input.sc-ion-input-md{padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;font-family:inherit;font-size:inherit;font-style:inherit;font-weight:inherit;letter-spacing:inherit;text-decoration:inherit;text-indent:inherit;text-overflow:inherit;text-transform:inherit;text-align:inherit;white-space:inherit;color:inherit;display:inline-block;position:relative;-ms-flex:1;flex:1;width:100%;max-width:100%;height:100%;max-height:100%;border:0;outline:none;background:transparent;-webkit-box-sizing:border-box;box-sizing:border-box;-webkit-appearance:none;-moz-appearance:none;appearance:none;z-index:1}.native-input.sc-ion-input-md::-webkit-input-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-md::-moz-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-md:-ms-input-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-md::-ms-input-placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-md::placeholder{color:var(--placeholder-color);font-family:inherit;font-style:var(--placeholder-font-style);font-weight:var(--placeholder-font-weight);opacity:var(--placeholder-opacity)}.native-input.sc-ion-input-md:-webkit-autofill{background-color:transparent}.native-input.sc-ion-input-md:invalid{-webkit-box-shadow:none;box-shadow:none}.native-input.sc-ion-input-md::-ms-clear{display:none}.cloned-input.sc-ion-input-md{top:0;bottom:0;position:absolute;pointer-events:none}.cloned-input.sc-ion-input-md{inset-inline-start:0}.cloned-input.sc-ion-input-md:disabled{opacity:1}.input-clear-icon.sc-ion-input-md{-webkit-margin-start:auto;margin-inline-start:auto;-webkit-margin-end:auto;margin-inline-end:auto;margin-top:auto;margin-bottom:auto;padding-left:0;padding-right:0;padding-top:0;padding-bottom:0;background-position:center;display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;-ms-flex-pack:center;justify-content:center;width:30px;height:30px;border:0;outline:none;background-color:transparent;background-repeat:no-repeat;color:var(--ion-color-step-600, var(--ion-text-color-step-400, #666666));visibility:hidden;-webkit-appearance:none;-moz-appearance:none;appearance:none}.in-item-color.sc-ion-input-md-h .input-clear-icon.sc-ion-input-md{color:inherit}.input-clear-icon.sc-ion-input-md:focus{opacity:0.5}.has-value.sc-ion-input-md-h .input-clear-icon.sc-ion-input-md{visibility:visible}.input-wrapper.sc-ion-input-md{-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end);padding-top:var(--padding-top);padding-bottom:var(--padding-bottom);border-radius:var(--border-radius);display:-ms-flexbox;display:flex;position:relative;-ms-flex-positive:1;flex-grow:1;-ms-flex-align:stretch;align-items:stretch;height:inherit;min-height:inherit;-webkit-transition:background-color 15ms linear;transition:background-color 15ms linear;background:var(--background);line-height:normal}.native-wrapper.sc-ion-input-md{display:-ms-flexbox;display:flex;position:relative;-ms-flex-positive:1;flex-grow:1;-ms-flex-align:center;align-items:center;width:100%}.ion-touched.ion-invalid.sc-ion-input-md-h{--highlight-color:var(--highlight-color-invalid)}.ion-valid.sc-ion-input-md-h{--highlight-color:var(--highlight-color-valid)}.input-bottom.sc-ion-input-md{-webkit-padding-start:var(--padding-start);padding-inline-start:var(--padding-start);-webkit-padding-end:var(--padding-end);padding-inline-end:var(--padding-end);padding-top:5px;padding-bottom:0;display:-ms-flexbox;display:flex;-ms-flex-pack:justify;justify-content:space-between;border-top:var(--border-width) var(--border-style) var(--border-color);font-size:0.75rem;white-space:normal}.has-focus.ion-valid.sc-ion-input-md-h,.ion-touched.ion-invalid.sc-ion-input-md-h{--border-color:var(--highlight-color)}.input-bottom.sc-ion-input-md .error-text.sc-ion-input-md{display:none;color:var(--highlight-color-invalid)}.input-bottom.sc-ion-input-md .helper-text.sc-ion-input-md{display:block;color:var(--ion-color-step-700, var(--ion-text-color-step-300, #4d4d4d))}.ion-touched.ion-invalid.sc-ion-input-md-h .input-bottom.sc-ion-input-md .error-text.sc-ion-input-md{display:block}.ion-touched.ion-invalid.sc-ion-input-md-h .input-bottom.sc-ion-input-md .helper-text.sc-ion-input-md{display:none}.input-bottom.sc-ion-input-md .counter.sc-ion-input-md{-webkit-margin-start:auto;margin-inline-start:auto;color:var(--ion-color-step-700, var(--ion-text-color-step-300, #4d4d4d));white-space:nowrap;-webkit-padding-start:16px;padding-inline-start:16px}.has-focus.sc-ion-input-md-h input.sc-ion-input-md{caret-color:var(--highlight-color)}.label-text-wrapper.sc-ion-input-md{display:-ms-flexbox;display:flex;-ms-flex-align:center;align-items:center;max-width:200px;-webkit-transition:color 150ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-transform 150ms cubic-bezier(0.4, 0, 0.2, 1);transition:color 150ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-transform 150ms cubic-bezier(0.4, 0, 0.2, 1);transition:color 150ms cubic-bezier(0.4, 0, 0.2, 1), transform 150ms cubic-bezier(0.4, 0, 0.2, 1);transition:color 150ms cubic-bezier(0.4, 0, 0.2, 1), transform 150ms cubic-bezier(0.4, 0, 0.2, 1), -webkit-transform 150ms cubic-bezier(0.4, 0, 0.2, 1);pointer-events:none}.label-text.sc-ion-input-md,.sc-ion-input-md-s>[slot=label]{text-overflow:ellipsis;white-space:nowrap;overflow:hidden}.label-text-wrapper-hidden.sc-ion-input-md,.input-outline-notch-hidden.sc-ion-input-md{display:none}.input-wrapper.sc-ion-input-md input.sc-ion-input-md{-webkit-transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1);transition:opacity 150ms cubic-bezier(0.4, 0, 0.2, 1)}.input-label-placement-start.sc-ion-input-md-h .input-wrapper.sc-ion-input-md{-ms-flex-direction:row;flex-direction:row}.input-label-placement-start.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-margin-start:0;margin-inline-start:0;-webkit-margin-end:16px;margin-inline-end:16px;margin-top:0;margin-bottom:0}.input-label-placement-end.sc-ion-input-md-h .input-wrapper.sc-ion-input-md{-ms-flex-direction:row-reverse;flex-direction:row-reverse}.input-label-placement-end.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-margin-start:16px;margin-inline-start:16px;-webkit-margin-end:0;margin-inline-end:0;margin-top:0;margin-bottom:0}.input-label-placement-fixed.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-margin-start:0;margin-inline-start:0;-webkit-margin-end:16px;margin-inline-end:16px;margin-top:0;margin-bottom:0}.input-label-placement-fixed.sc-ion-input-md-h .label-text.sc-ion-input-md{-ms-flex:0 0 100px;flex:0 0 100px;width:100px;min-width:100px;max-width:200px}.input-label-placement-stacked.sc-ion-input-md-h .input-wrapper.sc-ion-input-md,.input-label-placement-floating.sc-ion-input-md-h .input-wrapper.sc-ion-input-md{-ms-flex-direction:column;flex-direction:column;-ms-flex-align:start;align-items:start}.input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-transform-origin:left top;transform-origin:left top;max-width:100%;z-index:2}[dir=rtl].sc-ion-input-md-h -no-combinator.input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl] .sc-ion-input-md-h -no-combinator.input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl].input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl] .input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl].sc-ion-input-md-h -no-combinator.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl] .sc-ion-input-md-h -no-combinator.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl].input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl] .input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-transform-origin:right top;transform-origin:right top}@supports selector(:dir(rtl)){.input-label-placement-stacked.sc-ion-input-md-h:dir(rtl) .label-text-wrapper.sc-ion-input-md,.input-label-placement-floating.sc-ion-input-md-h:dir(rtl) .label-text-wrapper.sc-ion-input-md{-webkit-transform-origin:right top;transform-origin:right top}}.input-label-placement-stacked.sc-ion-input-md-h input.sc-ion-input-md,.input-label-placement-floating.sc-ion-input-md-h input.sc-ion-input-md{margin-left:0;margin-right:0;margin-top:1px;margin-bottom:0}.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-transform:translateY(100%) scale(1);transform:translateY(100%) scale(1)}.input-label-placement-floating.sc-ion-input-md-h input.sc-ion-input-md{opacity:0}.has-focus.input-label-placement-floating.sc-ion-input-md-h input.sc-ion-input-md,.has-value.input-label-placement-floating.sc-ion-input-md-h input.sc-ion-input-md{opacity:1}.label-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-transform:translateY(50%) scale(0.75);transform:translateY(50%) scale(0.75);max-width:calc(100% / 0.75)}.sc-ion-input-md-s>[slot=start]:last-of-type{-webkit-margin-end:16px;margin-inline-end:16px;-webkit-margin-start:0;margin-inline-start:0}.sc-ion-input-md-s>[slot=end]:first-of-type{-webkit-margin-start:16px;margin-inline-start:16px;-webkit-margin-end:0;margin-inline-end:0}.sc-ion-input-md-h[disabled].sc-ion-input-md-s>ion-input-password-toggle,.sc-ion-input-md-h[disabled] .sc-ion-input-md-s>ion-input-password-toggle,.sc-ion-input-md-h[readonly].sc-ion-input-md-s>ion-input-password-toggle,.sc-ion-input-md-h[readonly] .sc-ion-input-md-s>ion-input-password-toggle{visibility:hidden}.input-fill-solid.sc-ion-input-md-h{--background:var(--ion-color-step-50, var(--ion-background-color-step-50, #f2f2f2));--border-color:var(--ion-color-step-500, var(--ion-background-color-step-500, gray));--border-radius:4px;--padding-start:16px;--padding-end:16px;min-height:56px}.input-fill-solid.sc-ion-input-md-h .input-wrapper.sc-ion-input-md{border-bottom:var(--border-width) var(--border-style) var(--border-color)}.has-focus.input-fill-solid.ion-valid.sc-ion-input-md-h,.input-fill-solid.ion-touched.ion-invalid.sc-ion-input-md-h{--border-color:var(--highlight-color)}.input-fill-solid.sc-ion-input-md-h .input-bottom.sc-ion-input-md{border-top:none}@media (any-hover: hover){.input-fill-solid.sc-ion-input-md-h:hover{--background:var(--ion-color-step-100, var(--ion-background-color-step-100, #e6e6e6));--border-color:var(--ion-color-step-750, var(--ion-background-color-step-750, #404040))}}.input-fill-solid.has-focus.sc-ion-input-md-h{--background:var(--ion-color-step-150, var(--ion-background-color-step-150, #d9d9d9));--border-color:var(--ion-color-step-750, var(--ion-background-color-step-750, #404040))}.input-fill-solid.sc-ion-input-md-h .input-wrapper.sc-ion-input-md{border-start-start-radius:var(--border-radius);border-start-end-radius:var(--border-radius);border-end-end-radius:0px;border-end-start-radius:0px}.label-floating.input-fill-solid.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{max-width:calc(100% / 0.75)}.input-fill-outline.sc-ion-input-md-h{--border-color:var(--ion-color-step-300, var(--ion-background-color-step-300, #b3b3b3));--border-radius:4px;--padding-start:16px;--padding-end:16px;min-height:56px}.input-fill-outline.input-shape-round.sc-ion-input-md-h{--border-radius:28px;--padding-start:32px;--padding-end:32px}.has-focus.input-fill-outline.ion-valid.sc-ion-input-md-h,.input-fill-outline.ion-touched.ion-invalid.sc-ion-input-md-h{--border-color:var(--highlight-color)}@media (any-hover: hover){.input-fill-outline.sc-ion-input-md-h:hover{--border-color:var(--ion-color-step-750, var(--ion-background-color-step-750, #404040))}}.input-fill-outline.has-focus.sc-ion-input-md-h{--border-width:var(--highlight-height);--border-color:var(--highlight-color)}.input-fill-outline.sc-ion-input-md-h .input-bottom.sc-ion-input-md{border-top:none}.input-fill-outline.sc-ion-input-md-h .input-wrapper.sc-ion-input-md{border-bottom:none}.input-fill-outline.input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,.input-fill-outline.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-transform-origin:left top;transform-origin:left top;position:absolute;max-width:calc(100% - var(--padding-start) - var(--padding-end))}[dir=rtl].sc-ion-input-md-h -no-combinator.input-fill-outline.input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl] .sc-ion-input-md-h -no-combinator.input-fill-outline.input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl].input-fill-outline.input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl] .input-fill-outline.input-label-placement-stacked.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl].sc-ion-input-md-h -no-combinator.input-fill-outline.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl] .sc-ion-input-md-h -no-combinator.input-fill-outline.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl].input-fill-outline.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,[dir=rtl] .input-fill-outline.input-label-placement-floating.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-transform-origin:right top;transform-origin:right top}@supports selector(:dir(rtl)){.input-fill-outline.input-label-placement-stacked.sc-ion-input-md-h:dir(rtl) .label-text-wrapper.sc-ion-input-md,.input-fill-outline.input-label-placement-floating.sc-ion-input-md-h:dir(rtl) .label-text-wrapper.sc-ion-input-md{-webkit-transform-origin:right top;transform-origin:right top}}.input-fill-outline.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{position:relative}.label-floating.input-fill-outline.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{-webkit-transform:translateY(-32%) scale(0.75);transform:translateY(-32%) scale(0.75);margin-left:0;margin-right:0;margin-top:0;margin-bottom:0;max-width:calc((100% - var(--padding-start) - var(--padding-end) - 8px) / 0.75)}.input-fill-outline.input-label-placement-stacked.sc-ion-input-md-h input.sc-ion-input-md,.input-fill-outline.input-label-placement-floating.sc-ion-input-md-h input.sc-ion-input-md{margin-left:0;margin-right:0;margin-top:6px;margin-bottom:6px}.input-fill-outline.sc-ion-input-md-h .input-outline-container.sc-ion-input-md{left:0;right:0;top:0;bottom:0;display:-ms-flexbox;display:flex;position:absolute;width:100%;height:100%}.input-fill-outline.sc-ion-input-md-h .input-outline-start.sc-ion-input-md,.input-fill-outline.sc-ion-input-md-h .input-outline-end.sc-ion-input-md{pointer-events:none}.input-fill-outline.sc-ion-input-md-h .input-outline-start.sc-ion-input-md,.input-fill-outline.sc-ion-input-md-h .input-outline-notch.sc-ion-input-md,.input-fill-outline.sc-ion-input-md-h .input-outline-end.sc-ion-input-md{border-top:var(--border-width) var(--border-style) var(--border-color);border-bottom:var(--border-width) var(--border-style) var(--border-color)}.input-fill-outline.sc-ion-input-md-h .input-outline-notch.sc-ion-input-md{max-width:calc(100% - var(--padding-start) - var(--padding-end))}.input-fill-outline.sc-ion-input-md-h .notch-spacer.sc-ion-input-md{-webkit-padding-end:8px;padding-inline-end:8px;font-size:calc(1em * 0.75);opacity:0;pointer-events:none;-webkit-box-sizing:content-box;box-sizing:content-box}.input-fill-outline.sc-ion-input-md-h .input-outline-start.sc-ion-input-md{border-start-start-radius:var(--border-radius);border-start-end-radius:0px;border-end-end-radius:0px;border-end-start-radius:var(--border-radius);-webkit-border-start:var(--border-width) var(--border-style) var(--border-color);border-inline-start:var(--border-width) var(--border-style) var(--border-color);width:calc(var(--padding-start) - 4px)}.input-fill-outline.sc-ion-input-md-h .input-outline-end.sc-ion-input-md{-webkit-border-end:var(--border-width) var(--border-style) var(--border-color);border-inline-end:var(--border-width) var(--border-style) var(--border-color);border-start-start-radius:0px;border-start-end-radius:var(--border-radius);border-end-end-radius:var(--border-radius);border-end-start-radius:0px;-ms-flex-positive:1;flex-grow:1}.label-floating.input-fill-outline.sc-ion-input-md-h .input-outline-notch.sc-ion-input-md{border-top:none}.sc-ion-input-md-h{--border-width:1px;--border-color:var(--ion-item-border-color, var(--ion-border-color, var(--ion-color-step-150, var(--ion-background-color-step-150, rgba(0, 0, 0, 0.13)))));--highlight-height:2px;font-size:inherit}.input-clear-icon.sc-ion-input-md ion-icon.sc-ion-input-md{width:22px;height:22px}.input-disabled.sc-ion-input-md-h{opacity:0.38}.has-focus.ion-valid.sc-ion-input-md-h,.ion-touched.ion-invalid.sc-ion-input-md-h{--border-color:var(--highlight-color)}.input-bottom.sc-ion-input-md .counter.sc-ion-input-md{letter-spacing:0.0333333333em}.input-label-placement-floating.has-focus.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,.input-label-placement-stacked.has-focus.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{color:var(--highlight-color)}.has-focus.input-label-placement-floating.ion-valid.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,.input-label-placement-floating.ion-touched.ion-invalid.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,.has-focus.input-label-placement-stacked.ion-valid.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md,.input-label-placement-stacked.ion-touched.ion-invalid.sc-ion-input-md-h .label-text-wrapper.sc-ion-input-md{color:var(--highlight-color)}.input-highlight.sc-ion-input-md{bottom:-1px;position:absolute;width:100%;height:var(--highlight-height);-webkit-transform:scale(0);transform:scale(0);-webkit-transition:-webkit-transform 200ms;transition:-webkit-transform 200ms;transition:transform 200ms;transition:transform 200ms, -webkit-transform 200ms;background:var(--highlight-color)}.input-highlight.sc-ion-input-md{inset-inline-start:0}.has-focus.sc-ion-input-md-h .input-highlight.sc-ion-input-md{-webkit-transform:scale(1);transform:scale(1)}.in-item.sc-ion-input-md-h .input-highlight.sc-ion-input-md{bottom:0}.in-item.sc-ion-input-md-h .input-highlight.sc-ion-input-md{inset-inline-start:0}.input-shape-round.sc-ion-input-md-h{--border-radius:16px}.sc-ion-input-md-s>ion-button[slot=start].button-has-icon-only,.sc-ion-input-md-s>ion-button[slot=end].button-has-icon-only{--border-radius:50%;--padding-start:8px;--padding-end:8px;--padding-top:8px;--padding-bottom:8px;aspect-ratio:1;min-height:40px}";
 var Input = proxyCustomElement(class Input2 extends H {
   constructor() {
     super();
@@ -22595,6 +22937,7 @@ var InputOTP = proxyCustomElement(class InputOTP2 extends H {
     this.isKeyboardNavigation = false;
     this.inputValues = [];
     this.hasFocus = false;
+    this.previousInputValues = [];
     this.autocapitalize = "off";
     this.disabled = false;
     this.fill = "outline";
@@ -22681,56 +23024,90 @@ var InputOTP = proxyCustomElement(class InputOTP2 extends H {
         this.isKeyboardNavigation = true;
         return;
       }
-      if (this.inputValues[index] && this.validKeyPattern.test(event.key)) {
-        if (!this.inputValues[length - 1]) {
-          for (let i = length - 1; i > index; i--) {
-            this.inputValues[i] = this.inputValues[i - 1];
-            this.inputRefs[i].value = this.inputValues[i] || "";
-          }
-        }
-        this.inputValues[index] = event.key;
-        this.inputRefs[index].value = event.key;
-        this.updateValue(event);
-        event.preventDefault();
-      }
     };
     this.onInput = (index) => (event) => {
+      var _a, _b;
       const {
         length,
         validKeyPattern
       } = this;
-      const value = event.target.value;
-      if (value.length > 1) {
+      const input = event.target;
+      const value = input.value;
+      const previousValue = this.previousInputValues[index] || "";
+      const isAutofill = value.length - previousValue.length > 1;
+      if (isAutofill) {
         const validChars = value.split("").filter((char) => validKeyPattern.test(char)).slice(0, length);
         if (validChars.length === 0) {
           requestAnimationFrame(() => {
-            this.inputRefs.forEach((input) => {
-              input.value = "";
+            this.inputRefs.forEach((input2) => {
+              input2.value = "";
             });
           });
         }
-        this.value = validChars.join("");
+        for (let i = 0; i < length; i++) {
+          this.inputValues[i] = validChars[i] || "";
+          this.inputRefs[i].value = validChars[i] || "";
+        }
         this.updateValue(event);
         setTimeout(() => {
-          var _a;
+          var _a2;
           const nextIndex = validChars.length < length ? validChars.length : length - 1;
-          (_a = this.inputRefs[nextIndex]) === null || _a === void 0 ? void 0 : _a.focus();
+          (_a2 = this.inputRefs[nextIndex]) === null || _a2 === void 0 ? void 0 : _a2.focus();
         }, 20);
+        this.previousInputValues = [...this.inputValues];
         return;
       }
-      if (value.length > 0 && !validKeyPattern.test(value)) {
-        this.inputRefs[index].value = "";
-        this.inputValues[index] = "";
+      if (value.length > 0 && !validKeyPattern.test(value[value.length - 1])) {
+        input.value = this.inputValues[index] || "";
+        this.previousInputValues = [...this.inputValues];
         return;
       }
-      this.inputValues[index] = value;
-      this.updateValue(event);
-      if (value.length > 0) {
+      const isAllSelected = input.selectionStart === 0 && input.selectionEnd === value.length;
+      const isEmpty = !this.inputValues[index];
+      if (isAllSelected || isEmpty) {
+        this.inputValues[index] = value;
+        input.value = value;
+        this.updateValue(event);
         this.focusNext(index);
+        this.previousInputValues = [...this.inputValues];
+        return;
       }
+      const hasAvailableBoxAtEnd = this.inputValues[this.inputValues.length - 1] === "";
+      if (this.inputValues[index] && hasAvailableBoxAtEnd && value.length === 2) {
+        let newChar2 = event.data;
+        if (!newChar2) {
+          newChar2 = value.split("").find((c, i) => c !== previousValue[i]) || value[value.length - 1];
+        }
+        if (!validKeyPattern.test(newChar2)) {
+          input.value = this.inputValues[index] || "";
+          this.previousInputValues = [...this.inputValues];
+          return;
+        }
+        for (let i = this.inputValues.length - 1; i > index; i--) {
+          this.inputValues[i] = this.inputValues[i - 1];
+          this.inputRefs[i].value = this.inputValues[i] || "";
+        }
+        this.inputValues[index] = newChar2;
+        this.inputRefs[index].value = newChar2;
+        this.updateValue(event);
+        this.previousInputValues = [...this.inputValues];
+        return;
+      }
+      const cursorPos = (_a = input.selectionStart) !== null && _a !== void 0 ? _a : value.length;
+      const newCharIndex = cursorPos - 1;
+      const newChar = (_b = value[newCharIndex]) !== null && _b !== void 0 ? _b : value[0];
+      if (!validKeyPattern.test(newChar)) {
+        input.value = this.inputValues[index] || "";
+        this.previousInputValues = [...this.inputValues];
+        return;
+      }
+      this.inputValues[index] = newChar;
+      input.value = newChar;
+      this.updateValue(event);
+      this.previousInputValues = [...this.inputValues];
     };
     this.onPaste = (event) => {
-      var _a, _b, _c;
+      var _a, _b;
       const {
         inputRefs,
         length,
@@ -22751,12 +23128,8 @@ var InputOTP = proxyCustomElement(class InputOTP2 extends H {
       });
       this.value = validChars.join("");
       this.updateValue(event);
-      const nextEmptyIndex = validChars.length;
-      if (nextEmptyIndex < length) {
-        (_b = inputRefs[nextEmptyIndex]) === null || _b === void 0 ? void 0 : _b.focus();
-      } else {
-        (_c = inputRefs[length - 1]) === null || _c === void 0 ? void 0 : _c.focus();
-      }
+      const nextEmptyIndex = validChars.length < length ? validChars.length : length - 1;
+      (_b = inputRefs[nextEmptyIndex]) === null || _b === void 0 ? void 0 : _b.focus();
     };
   }
   /**
@@ -22894,6 +23267,7 @@ var InputOTP = proxyCustomElement(class InputOTP2 extends H {
       }
     });
     this.value = this.inputValues.join("");
+    this.previousInputValues = [...this.inputValues];
   }
   /**
    * Updates the value of the input group.
@@ -23056,7 +23430,7 @@ var InputOTP = proxyCustomElement(class InputOTP2 extends H {
     const pattern = this.getPattern();
     const hasDescription = ((_b = (_a = el.querySelector(".input-otp-description")) === null || _a === void 0 ? void 0 : _a.textContent) === null || _b === void 0 ? void 0 : _b.trim()) !== "";
     return h(Host, {
-      key: "df8fca036cedea0812185a02e3b655d7d76285e0",
+      key: "f15a29fb17b681ef55885ca36d3d5f899cbaca83",
       class: createColorClasses(color, {
         [mode]: true,
         "has-focus": hasFocus,
@@ -23067,7 +23441,7 @@ var InputOTP = proxyCustomElement(class InputOTP2 extends H {
         "input-otp-readonly": readonly
       })
     }, h("div", Object.assign({
-      key: "831be3f939cf037f0eb8d7e37e0afd4ef9a3c2c5",
+      key: "d7e1d4edd8aafcf2ed4313301287282e90fc7e82",
       role: "group",
       "aria-label": "One-time password input",
       class: "input-otp-group"
@@ -23097,13 +23471,13 @@ var InputOTP = proxyCustomElement(class InputOTP2 extends H {
     })), this.showSeparator(index) && h("div", {
       class: "input-otp-separator"
     })))), h("div", {
-      key: "5311fedc34f7af3efd5f69e5a3d768055119c4f1",
+      key: "3724a3159d02860971879a906092f9965f5a7c47",
       class: {
         "input-otp-description": true,
         "input-otp-description-hidden": !hasDescription
       }
     }, h("slot", {
-      key: "9e8afa2f7fa76c3092582dc27770fdf565a1b9ba"
+      key: "11baa2624926a08274508afe0833d9237a8dc35c"
     })));
   }
   get el() {
@@ -23138,6 +23512,7 @@ var InputOTP = proxyCustomElement(class InputOTP2 extends H {
   "value": [1032],
   "inputValues": [32],
   "hasFocus": [32],
+  "previousInputValues": [32],
   "setFocus": [64]
 }, void 0, {
   "value": ["valueChanged"],
@@ -23285,6 +23660,39 @@ var Range = proxyCustomElement(class Range2 extends H {
         this.hasFocus = true;
         this.ionFocus.emit();
       }
+    };
+    this.onKnobFocus = (knob) => {
+      if (!this.hasFocus) {
+        this.hasFocus = true;
+        this.ionFocus.emit();
+      }
+      if (this.dualKnobs && this.el.shadowRoot) {
+        const knobA = this.el.shadowRoot.querySelector(".range-knob-a");
+        const knobB = this.el.shadowRoot.querySelector(".range-knob-b");
+        knobA === null || knobA === void 0 ? void 0 : knobA.classList.remove("ion-focused");
+        knobB === null || knobB === void 0 ? void 0 : knobB.classList.remove("ion-focused");
+        const focusedKnobEl = knob === "A" ? knobA : knobB;
+        focusedKnobEl === null || focusedKnobEl === void 0 ? void 0 : focusedKnobEl.classList.add("ion-focused");
+      }
+    };
+    this.onKnobBlur = () => {
+      setTimeout(() => {
+        var _a;
+        const activeElement = (_a = this.el.shadowRoot) === null || _a === void 0 ? void 0 : _a.activeElement;
+        const isStillFocusedOnKnob = activeElement && activeElement.classList.contains("range-knob-handle");
+        if (!isStillFocusedOnKnob) {
+          if (this.hasFocus) {
+            this.hasFocus = false;
+            this.ionBlur.emit();
+          }
+          if (this.dualKnobs && this.el.shadowRoot) {
+            const knobA = this.el.shadowRoot.querySelector(".range-knob-a");
+            const knobB = this.el.shadowRoot.querySelector(".range-knob-b");
+            knobA === null || knobA === void 0 ? void 0 : knobA.classList.remove("ion-focused");
+            knobB === null || knobB === void 0 ? void 0 : knobB.classList.remove("ion-focused");
+          }
+        }
+      }, 0);
     };
   }
   debounceChanged() {
@@ -23683,7 +24091,9 @@ var Range = proxyCustomElement(class Range2 extends H {
       handleKeyboard,
       min,
       max,
-      inheritedAttributes
+      inheritedAttributes,
+      onKnobFocus: this.onKnobFocus,
+      onKnobBlur: this.onKnobBlur
     }), this.dualKnobs && renderKnob(rtl, {
       knob: "B",
       pressed: pressedKnob === "B",
@@ -23695,7 +24105,9 @@ var Range = proxyCustomElement(class Range2 extends H {
       handleKeyboard,
       min,
       max,
-      inheritedAttributes
+      inheritedAttributes,
+      onKnobFocus: this.onKnobFocus,
+      onKnobBlur: this.onKnobBlur
     }));
   }
   render() {
@@ -23717,7 +24129,7 @@ var Range = proxyCustomElement(class Range2 extends H {
     const mode = getIonMode(this);
     renderHiddenInput(true, el, this.name, JSON.stringify(this.getValue()), disabled);
     return h(Host, {
-      key: "124909954930d95f353e8593fd967de1486b0315",
+      key: "ef7b01f80515bcaeb2983934ad7f10a6bd5d13ec",
       onFocusin: this.onFocus,
       onFocusout: this.onBlur,
       id: rangeId,
@@ -23732,11 +24144,11 @@ var Range = proxyCustomElement(class Range2 extends H {
         "range-item-end-adjustment": needsEndAdjustment
       })
     }, h("label", {
-      key: "0af177a2ba5869d3441c4b3f393835218807a418",
+      key: "fd8aa90a9d52be9da024b907e68858dae424449d",
       class: "range-wrapper",
       id: "range-label"
     }, h("div", {
-      key: "4d834224b9c834e88497f58af4339348cec9ca1c",
+      key: "2172b4f329c22017dd23475c80aac25ba6e753eb",
       class: {
         "label-text-wrapper": true,
         "label-text-wrapper-hidden": !hasLabel
@@ -23747,13 +24159,13 @@ var Range = proxyCustomElement(class Range2 extends H {
     }, label) : h("slot", {
       name: "label"
     })), h("div", {
-      key: "797d39ac73610f6d81d0b99d71982f98f2a66c88",
+      key: "3c318bf2ea0576646d4c010bf44573fd0f483186",
       class: "native-wrapper"
     }, h("slot", {
-      key: "88824589cac5bb2134c30bed067ed11f6e81d887",
+      key: "6586fd6fc96271e73f8a86c202d1913ad1a26f96",
       name: "start"
     }), this.renderRangeSlider(), h("slot", {
-      key: "7207a1164b272f56634435f7bff9114fb5d9f085",
+      key: "74ac0bc2d2cb66ef708bb729f88b6ecbc1b2155d",
       name: "end"
     }))));
   }
@@ -23817,7 +24229,9 @@ var renderKnob = (rtl, {
   pin,
   handleKeyboard,
   pinFormatter,
-  inheritedAttributes
+  inheritedAttributes,
+  onKnobFocus,
+  onKnobBlur
 }) => {
   const start = rtl ? "right" : "left";
   const knobStyle = () => {
@@ -23839,6 +24253,8 @@ var renderKnob = (rtl, {
         ev.stopPropagation();
       }
     },
+    onFocus: () => onKnobFocus(knob),
+    onBlur: onKnobBlur,
     class: {
       "range-knob-handle": true,
       "range-knob-a": knob === "A",
@@ -24052,10 +24468,8 @@ var Searchbar = proxyCustomElement(class Searchbar2 extends H {
   /**
    * Sets focus on the native `input` in `ion-searchbar`. Use this method instead of the global
    * `input.focus()`.
-   *
    * Developers who wish to focus an input when a page enters
    * should call `setFocus()` in the `ionViewDidEnter()` lifecycle method.
-   *
    * Developers who wish to focus an input when an overlay is presented
    * should call `setFocus` after `didPresent` has resolved.
    *
@@ -24230,7 +24644,7 @@ var Searchbar = proxyCustomElement(class Searchbar2 extends H {
     const searchIcon = this.searchIcon || (mode === "ios" ? searchOutline : searchSharp);
     const shouldShowCancelButton = this.shouldShowCancelButton();
     const cancelButton = this.showCancelButton !== "never" && h("button", {
-      key: "5835c36fcb0b52aec956538202a783f6c194d853",
+      key: "19e18775856db87daeb4b9e3d7bca0461915a0df",
       "aria-label": cancelButtonText,
       "aria-hidden": shouldShowCancelButton ? void 0 : "true",
       type: "button",
@@ -24239,7 +24653,7 @@ var Searchbar = proxyCustomElement(class Searchbar2 extends H {
       onTouchStart: this.onCancelSearchbar,
       class: "searchbar-cancel-button"
     }, h("div", {
-      key: "85df41676bed611467bd4df0002b08baee4f539c",
+      key: "b3bbdcc033f3bd3441d619e4a252cef0dad4d07e",
       "aria-hidden": "true"
     }, mode === "md" ? h("ion-icon", {
       "aria-hidden": "true",
@@ -24248,7 +24662,7 @@ var Searchbar = proxyCustomElement(class Searchbar2 extends H {
       lazy: false
     }) : cancelButtonText));
     return h(Host, {
-      key: "e1e30cdd79f9f54d5f2d27501012358bc46880e5",
+      key: "074aa60e051bfb3225e87d44bbb6346c59c73574",
       role: "search",
       "aria-disabled": this.disabled ? "true" : null,
       class: createColorClasses(this.color, {
@@ -24263,10 +24677,10 @@ var Searchbar = proxyCustomElement(class Searchbar2 extends H {
         "searchbar-should-show-cancel": this.shouldShowCancelButton()
       })
     }, h("div", {
-      key: "7e9db147282a35bb1e3c9c6125b9a044e81ddde5",
+      key: "54f58a79fe36e85d9295157303f1be89c98bbdaf",
       class: "searchbar-input-container"
     }, h("input", Object.assign({
-      key: "02f08da21326b78d6cd249d54deab96fd8472ba8",
+      key: "f991a37fcf54d26b7ad10d89084764e03d97b9de",
       "aria-label": "search text",
       disabled: this.disabled,
       ref: (el) => this.nativeInput = el,
@@ -24288,14 +24702,14 @@ var Searchbar = proxyCustomElement(class Searchbar2 extends H {
       autoCorrect: this.autocorrect,
       spellcheck: this.spellcheck
     }, this.inheritedAttributes)), mode === "md" && cancelButton, h("ion-icon", {
-      key: "048b00348456bd827ae734491c46a67bfb146227",
+      key: "8b44dd90a3292c5cf872ef16a8520675f5673494",
       "aria-hidden": "true",
       mode,
       icon: searchIcon,
       lazy: false,
       class: "searchbar-search-icon"
     }), h("button", {
-      key: "71f64339bbfd54ebd26a0946c8ee9d726cd89c04",
+      key: "79d9cfed8f01268044f82811a35d323a12dca749",
       "aria-label": "reset",
       type: "button",
       "no-blur": true,
@@ -24305,7 +24719,7 @@ var Searchbar = proxyCustomElement(class Searchbar2 extends H {
       },
       onClick: () => this.onClearInput(true)
     }, h("ion-icon", {
-      key: "9b1a177b21951c1c95897a468b34bb7bbd63d137",
+      key: "aa3b9fa8a61f853236783ac7bcd0b113ea65ece2",
       "aria-hidden": "true",
       mode,
       icon: clearIcon,
@@ -25190,7 +25604,7 @@ var Select = proxyCustomElement(class Select2 extends H {
       const scrollSelectedIntoView = () => {
         const indexOfSelected = this.childOpts.findIndex((o) => o.value === this.value);
         if (indexOfSelected > -1) {
-          const selectedItem = overlay.querySelector(`.select-interface-option:nth-child(${indexOfSelected + 1})`);
+          const selectedItem = overlay.querySelector(`.select-interface-option:nth-of-type(${indexOfSelected + 1})`);
           if (selectedItem) {
             const interactiveEl = selectedItem.querySelector("ion-radio, ion-checkbox");
             if (interactiveEl) {
@@ -25748,7 +26162,7 @@ var Select = proxyCustomElement(class Select2 extends H {
     renderHiddenInput(true, el, name, parseValue(value), disabled);
     const labelShouldFloat = labelPlacement === "stacked" || labelPlacement === "floating" && (hasValue || isExpanded || hasStartEndSlots);
     return h(Host, {
-      key: "e33253af9b9daa14460c7c259fb138b4d2b875ae",
+      key: "c03fb65e8fc9f9aab295e07b282377d57d910519",
       onClick: this.onClick,
       class: createColorClasses(this.color, {
         [mode]: true,
@@ -25770,26 +26184,26 @@ var Select = proxyCustomElement(class Select2 extends H {
         [`select-label-placement-${labelPlacement}`]: true
       })
     }, h("label", {
-      key: "03303b7131c77a78a933e8e496e7251b6b5c485b",
+      key: "0d0c8ec55269adcac625f2899a547f4e7f3e3741",
       class: "select-wrapper",
       id: "select-label",
       onClick: this.onLabelClick
     }, this.renderLabelContainer(), h("div", {
-      key: "9037674db6a0adc189e887c9048f817d5afdf635",
+      key: "f6dfc93c0e23cbe75a2947abde67d842db2dad78",
       class: "select-wrapper-inner"
     }, h("slot", {
-      key: "7c9226c838ba4bcf5bc0b234fa1613ce335cf73d",
+      key: "957bfadf9f101f519091419a362d3abdc2be66f6",
       name: "start"
     }), h("div", {
-      key: "a7432c3efb5c65f88a5e4b0d35c5a433fa4e949d",
+      key: "ca349202a484e7f2e884533fd330f0b136754f7d",
       class: "native-wrapper",
       ref: (el2) => this.nativeWrapperEl = el2,
       part: "container"
     }, this.renderSelectText(), this.renderListbox()), h("slot", {
-      key: "028e683df26a8f573d7670da76e0ad26d21c83e0",
+      key: "f0e62a6533ff1c8f62bd2d27f60b23385c4fa9ed",
       name: "end"
     }), !hasFloatingOrStackedLabel && this.renderSelectIcon()), hasFloatingOrStackedLabel && this.renderSelectIcon(), shouldRenderHighlight && h("div", {
-      key: "20341bcae3753048ce905d2aceffa5351a0db125",
+      key: "fb840d46bafafb09898ebeebbe8c181906a3d8a2",
       class: "select-highlight"
     })), this.renderBottomContent());
   }
