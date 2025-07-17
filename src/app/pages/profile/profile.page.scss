@@ -2,7 +2,7 @@
   max-width: 400px;
   margin: 40px auto 0 auto;
   padding: 32px 24px 28px 24px;
-  background: #fff;
+  background: #e6f9d5; /* Fundo verde claro padrão do projeto */
   border-radius: 24px;
   box-shadow: 0 2px 16px rgba(0,0,0,0.06);
   display: flex;
@@ -13,15 +13,35 @@
 h2 {
   text-align: center;
   margin-bottom: 24px;
-  color: #22332a;
+  color: #2e473b; /* Título escuro padrão */
 }
 
 ion-item {
   margin-bottom: 16px;
+  --background: #fff;
+  --color: #2e473b;
+  border-radius: 12px;
+}
+
+ion-input {
+  --color: #2e473b;
 }
 
 ion-button {
   margin-top: 18px;
+  --background: #176b3a;
+  --color: #fff;
+  --border-radius: 12px;
+  font-weight: 600;
+}
+
+ion-button[color="danger"] {
+  --background: #d32f2f;
+}
+
+ion-button[color="medium"] {
+  --background: #b6b6b6;
+  --color: #2e473b;
 }
 
 .error-message {
@@ -34,4 +54,18 @@ ion-button {
   color: #388e3c;
   text-align: center;
   margin-top: 16px;
+}
+
+.profile-back-btn {
+  position: absolute;
+  top: 48px;
+  left: 12px;
+  z-index: 10;
+}
+
+.profile-back-btn ion-button {
+  --background: transparent;
+  --box-shadow: none;
+  font-size: 2rem;
+  padding: 0;
 } 
