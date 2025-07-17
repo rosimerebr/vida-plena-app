@@ -1,11 +1,11 @@
 # TODO
 
-- [x] Página de relatório agora exibe corretamente o gráfico com dados do backend.
-- [x] Layout do relatório ajustado para melhor visualização e responsividade.
-- [x] Barras do gráfico aparecem em cinza quando não há registro.
-- [x] Fluxo de hábitos diários integrado e sem duplicidade visual.
-- [x] Testes unitários criados/ajustados conforme padrão Angular.
-- [x] Padronização do nome do hábito 'Exercise' em todo o frontend para garantir consistência e correta exibição no relatório e gráfico.
-- [x] Conflitos de dependências do Angular/CDK resolvidos, node_modules e package-lock.json limpos, dependências reinstaladas e projeto funcionando normalmente.
+- [x] Menu lateral do Ionic implementado e navegando corretamente entre as páginas standalone.
+- [ ] Revisar e otimizar imports de componentes em todas as páginas para evitar warnings e melhorar performance.
+- [ ] Remover o uso de userId hardcoded no frontend e obter o userId do token JWT/autenticação em todas as operações que enviam dados ao backend. (em andamento)
+- [ ] Migrar a persistência de hábitos e progresso para o backend, usando o localStorage apenas como cache offline temporário, sincronizando com o backend assim que possível.
+- [ ] Garantir que toda lógica de negócio crítica (cálculo de streak, total, validação de hábitos) seja feita no backend, e não no frontend.
+- [ ] Duplicar validação de dados no backend, mesmo que o frontend já valide, para garantir integridade e segurança.
 
-**Próxima tarefa sugerida:** Revisar e garantir que não há imports ou dependências desnecessárias (como @angular/cdk) no projeto para evitar conflitos futuros. 
+**Próxima tarefa sugerida:**
+Revisar e otimizar imports de componentes em todas as páginas standalone para evitar warnings do Angular e garantir build limpo. 
