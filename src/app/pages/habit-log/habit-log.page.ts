@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton, IonContent, IonIcon, IonToggle, IonButton } from '@ionic/angular/standalone';
 import { HabitService, HabitLog } from 'src/app/services/habit.service';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-habit-log',
@@ -27,7 +28,7 @@ export class HabitLogPage implements OnInit {
   ];
   habitStatus: { [habit: string]: boolean } = {};
 
-  constructor(private habitService: HabitService, private router: Router) { }
+  constructor(private habitService: HabitService, private router: Router, private authService: AuthService) { }
 
   ngOnInit() {
     const now = new Date();
@@ -52,9 +53,14 @@ export class HabitLogPage implements OnInit {
       habits: { ...this.habitStatus }
     };
     
-    // Use the new method that saves locally and sends to backend
-    // For now, using a default userId - in a real app, this would come from auth service
-    const userId = 'default-user'; // TODO: Get from auth service
+    // Obter o userId do AuthService
+    const userId = this.authService.getUserIdFromToken();
+    if (!userId) {
+      console.error('Usuário não autenticado. Não foi possível obter o userId.');
+      // Aqui você pode redirecionar para login ou mostrar uma mensagem de erro
+      this.router.navigate(['/login']);
+      return;
+    }
     
     this.habitService.saveHabitWithBackendSync(log, userId).subscribe({
       next: (response) => {
