@@ -55,6 +55,11 @@ export class HomePage implements OnInit {
     this.loadWeeklyReport();
   }
 
+  // Lifecycle do Ionic para atualizar sempre que a página entra em foco
+  ionViewWillEnter() {
+    this.loadWeeklyReport();
+  }
+
   loadWeeklyReport() {
     console.log('Loading weekly report...');
     const userId = this.authService.getUserIdFromToken();

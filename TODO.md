@@ -9,6 +9,7 @@
 
 **Progresso recente:**
 - O envio do log de hábitos agora utiliza corretamente o id do usuário autenticado, obtido do token JWT, em vez de um valor fixo ('default-user'). Isso garante que os dados salvos no backend estejam associados ao usuário correto.
+- O gráfico de hábitos na home agora é atualizado automaticamente ao retornar da página de registro de hábitos, sem necessidade de recarregar a página manualmente.
 
 **Próxima tarefa sugerida:**
 Revisar e otimizar imports de componentes em todas as páginas standalone para evitar warnings do Angular e garantir build limpo. 
