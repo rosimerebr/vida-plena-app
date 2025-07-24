@@ -10,4 +10,8 @@ export class ReportService {
   getWeeklyReport(userId: string): Observable<any> {
     return this.http.get(`${environment.apiUrl}/report?userId=${userId}`);
   }
+
+  getMonthlyReport(userId: string, month: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/report/monthly?userId=${userId}&month=${month}`);
+  }
 }

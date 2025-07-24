@@ -26,6 +26,11 @@ export class ReportPage implements OnInit {
   streak = 0;
   totalCompleted = 0;
   motivationalMessage = '';
+  allCompletedDaysCount = 0;
+  habitNames = [
+    'Sunlight', 'Water', 'Air', 'Healthy Food',
+    'Exercise', 'Temperance', 'Rest', 'Trust in God'
+  ];
 
   constructor(private reportService: ReportService, private authService: AuthService) { }
 
@@ -37,18 +42,30 @@ export class ReportPage implements OnInit {
       return;
     }
     this.loading = true;
+
+    // 1. Relatório semanal para o gráfico
     this.reportService.getWeeklyReport(userId).subscribe({
       next: (data) => {
         this.processHabitsData(data);
-        this.streak = data?.streak || 0;
-        this.totalCompleted = data?.totalCompleted || 0;
-        this.period = this.formatPeriod(data?.periodStart, data?.periodEnd);
-        this.motivationalMessage = this.getMotivationalMessage(this.streak, this.totalCompleted);
         this.loading = false;
       },
       error: () => {
-        this.error = 'Error fetching report data.';
+        this.error = 'Error fetching weekly report data.';
         this.loading = false;
+      }
+    });
+
+    // 2. Relatório mensal para o campo Complete
+    const now = new Date();
+    const month = now.toISOString().slice(0, 7); // 'YYYY-MM'
+    this.reportService.getMonthlyReport(userId, month).subscribe({
+      next: (monthLogs: any[]) => {
+        this.allCompletedDaysCount = monthLogs.filter((log: any) =>
+          this.habitNames.every(habit => log.habits[habit])
+        ).length;
+      },
+      error: () => {
+        this.error = 'Error fetching monthly report data.';
       }
     });
   }
