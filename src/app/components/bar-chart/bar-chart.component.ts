@@ -38,17 +38,20 @@ export class BarChartComponent implements OnChanges, AfterViewInit {
     const ctx = this.chartCanvas.nativeElement.getContext('2d');
     if (!ctx) return;
 
+    // Use weekData se fornecido, senão habitsData
+    const useWeekData = this.weekData && this.weekData.length > 0;
+    const labels = useWeekData ? this.weekData.map(d => d.label) : this.habitsData.map(h => h.name);
+    const data = useWeekData ? this.weekData.map(d => d.value) : this.habitsData.map(h => h.weeklyTotal);
+    const backgroundColor = data.map(v => v === 0 ? '#cccccc' : '#4CAF50');
+    const borderColor = data.map(v => v === 0 ? '#999999' : '#2E7D32');
+
     const chartData: ChartData<'bar'> = {
-      labels: this.habitsData.map(h => h.name),
+      labels: labels,
       datasets: [{
         label: 'Weekly Progress',
-        data: this.habitsData.map(h => h.weeklyTotal),
-        backgroundColor: this.habitsData.map(h => 
-          h.weeklyTotal === 0 ? '#cccccc' : '#4CAF50'
-        ),
-        borderColor: this.habitsData.map(h => 
-          h.weeklyTotal === 0 ? '#999999' : '#2E7D32'
-        ),
+        data: data,
+        backgroundColor: backgroundColor,
+        borderColor: borderColor,
         borderWidth: 1,
         borderRadius: 4,
         borderSkipped: false,
@@ -76,7 +79,7 @@ export class BarChartComponent implements OnChanges, AfterViewInit {
         scales: {
           y: {
             beginAtZero: true,
-            max: Math.max(...this.habitsData.map(h => h.weeklyTotal), 7),
+            max: Math.max(...data, 7),
             ticks: {
               stepSize: 1
             }
@@ -96,16 +99,13 @@ export class BarChartComponent implements OnChanges, AfterViewInit {
 
   updateChart() {
     if (!this.chart) return;
-
-    this.chart.data.labels = this.habitsData.map(h => h.name);
-    this.chart.data.datasets[0].data = this.habitsData.map(h => h.weeklyTotal);
-    this.chart.data.datasets[0].backgroundColor = this.habitsData.map(h => 
-      h.weeklyTotal === 0 ? '#cccccc' : '#4CAF50'
-    );
-    this.chart.data.datasets[0].borderColor = this.habitsData.map(h => 
-      h.weeklyTotal === 0 ? '#999999' : '#2E7D32'
-    );
-
+    const useWeekData = this.weekData && this.weekData.length > 0;
+    const labels = useWeekData ? this.weekData.map(d => d.label) : this.habitsData.map(h => h.name);
+    const data = useWeekData ? this.weekData.map(d => d.value) : this.habitsData.map(h => h.weeklyTotal);
+    this.chart.data.labels = labels;
+    this.chart.data.datasets[0].data = data;
+    this.chart.data.datasets[0].backgroundColor = data.map(v => v === 0 ? '#cccccc' : '#4CAF50');
+    this.chart.data.datasets[0].borderColor = data.map(v => v === 0 ? '#999999' : '#2E7D32');
     this.chart.update();
   }
 

@@ -22,6 +22,7 @@ export class ReportPage implements OnInit {
   error = '';
   period = '';
   habitsData: HabitData[] = [];
+  weekData: { label: string, value: number }[] = [];
   streak = 0;
   totalCompleted = 0;
   motivationalMessage = '';
@@ -55,6 +56,7 @@ export class ReportPage implements OnInit {
   processHabitsData(data: any) {
     if (!data) {
       this.habitsData = [];
+      this.weekData = [];
       return;
     }
     const habits = [
@@ -67,12 +69,20 @@ export class ReportPage implements OnInit {
       { name: 'Rest', icon: 'moon' },
       { name: 'Trust in God', icon: 'heart-circle-outline' }
     ];
-    // Se vier no formato habitsData, use direto
-    if (Array.isArray(data.habitsData)) {
-      this.habitsData = data.habitsData;
-      return;
+    // Soma por dia da semana
+    const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+    const weekTotals = [0, 0, 0, 0, 0, 0, 0];
+    for (const habit of habits) {
+      const weeklyData = data[habit.name] || [0, 0, 0, 0, 0, 0, 0];
+      weeklyData.forEach((val: number, idx: number) => {
+        weekTotals[idx] += val;
+      });
     }
-    // Se vier como objeto com arrays por hábito, processa igual à home
+    this.weekData = daysOfWeek.map((label, idx) => ({
+      label,
+      value: weekTotals[idx]
+    }));
+    // Mantém habitsData para outros usos, se necessário
     this.habitsData = habits.map(habit => {
       const weeklyData = data[habit.name] || [0, 0, 0, 0, 0, 0, 0];
       const weeklyTotal = Array.isArray(weeklyData) ? weeklyData.reduce((sum: number, val: number) => sum + val, 0) : 0;

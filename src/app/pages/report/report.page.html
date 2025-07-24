@@ -57,8 +57,8 @@
             <ion-card-title>Habits completed this week</ion-card-title>
           </ion-card-header>
           <ion-card-content>
-            <ng-container *ngIf="habitsData && habitsData.length > 0; else noData">
-              <app-bar-chart [habitsData]="habitsData"></app-bar-chart>
+            <ng-container *ngIf="weekData && weekData.length > 0; else noData">
+              <app-bar-chart [weekData]="weekData"></app-bar-chart>
             </ng-container>
             <ng-template #noData>
               <div class="no-data-message">No habits registered this week.</div>
