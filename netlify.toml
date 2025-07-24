@@ -1,0 +1,14 @@
+[build]
+  command = "ng build --configuration production"
+  publish = "www"
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+# SPA fallback para evitar erro 404 ao atualizar páginas internas
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200 
