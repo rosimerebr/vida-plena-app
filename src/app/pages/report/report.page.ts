@@ -43,10 +43,13 @@ export class ReportPage implements OnInit {
     }
     this.loading = true;
 
-    // 1. Relatório semanal para o gráfico
+    // 1. Weekly report for the chart
     this.reportService.getWeeklyReport(userId).subscribe({
       next: (data) => {
         this.processHabitsData(data);
+        this.streak = data?.streak || 0;
+        this.totalCompleted = data?.totalCompleted || 0;
+        this.motivationalMessage = this.getMotivationalMessage(this.streak, this.totalCompleted);
         this.loading = false;
       },
       error: () => {
@@ -55,7 +58,7 @@ export class ReportPage implements OnInit {
       }
     });
 
-    // 2. Relatório mensal para o campo Complete
+    // 2. Monthly report for the complete days count
     const now = new Date();
     const month = now.toISOString().slice(0, 7); // 'YYYY-MM'
     this.reportService.getMonthlyReport(userId, month).subscribe({
@@ -86,7 +89,7 @@ export class ReportPage implements OnInit {
       { name: 'Rest', icon: 'moon' },
       { name: 'Trust in God', icon: 'heart-circle-outline' }
     ];
-    // Soma por dia da semana
+    // Sum by day of the week
     const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
     const weekTotals = [0, 0, 0, 0, 0, 0, 0];
     for (const habit of habits) {
@@ -99,7 +102,7 @@ export class ReportPage implements OnInit {
       label,
       value: weekTotals[idx]
     }));
-    // Mantém habitsData para outros usos, se necessário
+    // Keep habitsData for other uses, if necessary
     this.habitsData = habits.map(habit => {
       const weeklyData = data[habit.name] || [0, 0, 0, 0, 0, 0, 0];
       const weeklyTotal = Array.isArray(weeklyData) ? weeklyData.reduce((sum: number, val: number) => sum + val, 0) : 0;
