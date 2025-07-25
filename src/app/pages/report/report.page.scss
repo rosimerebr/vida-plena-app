@@ -144,16 +144,19 @@
 .report-top-row {
   margin-bottom: 24px;
   justify-content: center;
+  display: flex;
 }
 
 .report-top-card {
   max-width: 400px;
-  min-height: 140px;
-  margin: 0 auto 16px auto;
+  min-height: 160px;
+  margin: 0 8px 16px 8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: stretch;
   box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+  flex: 1 1 0;
 }
 
 .streak-card {
@@ -173,5 +176,13 @@
   .report-period {
     font-size: 1rem;
     margin-bottom: 10px;
+  }
+  .report-top-row {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .report-top-card {
+    margin: 0 0 16px 0;
+    max-width: 100%;
   }
 } 
