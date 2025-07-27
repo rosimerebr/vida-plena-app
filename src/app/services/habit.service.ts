@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -9,7 +9,6 @@ export interface HabitLog {
 }
 
 export interface HabitReport {
-  userId: string;
   habit: string;
   date: string;
 }
@@ -20,6 +19,14 @@ export interface HabitReport {
 export class HabitService {
 
   constructor(private http: HttpClient) { }
+
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
+  }
 
   // Save habit log locally
   saveHabitLog(log: HabitLog): void {
@@ -32,9 +39,28 @@ export class HabitService {
     return data ? JSON.parse(data) : null;
   }
 
+  // Clear all habit logs from local storage (useful when user logs out or changes)
+  clearAllHabitLogs(): void {
+    const keys = Object.keys(localStorage);
+    keys.forEach(key => {
+      if (key.startsWith('habit-log-')) {
+        localStorage.removeItem(key);
+      }
+    });
+  }
+
+  // Get habits from backend for a specific date
+  getHabitsFromBackend(date: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/report/habits/${date}`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
   // Send habit to backend
   sendHabitToBackend(habitReport: HabitReport): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/report`, habitReport);
+    return this.http.post(`${environment.apiUrl}/report`, [habitReport], {
+      headers: this.getAuthHeaders()
+    });
   }
 
   // Save habit and send to backend
@@ -48,7 +74,6 @@ export class HabitService {
     Object.entries(log.habits).forEach(([habit, completed]) => {
       if (completed) {
         habitsToSend.push({
-          userId: userId,
           habit: habit,
           date: log.date
         });
@@ -57,7 +82,9 @@ export class HabitService {
 
     // Send all completed habits to backend
     if (habitsToSend.length > 0) {
-      return this.http.post(`${environment.apiUrl}/report`, habitsToSend);
+      return this.http.post(`${environment.apiUrl}/report`, habitsToSend, {
+        headers: this.getAuthHeaders()
+      });
     } else {
       // Return empty observable if no habits to send
       return new Observable(subscriber => {

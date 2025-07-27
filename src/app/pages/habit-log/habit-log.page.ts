@@ -36,10 +36,29 @@ export class HabitLogPage implements OnInit {
     const month = now.toLocaleDateString('en-US', { month: 'long' });
     const day = now.getDate();
     this.displayDate = `${month} ${day}`;
-    // Initialize habit status
-    const saved = this.habitService.getHabitLog(this.today);
+    
+    // Initialize habit status - start with all habits unchecked
     this.habits.forEach(h => {
-      this.habitStatus[h.name] = saved ? !!saved[h.name] : false;
+      this.habitStatus[h.name] = false;
+    });
+
+    // Load saved habits from backend for today
+    this.loadSavedHabits();
+  }
+
+  loadSavedHabits() {
+    this.habitService.getHabitsFromBackend(this.today).subscribe({
+      next: (savedHabits) => {
+        console.log('Loaded saved habits:', savedHabits);
+        // Update habit status with saved data
+        this.habits.forEach(h => {
+          this.habitStatus[h.name] = savedHabits[h.name] || false;
+        });
+      },
+      error: (error) => {
+        console.error('Error loading saved habits:', error);
+        // If error, keep all habits unchecked
+      }
     });
   }
 

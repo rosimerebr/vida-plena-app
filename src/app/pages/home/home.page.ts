@@ -68,13 +68,15 @@ export class HomePage implements OnInit {
       this.useTestData();
       return;
     }
-    this.reportService.getWeeklyReport(userId).subscribe({
+    this.reportService.getWeeklyReport().subscribe({
       next: (data) => {
         console.log('Weekly report received:', data);
         this.reportData = data;
         setTimeout(() => {
           this.processHabitsData(data);
-          this.calculateStats(data);
+          // Use the totalCompleted from backend instead of recalculating
+          this.totalCompleted = data?.totalCompleted || 0;
+          this.streak = data?.streak || 0;
           console.log('Final habits data after processing:', this.habitsData);
         }, 100);
       },
@@ -134,21 +136,6 @@ export class HomePage implements OnInit {
     
     // Forçar detecção de mudanças
     this.habitsData = [...this.habitsData];
-  }
-
-  calculateStats(data: any) {
-    if (!data) return;
-
-    // Calculate total completed habits
-    this.totalCompleted = Object.values(data).reduce((total: number, habitData: any) => {
-      if (Array.isArray(habitData)) {
-        return total + habitData.reduce((sum: number, value: number) => sum + value, 0);
-      }
-      return total;
-    }, 0);
-
-    // Calculate streak (simplified - can be enhanced)
-    this.streak = Math.max(...this.weekData.map(day => day.value));
   }
 
   startDailyChallenge() {

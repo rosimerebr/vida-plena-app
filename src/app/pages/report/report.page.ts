@@ -44,7 +44,7 @@ export class ReportPage implements OnInit {
     this.loading = true;
 
     // 1. Weekly report for the chart
-    this.reportService.getWeeklyReport(userId).subscribe({
+    this.reportService.getWeeklyReport().subscribe({
       next: (data) => {
         this.processHabitsData(data);
         this.streak = data?.streak || 0;
@@ -61,7 +61,7 @@ export class ReportPage implements OnInit {
     // 2. Monthly report for the complete days count
     const now = new Date();
     const month = now.toISOString().slice(0, 7); // 'YYYY-MM'
-    this.reportService.getMonthlyReport(userId, month).subscribe({
+    this.reportService.getMonthlyReport(month).subscribe({
       next: (monthLogs: any[]) => {
         this.allCompletedDaysCount = monthLogs.filter((log: any) =>
           this.habitNames.every(habit => log.habits[habit])

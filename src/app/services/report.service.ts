@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -7,11 +7,23 @@ import { environment } from '../../environments/environment';
 export class ReportService {
   constructor(private http: HttpClient) {}
 
-  getWeeklyReport(userId: string): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/report?userId=${userId}`);
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token');
+    return new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`
+    });
   }
 
-  getMonthlyReport(userId: string, month: string): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/report/monthly?userId=${userId}&month=${month}`);
+  getWeeklyReport(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/report`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  getMonthlyReport(month: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/report/monthly?month=${month}`, {
+      headers: this.getAuthHeaders()
+    });
   }
 }
