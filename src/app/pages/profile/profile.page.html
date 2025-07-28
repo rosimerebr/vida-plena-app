@@ -35,10 +35,6 @@
       </ion-button>
       <div *ngIf="success" class="success-message">{{ success }}</div>
     </form>
-    <ion-button expand="block" color="medium" (click)="onChangePassword()" style="margin-top: 16px;">
-      <ion-icon name="lock" slot="start"></ion-icon>
-      Change password
-    </ion-button>
     <ion-button expand="block" color="danger" (click)="onLogout()" style="margin-top: 8px;">
       <ion-icon name="log-out" slot="start"></ion-icon>
       Logout
