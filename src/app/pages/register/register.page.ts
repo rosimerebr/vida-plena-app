@@ -140,11 +140,6 @@ export class RegisterPage implements OnInit {
     });
   }
 
-  onGoogleRegister() {
-    // Registration logic with Google here
-    console.log('Register with Google');
-  }
-
   goToLogin() {
     this.router.navigate(['/login']);
   }
