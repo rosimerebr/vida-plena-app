@@ -1,10 +1,11 @@
 import { Component, OnInit } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { FormsModule } from "@angular/forms";
-import {IonContent, IonItem, IonInput, IonInputPasswordToggle, IonButton, IonRippleEffect, IonImg} from "@ionic/angular/standalone";
+import {IonContent, IonItem, IonInput, IonInputPasswordToggle, IonButton, IonRippleEffect, IonImg, ModalController} from "@ionic/angular/standalone";
 import { AuthService } from "src/app/services/auth.service";
 import { Router } from "@angular/router";
 import { ToastController } from '@ionic/angular';
+import { RecoverPasswordModalComponent } from '../../components/recover-password-modal/recover-password-modal.component';
 
 @Component({
   selector: "app-login",
@@ -33,7 +34,8 @@ export class LoginPage implements OnInit {
   constructor(
     private authService: AuthService, 
     private router: Router,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private modalController: ModalController
   ) {}
 
   ngOnInit() {}
@@ -98,5 +100,15 @@ export class LoginPage implements OnInit {
         await toast.present();
       }
     });
+  }
+
+  async openRecoverPasswordModal() {
+    const modal = await this.modalController.create({
+      component: RecoverPasswordModalComponent,
+      breakpoints: [0, 1],
+      initialBreakpoint: 1,
+      backdropDismiss: true
+    });
+    await modal.present();
   }
 }

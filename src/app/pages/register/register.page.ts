@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonInput, IonInputPasswordToggle, IonButton, IonIcon, IonImg } from '@ionic/angular/standalone';
+import { IonContent, IonHeader, IonTitle, IonToolbar, IonItem, IonInput, IonInputPasswordToggle, IonButton, IonIcon, IonImg, IonLabel } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { AuthService } from '../../services/auth.service';
@@ -11,7 +11,7 @@ import { AuthService } from '../../services/auth.service';
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
   standalone: true,
-  imports: [IonImg, IonItem, IonContent, CommonModule, FormsModule, IonInput, IonInputPasswordToggle, IonButton, IonIcon]
+  imports: [IonImg, IonItem, IonContent, CommonModule, FormsModule, IonInput, IonInputPasswordToggle, IonButton, IonIcon, IonLabel]
 })
 export class RegisterPage implements OnInit {
   fullName: string = '';
@@ -19,6 +19,7 @@ export class RegisterPage implements OnInit {
   password: string = '';
   dob: string = '';
   weight: string = '';
+  secretAnswer: string = '';
 
   constructor(
     private router: Router, 
@@ -67,7 +68,7 @@ export class RegisterPage implements OnInit {
 
   async onRegister() {
     // Validação dos campos obrigatórios
-    if (!this.fullName || !this.email || !this.password || !this.dob) {
+    if (!this.fullName || !this.email || !this.password || !this.dob || !this.secretAnswer) {
       const errorToast = await this.toastController.create({
         message: 'PPlease fill in all required fields.',
         duration: 2000,
@@ -96,7 +97,9 @@ export class RegisterPage implements OnInit {
       email: this.email,
       password: this.password,
       dateOfBirth: this.convertDateForBackend(this.dob),
-      weight: parseFloat(this.weight) || 0
+      weight: parseFloat(this.weight) || 0,
+      secretQuestion: "What is your mother's name?",
+      secretAnswer: this.secretAnswer
     };
 
     // Chamar o serviço de registro

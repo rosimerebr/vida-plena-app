@@ -25,8 +25,14 @@ export class AuthService {
     password: string;
     dateOfBirth: string;
     weight: number;
+    secretQuestion?: string;
+    secretAnswer?: string;
   }): Observable<any> {
     return this.http.post(`${this.apiUrl}/user`, userData);
+  }
+
+  recoverPassword(request: { email: string; secretAnswer: string; newPassword: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}/auth/recover-password`, request);
   }
 
   getUserIdFromToken(): string | null {

@@ -2,7 +2,7 @@
   <div id="container">
     <ion-img
       src="assets/images/logo.png"
-      alt="The Wisconsin State Capitol building in Madison, WI at night"
+      alt="Vida Plena Logo"
     ></ion-img>
     <!--Email and Password-->
     <ion-item>
@@ -21,6 +21,10 @@
       <ion-button (click)="onLogin()" >LOGIN</ion-button>
 
       <div *ngIf="loginError" class="error-message">{{ loginError }}</div>
+
+      <div style="text-align:center; margin-top: 12px;">
+        <a (click)="openRecoverPasswordModal()" style="cursor:pointer; color: #3880ff; text-decoration: underline;">Forgot password?</a>
+      </div>
 
       <div class="ion-activatable ripple-parent rectangle">
         <ion-ripple-effect></ion-ripple-effect>
