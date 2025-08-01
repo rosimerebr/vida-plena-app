@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonItem, IonInput, IonButton, IonIcon, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { refresh, arrowBackCircle, logOut } from 'ionicons/icons';
+import { refresh, arrowBackCircle, logOut, personCircle } from 'ionicons/icons';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
@@ -30,7 +30,7 @@ export class ProfilePage implements OnInit {
   success = '';
 
   constructor(private authService: AuthService, private userService: UserService, private router: Router) {
-    addIcons({ refresh, arrowBackCircle, logOut });
+    addIcons({ refresh, arrowBackCircle, logOut, personCircle });
   }
 
   ngOnInit() {

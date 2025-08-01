@@ -13,7 +13,7 @@
       </ion-button>
   </div>
   <div class="profile-container">
-    <h2>My Profile</h2>
+    <h2><ion-icon name="person-circle"></ion-icon> My Profile</h2>
     <div *ngIf="loading">Loading...</div>
     <div *ngIf="error" class="error-message">{{ error }}</div>
     <form *ngIf="!loading && !error">
