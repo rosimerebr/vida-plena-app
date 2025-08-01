@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonItem, IonInput, IonButton, IonHeader, IonToolbar, IonButtons, IonTitle, IonLabel, IonText, IonIcon, ModalController } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { closeOutline, refreshOutline } from 'ionicons/icons';
+import { close, refresh } from 'ionicons/icons';
 import { AuthService } from '../../services/auth.service';
 
 @Component({
@@ -26,7 +26,7 @@ export class RecoverPasswordModalComponent {
     private modalController: ModalController,
     private authService: AuthService
   ) {
-    addIcons({ closeOutline, refreshOutline });
+    addIcons({ close, refresh });
   }
 
   dismiss() {
