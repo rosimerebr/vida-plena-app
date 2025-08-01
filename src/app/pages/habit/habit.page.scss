@@ -50,14 +50,10 @@
   line-height: 1.4;
 }
 
-// Cores específicas para ícones (usa as globais se existirem)
-.habit-card ion-icon[name="sunny"] { color: #FFD600; }
-.habit-card ion-icon[name="water"] { color: #0088FF; }
-.habit-card ion-icon[name="leaf"] { color: #7AC142; }
-.habit-card ion-icon[name="restaurant"] { color: #FF6F61; }
-.habit-card ion-icon[name="walk"] { color: #7AC142; }
-.habit-card ion-icon[name="scale"] { color: #096546; }
-.habit-card ion-icon[name="moon"] { color: #FFD600; }
+// Cor verde padrão para todos os ícones (igual às outras páginas)
+.habit-card ion-icon {
+  color: #2e473b;
+}
 
 .habit-back-btn {
   position: absolute;
