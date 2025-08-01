@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
+import { addIcons } from 'ionicons';
+import { sunny, water, leaf, restaurant, walk, scale, moon, heartCircle } from 'ionicons/icons';
 import { Router } from '@angular/router';
 
 @Component({
@@ -14,7 +16,7 @@ import { Router } from '@angular/router';
 export class WelcomePage implements OnInit {
 
   constructor(private router: Router) {
-    
+    addIcons({ sunny, water, leaf, restaurant, walk, scale, moon, heartCircle });
   }
 
   ngOnInit() {

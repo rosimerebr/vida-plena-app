@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonContent, IonItem, IonInput, IonButton, IonIcon, IonHeader, IonToolbar, IonButtons, IonMenuButton, IonTitle } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { refreshOutline, arrowBackCircleOutline, logOutOutline } from 'ionicons/icons';
 import { AuthService } from '../../services/auth.service';
 import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
@@ -27,7 +29,9 @@ export class ProfilePage implements OnInit {
   error = '';
   success = '';
 
-  constructor(private authService: AuthService, private userService: UserService, private router: Router) {}
+  constructor(private authService: AuthService, private userService: UserService, private router: Router) {
+    addIcons({ refreshOutline, arrowBackCircleOutline, logOutOutline });
+  }
 
   ngOnInit() {
     const userId = this.authService.getUserIdFromToken();

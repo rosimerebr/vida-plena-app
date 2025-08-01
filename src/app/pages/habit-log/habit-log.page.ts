@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton, IonContent, IonIcon, IonToggle, IonButton } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { arrowBackCircle, sunny, water, leaf, restaurant, walk, scale, moon, heartCircle } from 'ionicons/icons';
 import { HabitService, HabitLog } from 'src/app/services/habit.service';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -24,11 +26,13 @@ export class HabitLogPage implements OnInit {
     { name: 'Exercise', icon: 'walk' },
     { name: 'Temperance', icon: 'scale' },
     { name: 'Rest', icon: 'moon' },
-    { name: 'Trust in God', icon: 'heart-circle-outline' }
+    { name: 'Trust in God', icon: 'heart-circle' }
   ];
   habitStatus: { [habit: string]: boolean } = {};
 
-  constructor(private habitService: HabitService, private router: Router, private authService: AuthService) { }
+  constructor(private habitService: HabitService, private router: Router, private authService: AuthService) {
+    addIcons({ arrowBackCircle, sunny, water, leaf, restaurant, walk, scale, moon, heartCircle });
+  }
 
   ngOnInit() {
     const now = new Date();

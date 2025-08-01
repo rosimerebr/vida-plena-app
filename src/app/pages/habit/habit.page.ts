@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton, IonContent, IonIcon, IonButton } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { arrowBackCircleOutline, sunnyOutline, waterOutline, leafOutline, restaurantOutline, walkOutline, scaleOutline, moonOutline, heartCircleOutline } from 'ionicons/icons';
 import { Router } from '@angular/router';
 import { BibleService, BibleVerse } from 'src/app/services/bible.service';
 
@@ -15,7 +17,9 @@ import { BibleService, BibleVerse } from 'src/app/services/bible.service';
 export class HabitPage implements OnInit {
   spiritualVerse: BibleVerse | null = null;
 
-  constructor(private router: Router, private bibleService: BibleService) { }
+  constructor(private router: Router, private bibleService: BibleService) {
+    addIcons({ arrowBackCircleOutline, sunnyOutline, waterOutline, leafOutline, restaurantOutline, walkOutline, scaleOutline, moonOutline, heartCircleOutline });
+  }
 
   ngOnInit() {
     this.bibleService.getRandomVerse().subscribe(verse => {

@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { IonHeader, IonToolbar, IonTitle, IonButtons, IonMenuButton, IonContent, IonIcon, IonButton } from '@ionic/angular/standalone';
+import { addIcons } from 'ionicons';
+import { sunny, water, leaf, restaurant, walk, scale, moon, heartCircle, flame, checkmarkCircle } from 'ionicons/icons';
 import { MainMenuComponent } from 'src/app/components/main-menu/main-menu.component';
 import { Router } from '@angular/router';
 import { BarChartComponent, HabitData } from 'src/app/components/bar-chart/bar-chart.component';
@@ -37,7 +39,9 @@ export class HomePage implements OnInit {
     private bibleService: BibleService,
     private reportService: ReportService,
     private authService: AuthService
-  ) {}
+  ) {
+    addIcons({ sunny, water, leaf, restaurant, walk, scale, moon, heartCircle, flame, checkmarkCircle });
+  }
 
   ngOnInit() {
     console.log('Fetching verse...');

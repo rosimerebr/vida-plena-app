@@ -8,9 +8,9 @@
 </ion-header>
 <ion-content [fullscreen]="true">
   <div class="profile-back-btn">
-    <ion-button fill="clear" (click)="goBack()">
-      <ion-icon name="arrow-back-circle"></ion-icon>
-    </ion-button>
+          <ion-button fill="clear" (click)="goBack()">
+        <ion-icon name="arrow-back-circle-outline"></ion-icon>
+      </ion-button>
   </div>
   <div class="profile-container">
     <h2>My Profile</h2>
@@ -30,13 +30,13 @@
         <ion-input label="Weight (kg):" [(ngModel)]="user.weight" name="weight" type="number" placeholder="Enter your weight"></ion-input>
       </ion-item>
       <ion-button expand="block" color="success" (click)="onSave()" [disabled]="saving">
-        <ion-icon *ngIf="saving" name="refresh" class="ion-spin" slot="start"></ion-icon>
+        <ion-icon *ngIf="saving" name="refresh-outline" class="ion-spin" slot="start"></ion-icon>
         Save
       </ion-button>
       <div *ngIf="success" class="success-message">{{ success }}</div>
     </form>
     <ion-button expand="block" color="danger" (click)="onLogout()" style="margin-top: 8px;">
-      <ion-icon name="log-out" slot="start"></ion-icon>
+              <ion-icon name="log-out-outline" slot="start"></ion-icon>
       Logout
     </ion-button>
   </div>
