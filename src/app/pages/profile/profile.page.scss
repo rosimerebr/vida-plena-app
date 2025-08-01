@@ -53,6 +53,10 @@ ion-button[color="danger"] {
   --background: #d32f2f;
 }
 
+ion-button[color="danger"] ion-icon {
+  color: #ffffff;
+}
+
 ion-button[color="medium"] {
   --background: #b6b6b6;
   --color: #2e473b;
