@@ -40,7 +40,7 @@
 .home-icons-row {
     display: flex;
     justify-content: space-between;
-    align-items: flex-end;
+    align-items: flex-start;
     background: #e6f9d5;
     padding: 16px 8px 16px 8px;
     border-radius: 12px;
@@ -54,12 +54,14 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: flex-start;
     margin: 0 10px;
     min-width: 80px;
     cursor: pointer;
     transition: transform 0.2s ease;
     flex: 1;
     min-width: 60px;
+    height: 80px;
 }
 
 .icon-block:hover {
@@ -86,6 +88,9 @@
     margin-top: 2px;
     text-align: center;
     line-height: 1.2;
+    max-width: 100%;
+    word-wrap: break-word;
+    hyphens: auto;
 }
 
 .challenge-btn-container {
