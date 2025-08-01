@@ -60,6 +60,11 @@
 .habit-card ion-icon[name="moon"] { color: #FFD600; }
 .habit-card ion-icon[name="heart-circle"] { 
   color: #2e473b; 
+  fill: #2e473b;
+}
+
+.habit-card ion-icon[name="heart-circle"] svg {
+  fill: #2e473b;
 }
 
 .habit-back-btn {
