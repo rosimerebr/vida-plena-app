@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, shareReplay } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 export interface BibleVerse {
   reference: string;
@@ -15,7 +16,7 @@ export class BibleService {
 
   getRandomVerse(): Observable<BibleVerse> {
     if (!this.verse$) {
-      this.verse$ = this.http.get<{verse: BibleVerse}>('http://localhost:3000/bible/random').pipe(
+      this.verse$ = this.http.get<{verse: BibleVerse}>(`${environment.apiUrl}/bible/random`).pipe(
         map(response => response.verse),
         shareReplay(1)
       );
