@@ -42,12 +42,13 @@
     justify-content: space-between;
     align-items: flex-start;
     background: #e6f9d5;
-    padding: 16px 8px 16px 8px;
+    padding: 16px 8px;
     border-radius: 12px;
     margin: 0 auto 32px auto;
     max-width: 900px;
-    flex-wrap: wrap;
-    gap: 8px;
+    flex-wrap: nowrap;
+    gap: 4px;
+    overflow-x: auto;
 }
 
 .icon-block {
@@ -55,13 +56,14 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    margin: 0 10px;
+    margin: 0 2px;
     min-width: 80px;
+    max-width: 100px;
     cursor: pointer;
     transition: transform 0.2s ease;
-    flex: 1;
-    min-width: 60px;
-    height: 80px;
+    flex: 0 0 auto;
+    min-height: 100px;
+    padding: 8px 2px;
 }
 
 .icon-block:hover {
@@ -73,24 +75,43 @@
 }
 
 .icon-block ion-icon {
-    font-size: 40px;
-    margin-bottom: 4px;
-}
-
-// Cor verde padrão para todos os ícones (igual à página welcome)
-.icon-block ion-icon {
-    color: #2e473b;
+    font-size: 36px;
+    margin-bottom: 6px;
+    color: #176b3a;
 }
 
 .icon-block span {
-    font-size: 1rem;
-    color: #2e473b;
+    font-size: 0.9rem;
+    color: #176b3a;
     margin-top: 2px;
     text-align: center;
     line-height: 1.2;
     max-width: 100%;
     word-wrap: break-word;
-    hyphens: auto;
+    overflow-wrap: break-word;
+    white-space: nowrap !important;
+    display: block;
+    width: 100%;
+    padding: 0 1px;
+}
+
+.temperance-text {
+    font-size: 0.85rem !important;
+    line-height: 1.3 !important;
+    min-height: 2.6em !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    width: 100% !important;
+    max-width: none !important;
+    word-break: keep-all !important;
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+    transform: translateY(-6px) !important;
 }
 
 .challenge-btn-container {
@@ -189,79 +210,63 @@
 /* Media Queries para Responsividade */
 @media (max-width: 768px) {
     .home-icons-row {
+        gap: 2px;
         padding: 12px 4px;
-        margin: 0 8px 24px 8px;
     }
     
     .icon-block {
-        min-width: 50px;
-        margin: 0 4px;
+        min-width: 70px !important;
+        max-width: 80px !important;
+        margin: 0 1px;
+        min-height: 90px;
+        padding: 6px 1px;
     }
     
     .icon-block ion-icon {
-        font-size: 32px;
-    }
-    
-    .icon-block span {
-        font-size: 0.9rem;
-    }
-    
-    .challenge-btn {
-        font-size: 1.3rem;
-        height: 56px;
-    }
-    
-    .spiritual-message-container {
-        margin: 0 16px 24px 16px;
-        padding: 16px 20px;
-    }
-    
-    .reports-container {
-        margin: 0 16px 24px 16px;
-        padding: 60px 12px;
-    }
-}
-
-@media (max-width: 480px) {
-    .logo-img {
-        max-width: 180px;
-    }
-    
-    .logo-container {
-        margin-top: 20px;
-    }
-    
-    .home-icons-row {
-        padding: 8px 2px;
-        margin: 0 4px 20px 4px;
-    }
-    
-    .icon-block {
-        min-width: 40px;
-        margin: 0 2px;
-    }
-    
-    .icon-block ion-icon {
-        font-size: 28px;
+        font-size: 30px;
+        margin-bottom: 4px;
     }
     
     .icon-block span {
         font-size: 0.8rem;
+        line-height: 1.1;
     }
     
-    .challenge-btn {
-        font-size: 1.2rem;
-        height: 52px;
+    .temperance-text {
+        font-size: 0.75rem !important;
+        min-height: 2.4em !important;
+        white-space: nowrap !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .home-icons-row {
+        gap: 1px; 
+        padding: 8px 2px;
     }
     
-    .spiritual-message-container {
-        margin: 0 8px 20px 8px;
-        padding: 12px 16px;
+    .icon-block {
+        min-width: 60px !important;
+        max-width: 70px !important;
+        margin: 0 0.5px;
+        min-height: 85px;
+        padding: 4px 0.5px;
     }
     
-    .reports-container {
-        margin: 0 8px 20px 8px;
-        padding: 50px 8px;
+    .icon-block ion-icon {
+        font-size: 26px;
+        margin-bottom: 3px;
+    }
+    
+    .icon-block span {
+        font-size: 0.7rem;
+        line-height: 1.0;
+    }
+    
+    .temperance-text {
+        font-size: 0.65rem !important;
+        min-height: 2.2em !important;
+        white-space: nowrap !important;
     }
 }
   
