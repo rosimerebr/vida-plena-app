@@ -13,9 +13,13 @@ export class AuthService {
   constructor(
     private http: HttpClient,
     private habitService: HabitService
-  ) { }
+  ) { 
+    console.log('AuthService initialized with API URL:', this.apiUrl);
+  }
 
   login(email: string, password: string): Observable<any> {
+    console.log('Making login request to:', `${this.apiUrl}/auth/login`);
+    console.log('Request payload:', { email, password });
     return this.http.post(`${this.apiUrl}/auth/login`, { email, password });
   }
 
