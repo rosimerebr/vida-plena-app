@@ -75,13 +75,27 @@ export class LoginPage implements OnInit {
         await toast.present();
         console.log('Success toast shown');
 
-        // Navigate to home
+        // Test navigation
+        console.log('Current URL before navigation:', window.location.href);
         console.log('Navigating to /home...');
-        this.router.navigate(["/home"]).then(() => {
-          console.log('Navigation completed');
-        }).catch(err => {
-          console.error('Navigation error:', err);
-        });
+        
+        // Try different navigation methods
+        try {
+          // Method 1: Using router.navigate
+          await this.router.navigate(["/home"]);
+          console.log('Navigation completed with router.navigate');
+        } catch (err) {
+          console.error('Navigation error with router.navigate:', err);
+          
+          try {
+            // Method 2: Using window.location
+            console.log('Trying window.location...');
+            window.location.href = '/home';
+            console.log('Navigation with window.location initiated');
+          } catch (err2) {
+            console.error('Navigation error with window.location:', err2);
+          }
+        }
       },
       error: async (err) => {
         console.error('Login error:', err);
