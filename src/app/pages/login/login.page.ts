@@ -58,9 +58,11 @@ export class LoginPage implements OnInit {
         // Save token and user data 
         if (res.access_token) {
           localStorage.setItem('token', res.access_token);
+          console.log('Token saved to localStorage');
         }
         if (res.user) {
           localStorage.setItem('user', JSON.stringify(res.user));
+          console.log('User data saved to localStorage');
         }
 
         // Show success toast
@@ -71,9 +73,15 @@ export class LoginPage implements OnInit {
           position: 'top'
         });
         await toast.present();
+        console.log('Success toast shown');
 
         // Navigate to home
-        this.router.navigate(["/home"]);
+        console.log('Navigating to /home...');
+        this.router.navigate(["/home"]).then(() => {
+          console.log('Navigation completed');
+        }).catch(err => {
+          console.error('Navigation error:', err);
+        });
       },
       error: async (err) => {
         console.error('Login error:', err);
