@@ -66,14 +66,7 @@ export class LoginPage implements OnInit {
         }
 
         // Show success toast
-        const toast = await this.toastController.create({
-          message: 'Login successfully!',
-          duration: 2000,
-          color: 'success',
-          position: 'top'
-        });
-        await toast.present();
-        console.log('Success toast shown');
+        
 
         // Try Angular router first, then fallback to window.location
         console.log('Current URL before navigation:', window.location.href);
