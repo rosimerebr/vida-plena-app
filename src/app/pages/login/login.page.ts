@@ -65,9 +65,6 @@ export class LoginPage implements OnInit {
           console.log('User data saved to localStorage');
         }
 
-        // Show success toast
-        
-
         // Try Angular router first, then fallback to window.location
         console.log('Current URL before navigation:', window.location.href);
         console.log('Trying Angular router navigation...');
