@@ -75,13 +75,17 @@ export class LoginPage implements OnInit {
         await toast.present();
         console.log('Success toast shown');
 
-        // Navigate to home using window.location (more reliable)
+        // Try Angular router first, then fallback to window.location
         console.log('Current URL before navigation:', window.location.href);
-        console.log('Navigating to /home using window.location...');
+        console.log('Trying Angular router navigation...');
         
-        // Use window.location.href for reliable navigation
-        window.location.href = '/home';
-        console.log('Navigation initiated');
+        this.router.navigate(["/home"]).then(() => {
+          console.log('Navigation completed with Angular router');
+        }).catch(err => {
+          console.log('Angular router failed, using window.location fallback');
+          console.log('Navigation error:', err);
+          window.location.href = '/home';
+        });
       },
       error: async (err) => {
         console.error('Login error:', err);
