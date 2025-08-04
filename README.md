@@ -1,110 +1,109 @@
 # Vida Plena App
 
-**Vida Plena** é um aplicativo de bem-estar (Wellness) focado nos 8 Remédios Naturais, projetado para ajudar os usuários a cultivar um estilo de vida mais saudável e equilibrado.
+**Vida Plena** is a wellness app focused on the 8 Natural Remedies, designed to help users cultivate a healthier and more balanced lifestyle.
 
-Este é um projeto Ionic com Angular.
+This is an Ionic project with Angular.
 
-## Como Começar
+## Getting Started
 
-Siga as instruções abaixo para configurar o ambiente de desenvolvimento e rodar o projeto localmente.
+Follow the instructions below to set up the development environment and run the project locally.
 
-### Pré-requisitos
+### Prerequisites
 
-Você precisa ter o Node.js e o npm instalados na sua máquina. Também é recomendado ter o Angular CLI e o Ionic CLI instalados globalmente.
+You need to have Node.js and npm installed on your machine. It is also recommended to have Angular CLI and Ionic CLI installed globally.
 
 ```bash
 npm install -g @angular/cli
 npm install -g @ionic/cli
 ```
 
-### Instalação
+### Installation
 
-1. Clone o repositório (ou use seu projeto local).
-2. Navegue até o diretório do projeto.
-3. Instale as dependências do `npm`:
+1. Clone the repository (or use your local project).
+2. Navigate to the project directory.
+3. Install the npm dependencies:
 
 ```bash
 npm install
 ```
 
-### Rodando o Aplicativo
+### Running the Application
 
-Para iniciar o servidor de desenvolvimento e abrir o aplicativo no seu navegador, use um dos seguintes comandos:
+To start the development server and open the app in your browser, use one of the following commands:
 
 ```bash
 ionic serve
 ```
-ou
+or
 ```bash
 npm start
 ```
 
-## Scripts Disponíveis
+## Available Scripts
 
-No diretório do projeto, você pode executar:
+In the project directory, you can run:
 
-- `npm start` ou `ionic serve`: Roda o app em modo de desenvolvimento.
-- `npm run build`: Compila o aplicativo para produção.
-- `npm test`: Executa os testes unitários via Karma.
-- `npm run lint`: Executa o linter para analisar o código.
+- `npm start` or `ionic serve`: Runs the app in development mode.
+- `npm run build`: Builds the app for production.
+- `npm test`: Runs unit tests via Karma.
+- `npm run lint`: Runs the linter to analyze the code.
 
-## Estrutura do Projeto
+## Project Structure
 
-- `src/`: Contém todo o código-fonte da aplicação.
-  - `src/app/`: Onde ficam os componentes, páginas e serviços do Angular.
-  - `src/assets/`: Para arquivos estáticos como imagens e ícones.
-  - `src/theme/`: Arquivos de estilização globais e variáveis de tema do Ionic.
-- `capacitor.config.ts`: Configuração do Capacitor para builds nativos (iOS/Android).
-- `ionic.config.json`: Configuração específica do projeto Ionic.
+- `src/`: Contains all the application source code.
+  - `src/app/`: Where Angular components, pages, and services are located.
+  - `src/assets/`: For static files such as images and icons.
+  - `src/theme/`: Global styling files and Ionic theme variables.
+- `capacitor.config.ts`: Capacitor configuration for native builds (iOS/Android).
+- `ionic.config.json`: Project-specific Ionic configuration.
 
-## Arquitetura
+## Architecture
 
-A aplicação segue uma arquitetura baseada em componentes, comum em projetos Angular. A estrutura é modular e organizada da seguinte forma:
+The application follows a component-based architecture, common in Angular projects. The structure is modular and organized as follows:
 
-- **Páginas (`src/app/pages`)**: Contém as páginas principais de um único nível, como `Login` e `Register`.
-- **Navegação por Abas (`src/app/tabs`)**: O layout principal da aplicação após o login é controlado por um sistema de abas, onde cada aba (`tab1`, `tab2`, etc.) é sua própria página/componente.
-- **Componentes (`src/app/components`)**: Componentes reutilizáveis, como cabeçalhos, rodapés ou cards, são colocados aqui para manter o código limpo e DRY (Don't Repeat Yourself). O `main-menu` é um exemplo.
-- **Serviços (`src/app/services`)**: A lógica de negócio, como autenticação (`AuthService`) e chamadas de API, é isolada em serviços para ser injetada em qualquer componente ou página que precise dela.
+- **Pages (`src/app/pages`)**: Contains the main single-level pages, such as `Login` and `Register`.
+- **Tab Navigation (`src/app/tabs`)**: The main layout of the app after login is controlled by a tab system, where each tab (`tab1`, `tab2`, etc.) is its own page/component.
+- **Components (`src/app/components`)**: Reusable components, such as headers, footers, or cards, are placed here to keep the code clean and DRY (Don't Repeat Yourself). The `main-menu` is an example.
+- **Services (`src/app/services`)**: Business logic, such as authentication (`AuthService`) and API calls, is isolated in services to be injected into any component or page that needs it.
 
-### Diagrama de Fluxo
+### Flow Diagram
 
-O diagrama abaixo ilustra o fluxo de navegação e a interação entre os principais módulos da aplicação.
+The diagram below illustrates the navigation flow and interaction between the main modules of the application.
 
 ```mermaid
 graph TD;
-    subgraph "Usuário"
+    subgraph "User"
         direction LR
-        U(Visitante)
+        U(Visitor)
     end
 
-    subgraph "Autenticação"
+    subgraph "Authentication"
         direction LR
-        LoginPage[Página de Login]
-        RegisterPage[Página de Registro]
+        LoginPage[Login Page]
+        RegisterPage[Register Page]
     end
 
-    subgraph "App Principal"
+    subgraph "Main App"
         direction TB
-        TabsPage[Layout com Abas] --> Tab1[Aba 1]
-        TabsPage --> Tab2[Aba 2]
-        TabsPage --> Tab3[Aba 3]
-        MainMenu[Menu Principal]
+        TabsPage[Tabs Layout] --> Tab1[Tab 1]
+        TabsPage --> Tab2[Tab 2]
+        TabsPage --> Tab3[Tab 3]
+        MainMenu[Main Menu]
     end
 
-    subgraph "Serviços"
+    subgraph "Services"
         direction LR
-        AuthService[Serviço de Autenticação]
+        AuthService[Authentication Service]
     end
 
     U --> LoginPage;
     LoginPage --> AuthService;
     RegisterPage --> AuthService;
-    AuthService -- Sucesso --> MainMenu;
-    AuthService -- Sucesso --> TabsPage;
-    LoginPage -- Ir para --> RegisterPage;
-    RegisterPage -- Voltar para --> LoginPage;
+    AuthService -- Success --> MainMenu;
+    AuthService -- Success --> TabsPage;
+    LoginPage -- Go to --> RegisterPage;
+    RegisterPage -- Back to --> LoginPage;
 ```
 
 ---
-*Este README foi gerado para ajudar na documentação do projeto.*
-# Sun Aug  3 22:58:47 WEST 2025
+*This README was generated to help document the project.* 
