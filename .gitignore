@@ -40,3 +40,6 @@ www/
 Thumbs.db
 UserInterfaceState.xcuserstate
 .angular/
+
+# Local Netlify folder
+.netlify
