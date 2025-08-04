@@ -97,14 +97,14 @@ export class ProfilePage implements OnInit {
   }
 
   onLogout() {
-    // Chama o serviço de logout e redireciona para login
+    // Call logout service and redirect to login
     this.authService.logout();
     window.location.href = '/login';
   }
 
   onChangePassword() {
-    // Exibe um alerta ou redireciona para uma página de alteração de senha
-    alert('Funcionalidade de alteração de senha em breve!');
+    // Display alert or redirect to password change page
+    alert('Password change functionality coming soon!');
   }
 
   goBack() {

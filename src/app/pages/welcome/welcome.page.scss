@@ -24,16 +24,16 @@ ion-content {
 }
 
 .logo {
-    max-width: 160px; // Aumentado de 120px para 160px
-    margin-top: 20px; // Aumentado de 10px para 20px
-    margin-bottom: 20px; // Adicionado margem inferior
+    max-width: 160px; 
+    margin-top: 20px; 
+    margin-bottom: 20px; 
 }
 
 .title {
     font-size: 1.8rem;
     font-weight: bold;  
     margin-top: 10px;
-    margin-bottom: 30px; // Adicionado margem inferior para empurrar os ícones para baixo
+    margin-bottom: 30px; 
 }
 
 // Style for each item in the medicine grid
@@ -87,7 +87,7 @@ ion-button[fill="outline"] {
     font-weight: bold;
     line-height: 1.5;
     margin-bottom: 10px;
-    margin-top: 20px; // Adicionado margem superior
+    margin-top: 20px; 
 }
 
 /* Media Queries para Responsividade */
@@ -97,14 +97,14 @@ ion-button[fill="outline"] {
     }
     
     .logo {
-        max-width: 140px; // Ajustado para tablet
+        max-width: 140px; // Adjusted for tablet
         margin-top: 15px;
         margin-bottom: 15px;
     }
     
     .title {
         font-size: 1.6rem;
-        margin-bottom: 25px; // Ajustado para tablet
+        margin-bottom: 25px; // Adjusted for tablet
     }
     
     .remedy ion-icon {
@@ -138,7 +138,7 @@ ion-button[fill="outline"] {
     }
     
     .logo {
-        max-width: 120px; // Ajustado para mobile
+        max-width: 120px; // Adjusted for mobile
         margin-top: 10px;
         margin-bottom: 10px;
     }
@@ -146,7 +146,7 @@ ion-button[fill="outline"] {
     .title {
         font-size: 1.4rem;
         margin-top: 8px;
-        margin-bottom: 20px; // Ajustado para mobile
+        margin-bottom: 20px; // Adjusted for mobile
     }
     
     .remedy ion-icon {

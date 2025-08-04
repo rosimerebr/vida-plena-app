@@ -30,15 +30,15 @@ export class RegisterPage implements OnInit {
   ngOnInit() {
   }
 
-  // Método para formatar a data automaticamente
+  // Method to automatically format the date
   formatDateOfBirth(event: any) {
-    let value = event.target.value.replace(/\D/g, ''); // Remove caracteres não numéricos
+    let value = event.target.value.replace(/\D/g, ''); // Remove non-numeric characters
     
     if (value.length > 8) {
       value = value.substring(0, 8);
     }
     
-    // Adiciona as barras automaticamente
+    // Add slashes automatically
     if (value.length >= 2) {
       value = value.substring(0, 2) + '/' + value.substring(2);
     }
@@ -49,7 +49,7 @@ export class RegisterPage implements OnInit {
     this.dob = value;
   }
 
-  // Método para converter DD/MM/YY para YYYY-MM-DD
+  // Method to convert DD/MM/YY to YYYY-MM-DD
   convertDateForBackend(dateString: string): string {
     if (!dateString || dateString.length !== 8) return '';
     
@@ -60,14 +60,14 @@ export class RegisterPage implements OnInit {
     const month = parts[1];
     const year = parts[2];
     
-    // Adiciona 20 ao ano se for menor que 50, senão adiciona 19
+    // Add 20 to year if less than 50, otherwise add 19
     const fullYear = parseInt(year) < 50 ? '20' + year : '19' + year;
     
     return `${fullYear}-${month.padStart(2, '0')}-${day.padStart(2, '0')}`;
   }
 
   async onRegister() {
-    // Validação dos campos obrigatórios
+    // Required fields validation
     if (!this.fullName || !this.email || !this.password || !this.dob || !this.secretAnswer) {
       const errorToast = await this.toastController.create({
         message: 'PPlease fill in all required fields.',
@@ -79,8 +79,8 @@ export class RegisterPage implements OnInit {
       return;
     }
 
-    // Validar formato da data
-    if (this.dob.length !== 8) { // DD/MM/YY = 8 caracteres
+    // Validate date format
+    if (this.dob.length !== 8) { // DD/MM/YY = 8 characters
       const errorToast = await this.toastController.create({
         message: 'Please enter a valid date in DD/MM/YY format.',
         duration: 2000,
@@ -91,7 +91,7 @@ export class RegisterPage implements OnInit {
       return;
     }
 
-    // Preparar dados para envio
+    // Prepare data for submission
     const userData = {
       fullName: this.fullName,
       email: this.email,
@@ -102,7 +102,7 @@ export class RegisterPage implements OnInit {
       secretAnswer: this.secretAnswer
     };
 
-    // Chamar o serviço de registro
+    // Call registration service
     this.authService.register(userData).subscribe({
       next: async (response) => {
         console.log('User registered successfully:', response);

@@ -38,7 +38,7 @@ export class BarChartComponent implements OnChanges, AfterViewInit {
     const ctx = this.chartCanvas.nativeElement.getContext('2d');
     if (!ctx) return;
 
-    // Use weekData se fornecido, senão habitsData
+    // Use weekData if provided, otherwise habitsData
     const useWeekData = this.weekData && this.weekData.length > 0;
     const labels = useWeekData ? this.weekData.map(d => d.label) : this.habitsData.map(h => h.name);
     const data = useWeekData ? this.weekData.map(d => d.value) : this.habitsData.map(h => h.weeklyTotal);
@@ -109,7 +109,7 @@ export class BarChartComponent implements OnChanges, AfterViewInit {
     this.chart.update();
   }
 
-  // Métodos legados para compatibilidade
+  // Legacy methods for compatibility
   getMaxValue(): number {
     if (this.habitsData.length === 0) return 7;
     const maxValue = Math.max(...this.habitsData.map(h => h.weeklyTotal));
@@ -123,17 +123,17 @@ export class BarChartComponent implements OnChanges, AfterViewInit {
     
     console.log(`Calculating height for ${habitName}: value=${habit.weeklyTotal}`);
     
-    // Se o hábito tem 0 registros, altura fixa de 20%
+    // If habit has 0 records, fixed height of 20%
     if (habit.weeklyTotal === 0) {
       return 20;
     }
     
-    // Se tem registros, calcular altura proporcional
+    // If has records, calculate proportional height
     const maxValue = this.getMaxValue();
     const height = (habit.weeklyTotal / maxValue) * 100;
     
-    // Retornar altura proporcional real, sem forçar altura mínima
-    const finalHeight = Math.max(height, 5); // Apenas 5% de altura mínima para visibilidade
+    // Return real proportional height without forcing minimum height
+    const finalHeight = Math.max(height, 5); // Only 5% minimum height for visibility
     
     console.log(`Bar height for ${habitName}: ${finalHeight}% (${habit.weeklyTotal}/${maxValue})`);
     return finalHeight;
@@ -143,12 +143,12 @@ export class BarChartComponent implements OnChanges, AfterViewInit {
     const habit = this.habitsData.find(h => h.name === habitName);
     if (!habit) return '#ccc';
     
-    // Se o hábito tem 0 registros, cor cinza
+    // If habit has 0 records, gray color
     if (habit.weeklyTotal === 0) {
       return '#cccccc';
     }
     
-    // Se tem registros, cor verde
+    // If has records, green color
     return '#4CAF50';
   }
 } 

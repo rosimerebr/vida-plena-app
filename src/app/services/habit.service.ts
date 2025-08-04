@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
 export interface HabitLog {
-  date: string; // formato YYYY-MM-DD
+  date: string; 
   habits: { [habit: string]: boolean };
 }
 

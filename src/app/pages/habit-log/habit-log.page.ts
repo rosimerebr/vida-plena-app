@@ -76,11 +76,11 @@ export class HabitLogPage implements OnInit {
       habits: { ...this.habitStatus }
     };
     
-    // Obter o userId do AuthService
+    // Get userId from AuthService
     const userId = this.authService.getUserIdFromToken();
     if (!userId) {
-      console.error('Usuário não autenticado. Não foi possível obter o userId.');
-      // Aqui você pode redirecionar para login ou mostrar uma mensagem de erro
+      console.error('User not authenticated. Could not get userId.');
+      // Here you can redirect to login or show an error message
       this.router.navigate(['/login']);
       return;
     }

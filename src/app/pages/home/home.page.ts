@@ -59,7 +59,7 @@ export class HomePage implements OnInit {
     this.loadWeeklyReport();
   }
 
-  // Lifecycle do Ionic para atualizar sempre que a página entra em foco
+  // Ionic lifecycle to update whenever the page comes into focus
   ionViewWillEnter() {
     this.loadWeeklyReport();
   }
@@ -138,7 +138,7 @@ export class HomePage implements OnInit {
 
     console.log('Final habits data:', this.habitsData);
     
-    // Forçar detecção de mudanças
+    // Force change detection
     this.habitsData = [...this.habitsData];
   }
 
